@@ -45,6 +45,12 @@ class Get_data extends CI_Model
     $query = $this->db->get('pekerjaan');
     return $query->result();
   }
+  public function get_pekerjaan_row()
+  {
+    $this->db->where('id >=', 2);
+    $query = $this->db->get('pekerjaan');
+    return $query->num_rows();
+  }
   public function get_subpekerjaan_rows()
   {
     $query = $this->db->get('subpekerjaan');
@@ -131,9 +137,10 @@ class Get_data extends CI_Model
       return $this->db->limit($limit['perpage'], $limit['offset'])->get('pekerjaan')->result();
   }
 
-  public function get_project_subpekerjaan_row($params, $value)
+  public function get_project_subpekerjaan_row($params, $value, $project_id)
   {
     $this->db->where($params, $value);
+    $this->db->where('project_id', $project_id);
     $query = $this->db->get('project_subpekerjaans');
     return $query->num_rows();
   }
