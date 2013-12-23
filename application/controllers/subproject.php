@@ -31,7 +31,8 @@ class Subproject extends CI_Controller
   {
     $data =  $this->input->post('data_subpekerjaan');    
     foreach ($data as $key) {
-      $this->input_data->input_data_project_subpekerjaans($id_project, $key);
+      $data_sub = $this->get_data->get_subpekerjaan_by_params("id", $key , "pekerjaan_id");
+      $this->input_data->input_data_project_subpekerjaans($id_project, $key, $data_sub->pekerjaan_id);
     }
     $this->input_data->update_status_project($id_project);
     $info = "Subpekerjaan berhasil ditambah";

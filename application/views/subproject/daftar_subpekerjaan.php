@@ -1,5 +1,6 @@
 <script>
-<?php for ($i=1; $i < 89; $i++) { ?>
+<?php $data = $this->get_data->get_subpekerjaan_rows();
+for ($i=1; $i < $data; $i++) { ?>
   function sumup<?=$i;?>() {
       document.form.jumlah<?=$i;?>.value = (document.form.harga_satuan<?=$i;?>.value -0) * (document.form.volume<?=$i;?>.value -0);
     }
@@ -40,7 +41,7 @@
       <td></td>
       <td></td>
       <td>Total Subpekerjaan</td>
-      <td>Rp. xxx.xxxx,xx </td>
+      <td><input id="sum_work" type="text" value="" class="input-small" disabled></input></td>
     </tr>
 </table>
 <?php } ?>

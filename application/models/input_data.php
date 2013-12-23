@@ -49,11 +49,12 @@ class Input_data extends CI_Model
     $this->db->where('project_id', $id);
     $this->db->update('projects', $data);
   }
-  public function input_data_project_subpekerjaans($id_project, $key)
+  public function input_data_project_subpekerjaans($id_project, $key, $id_pekerjaan)
   {
     $data = array(  
       'project_id'        => $id_project,
-      'subpekerjaan_id'   => $key
+      'subpekerjaan_id'   => $key,
+      'pekerjaan_id'      => $id_pekerjaan
     );
     $this->db->insert('project_subpekerjaans', $data);
   }
