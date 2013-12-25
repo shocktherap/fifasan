@@ -112,6 +112,12 @@ class Get_data extends CI_Model
     $query = $this->db->get('formula');
     return $query->result();
   }
+  public function subproject_pekerjaan($id_project)
+  {
+    $this->db->where('project_id', $id_project);
+    $query = $this->db->get('project_subpekerjaans');
+    return $query->result();
+  }
   public function get_subprojectpekerjaan($id)
   {
     $query = $this->db->query("select * from project_subpekerjaans p join subpekerjaan q on p.subpekerjaan_id = q.id  where p.project_id ='$id' ORDER BY p.project_id");
@@ -143,6 +149,14 @@ class Get_data extends CI_Model
     $this->db->where('project_id', $project_id);
     $query = $this->db->get('project_subpekerjaans');
     return $query->num_rows();
+  }
+
+  public function get_row_value($project_id, $subpekerjaan_id)
+  {
+    $this->db->where('project_id', $project_id);
+    $this->db->where('subpekerjaan_id', $subpekerjaan_id);
+    $query = $this->db->get('project_subpekerjaans', 1);
+    return $query->row();
   }
 }
 ?>

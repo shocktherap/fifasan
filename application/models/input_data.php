@@ -58,10 +58,9 @@ class Input_data extends CI_Model
     );
     $this->db->insert('project_subpekerjaans', $data);
   }
-  public function delete_sub($project_id, $subpekerjaan_id)
+  public function delete_sub($project_id)
   {
     $this->db->where('project_id', $project_id);
-    $this->db->where('subpekerjaan_id', $subpekerjaan_id);
     $this->db->delete('project_subpekerjaans');
   }
   public function edit_formula($id)
@@ -100,6 +99,16 @@ class Input_data extends CI_Model
     $object = array('harga_satuan' => $harga_satuan);
     $this->db->where('id', $id_sub);
     $this->db->update('subpekerjaan', $object);
+  }
+
+  public function input_rab($project_id, $subpekerjaan_id, $jumlah, $volume)
+  {
+    $object = array('pengeluaran' => $jumlah,
+                    'volume'      => $volume
+                    );
+    $this->db->where('project_id', $project_id);
+    $this->db->where('subpekerjaan_id', $subpekerjaan_id);
+    $this->db->update('project_subpekerjaans', $object);
   }
 }
 ?>

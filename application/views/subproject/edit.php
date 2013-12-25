@@ -25,7 +25,6 @@
   }
 </script>
 <h3>Daftar Subpekerjaan</h3>
-<?=form_open('subproject/rab/'.$id_project,'name="form"');?>
 <?php 
   $number_id = 0;
   $work_id = 1;
@@ -47,14 +46,15 @@
       $number = 0;
       foreach ($data as $pekerjaan_data) { ?>
       <tr>
+        <?php $value = $this->get_data->get_row_value($id_project, $pekerjaan_data->subpekerjaan_id);?>
         <?php $number_id+=1; 
         $number+=1;
         ?>
         <td><?=$number;?></td>
         <td><?=$pekerjaan_data->nama; ?></td>
         <td><input id="harga_satuan<?=$number_id;?>" type="text" name="harga_satuan_<?=$work_id;?>_<?=$number;?>" class="input-small" value="<?=$pekerjaan_data->harga_satuan;?>" disabled></input></td>
-        <td><input id="volume<?=$number_id;?>" type="text" name="volume_<?=$work_id;?>_<?=$number;?>" class="input-small" onkeyup="sumup<?=$number_id;?>()" value="0" ></input></td>
-        <td><input id="jumlah_<?=$work_id;?>_<?=$number;?>"type="text" name="jumlah_<?=$work_id;?>_<?=$number;?>" class="input-small" value="0"></input></td>
+        <td><input id="volume<?=$number_id;?>" type="text" name="volume_<?=$work_id;?>_<?=$number;?>" class="input-small" onkeyup="sumup<?=$number_id;?>()" value="<?=$value->volume;?>" ></input></td>
+        <td><input id="jumlah_<?=$work_id;?>_<?=$number;?>"type="text" name="jumlah_<?=$work_id;?>_<?=$number;?>" class="input-small" value="<?=$value->pengeluaran;?>"></input></td>
       </tr>
     <?php
       }
@@ -63,7 +63,7 @@
       <td></td>
       <td></td>
       <td></td>
-      <td>Subtotal</td>
+      <td>Subotal</td>
       <?php 
         $pekerjaan_ids+=1;
       ?>
@@ -73,4 +73,3 @@
 <?php } ?>
 <h2>Total semua pembelanjaan adalah : Rp xxx.xxx,xx </h2>
 <button type="submit" class="button primary">Submit</button>
-<?php form_close();?>
