@@ -39,10 +39,19 @@
 
     <div class="container-fluid">
       <div class="row-fluid">
-        <div class="span2">
+        <?php if ($this->uri->segment(2)!='detail') { ?>
+        <div class="span2"></div>
+        <?php }  else { ?>
+          <div class="span3 bs-docs-sidebar">          
+            <ul class="nav nav-list bs-docs-sidenav affix-top">
+              <?php foreach ($pekerjaan as $key) { ?>
+                <li><a href="#<?=$key->id;?>"><i class="icon-chevron-right"></i> <?=$key->nama;?></a></li>  
+              <?php } ?>
+            </ul>
         </div>
+        <?php } ?>
         <div class="span8">
-          <ul class="breadcrumb" style="margin-bottom: 5px;">
+          <ul class="breadcrumb" style="margin-top: 10px, margin-bottom: 5px;">
               <?php for ($i=0; $i < 6; $i++) { 
                 if ($this->uri->segment($i)!= null) {
                   ?>
@@ -60,10 +69,14 @@
           ?>
           <?php $this->load->view($content);?>
         </div>
-        <div class="span2"></div>
+        <div class="span1">
+        </div>
       </div>
       <footer>
-        <p>Designed and built with love to Fifasan by <a href="http://twitter.com/twitter" target="_blank">@izqil</a> </p>
+        <!-- <div class="container"> -->
+          <p class="pull-right"><a href="#">Back to top</a></p>
+          <p>Designed and built with love to Fifasan by <a href="http://twitter.com/twitter" target="_blank">@izqil</a> </p>
+        <!-- </div> -->
       </footer>
     </div>
     <?=$this->load->view('script');?>

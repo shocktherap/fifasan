@@ -158,5 +158,16 @@ class Get_data extends CI_Model
     $query = $this->db->get('project_subpekerjaans', 1);
     return $query->row();
   }
+  public function check_project($id_project)
+  {
+    $this->db->where('project_id', $id_project);
+    $this->db->where('volume >=', 0);
+    $query = $this->db->get('project_subpekerjaans');
+    if ($query->result()) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
 ?>

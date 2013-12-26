@@ -17,11 +17,13 @@
         </script>
       <?php }
   }
-
 ?>
 <script type="text/javascript">
-  function show() {
-    alert(document.form.jumlah_2_1;?>.value -0);
+  function sum_subpekerjaan() {
+    var bank = [];
+    for (var i = 1; i <= 10; i++) {
+      bank[i] = document.form.jumlah_2_1.value
+    };
   }
 </script>
 <h3>Daftar Subpekerjaan</h3>
