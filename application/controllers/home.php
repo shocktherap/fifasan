@@ -37,6 +37,7 @@ class Home extends CI_Controller
   {
     $this->input_data->delete_sub($id_project);
     $this->input_data->delete_project($id_project);
+    $this->input_data->delete_subtotal($id_project);
     $info = "Project Berhasil di hapus";
     $this->general->information($info);
     redirect('home/index');

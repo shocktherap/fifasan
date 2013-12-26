@@ -1,3 +1,18 @@
+<?php 
+  $this->input_data->delete_subtotal($id_project);
+  $row_pekerjaan = $this->get_data->get_pekerjaan_rows(); 
+  $total_count = 0;
+  for ($i=2; $i <= $row_pekerjaan+1; $i++) { 
+    $subpekerjaan_count = 0;
+    $data[$i] = $this->get_data->project_sub_count($i, $id_project);
+    foreach ($data[$i] as $key) {
+      $subpekerjaan_count+=$key->pengeluaran;
+    }
+    $total_count+=$subpekerjaan_count;
+    $this->input_data->input_subtotal($id_project, $i, $subpekerjaan_count);
+  }
+  $this->input_data->input_total($id_project, $total_count);
+?>
 <?=anchor('subproject/edit/'.$id_project, 'Edit RAB', 'class="btn"');?>
 <h3>Rencana Anggaran Biaya <?=$project->nama;?></h3>
 <?php 
@@ -44,15 +59,24 @@
         <td></td>
         <td></td>
         <td></td>
-        <td>Subtotal</td>
+        <td><strong>Subtotal</strong></td>
         <?php 
           $pekerjaan_ids+=1;
         ?>
-        <td><?=number_format($count,2,",",".");?></td>
+        <td><strong><?=number_format($count,2,",",".");?></strong></td>
         <?php $total+=$count;?>
       </tr>
   </table>
 </section>
 <?php } ?>
 <h2>Total semua pembelanjaan adalah : Rp <?=number_format($total,2,",",".");?> </h2>
-<?=anchor('subproject/output/'.$id_project, 'Print', 'class="btn btn-primary"');?>
+<?=form_open('subproject/pdf_output/'.$id_project);?>
+<?php $tax = $total*(10/100);
+      $bersih = $total+$tax;
+?>
+<label>Total Kotor: </label><input type="text" name="total" value="<?=$total;?>" disabled></input>
+<label>Tax(10 %): </label><input type="text" name="tax" value="<?=$tax;?>"disabled></input>
+<label>Total Bersih: </label><input type="text" name="bersih" value="<?=$bersih;?>"disabled></input>
+<label>Pembulatan: </label><input type="text" name="pembulatan" value="<?=$bersih;?>"></input>
+<button type="submit" class="btn btn-primary"> Print PDF</button>
+<?php form_close(); ?>

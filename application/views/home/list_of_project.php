@@ -28,8 +28,8 @@ if (!$list_project) {
     <?php $data['list'] = $list;
     $this->load->view('home/modal_delete_project', $data);?>
     <?php }?>
-    
   </table>
+
 <?php
 }
 ?>

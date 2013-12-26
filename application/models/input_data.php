@@ -110,5 +110,25 @@ class Input_data extends CI_Model
     $this->db->where('subpekerjaan_id', $subpekerjaan_id);
     $this->db->update('project_subpekerjaans', $object);
   }
+  public function delete_subtotal($id_project)
+  {
+    $this->db->where('project_id', $id_project);
+    $this->db->delete('subtotal');
+  }
+  public function input_subtotal($id_project, $pekerjaan_id, $value)
+  {
+    $object = array(
+      'project_id'    => $id_project,
+      'pekerjaan_id'  => $pekerjaan_id,
+      'subtotal'      => $value
+    );
+    $this->db->insert('subtotal', $object);
+  }
+  public function input_total($id_project, $total)
+  {
+    $this->db->where('project_id', $id_project);
+    $object = array('total_rab' => $total);
+    $this->db->update('projects', $object);
+  }
 }
 ?>

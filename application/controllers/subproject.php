@@ -118,19 +118,21 @@ class Subproject extends CI_Controller
   //   $this->cezpdf->ezStream();
   // }
 
-  public function loadpdf($id_project)
-  {
+  public function pdf_output($id_project)
+  {    
     $subproject = $this->get_data->subproject_pekerjaan($id_project);
     // print_r($subproject);
     $project = $this->get_data->get_project_by_id($id_project);
     $this->load->library('cezpdf');
     $pdf = new CezPDF("a4");
     $pdf->ezText("Rencana Anggaran Biaya", 16, array('justification' => 'center'));
-    $pdf->ezText("Nama Project: ".$project->nama, 12);
-    $pdf->ezText("Lokasi Project: ".$project->lokasi, 12);
-    $pdf->ezText("Tahun Project: ".$project->tahun, 12);
-    $pdf->ezText("Jenis Project: ".$project->jenis, 12);
-    $pdf->ezText("Pemilik Project: ".$project->pemilik, 12);
+    $pdf->ezText("", 10);
+
+    $pdf->ezText("Nama Project     : ".$project->nama, 12);
+    $pdf->ezText("Lokasi Project    : ".$project->lokasi, 12);
+    $pdf->ezText("Tahun Project    : ".$project->tahun, 12);
+    $pdf->ezText("Jenis Project      : ".$project->jenis, 12);
+    $pdf->ezText("Pemilik Project   : ".$project->pemilik, 12);
     $id = 0;
     $pekerjaan = $this->get_data->get_pekerjaan();
     foreach ($pekerjaan as $key) {
@@ -140,7 +142,9 @@ class Subproject extends CI_Controller
       foreach ($pekerjaan as $subpekerjaan) {
         $no+=1;
         $data[$key->id][] = array('no' => $no, 'item' => $subpekerjaan->nama,'harga_satuan' => $subpekerjaan->harga_satuan,'volume' => $subpekerjaan->volume,'total_harga' => $subpekerjaan->pengeluaran);
-      }  
+      }
+      $subtotal = $this->get_data->get_subtotal($id_project, $key->id);  
+      $data[$key->id][] = array('no' => "#", 'item' => "<strong>Subtotal</strong>", 'total_harga' => "<strong>$subtotal->subtotal</strong>");
     }
 
     $cols = array(
@@ -150,7 +154,6 @@ class Subproject extends CI_Controller
       'volume'        => 'Volume',
       'total_harga'   => 'Total Harga'
     );
-    
 
     for ($i=0; $i < 14; $i++) { 
     $pdf->ezTable(
@@ -159,9 +162,34 @@ class Subproject extends CI_Controller
     $pdf->ezText("", 10);
     $pdf->ezText("", 10);
     }
+
+    $total = $project->total_rab;
+    $tax   = $project->total_rab*(10/100);
+    $bersih = $total +$tax;
+    $pembulatan = $this->input->post('pembulatan');
+    $datatotal = array(
+     array('keterangan'=> "Total Kotor",'value'=> 'Rp. '.number_format($total,2,",","."))
+    ,array('keterangan'=> "Tax (10%)",'value'=> $tax = 'Rp. '.number_format($tax,2,",","."))
+    ,array('keterangan'=> "Total Bersih",'value'=>  'Rp. '.number_format($bersih,2,",","."))
+    ,array('keterangan'=> "Pembulatan",'value'=>  'Rp. '.number_format($pembulatan,2,",","."))
+    );
+
+    $cols2 = array(
+      'keterangan' => 'Keterangan',
+      'value'      => 'Value'
+    );
+    $pdf->ezTable(
+      $datatotal, $cols2,'',array('width'=>400, 'shadeHeadingCol'=>array(0.4,0.6,0.6), 'cols'=>array('keterangan'=>array('justification'=>'left', 'width'=>250), 'value'=>array('justification'=>'left', 'width'=>100))));
+    $pdf->ezText("", 10);
     $pdf->ezText("<strong>Harga Diatas Belum termasuk: </strong>", 11);
     $pdf->ezText("1. Pemasangan instalasi listrik PLN", 10);
-
+    $pdf->ezText("Moelia Graha Estetika    ", 14, array('justification' => 'right'));
+    $pdf->ezText("", 10);
+    $pdf->ezText("", 10);
+    $pdf->ezText("", 10);
+    $pdf->ezText("", 10);
+    $pdf->ezText("", 10);
+    $pdf->ezText("Ir. Masyuri Kurniawan, IAI", 14, array('justification' => 'right'));
     $pdf->ezStream();
   }
 }

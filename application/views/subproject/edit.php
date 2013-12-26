@@ -75,7 +75,6 @@
       <td></td>
       <td></td>
       <td>Subtotal</td>
-      
       <td><input id="sum_work<?=$pekerjaan_ids;?>" type="text" value="0" class="input-small" onclick="count_sub<?=$pekerjaan_ids;?>()" ></input></td>
     </tr>
 </table>

@@ -169,5 +169,19 @@ class Get_data extends CI_Model
       return false;
     }
   }
+  public function project_sub_count($pekerjaan_id, $id_project)
+  {
+    $this->db->where('pekerjaan_id', $pekerjaan_id);
+    $this->db->where('project_id', $id_project);
+    $query = $this->db->get('project_subpekerjaans');
+    return $query->result();
+  }
+  public function get_subtotal($id_project, $pekerjaan_id)
+  {
+    $this->db->where('project_id', $id_project);
+    $this->db->where('pekerjaan_id', $pekerjaan_id);
+    $query = $this->db->get('subtotal',1);
+    return $query->row();
+  }
 }
 ?>
