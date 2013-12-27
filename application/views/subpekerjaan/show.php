@@ -4,11 +4,13 @@
   <thead>
     <th>Nama Subpekerjaan</th>
     <th>Keterangan</th>
+    <th>Satuan</th>
   </thead>
   <?php foreach ($sub as $key) { ?>
     <tr>
       <td><?=$key->nama;?></td>
       <td><?=$key->keterangan_peraturan;?></td>
+      <td><?=$key->satuan;?></td>
       <td><i class="icon-edit"></i><?=anchor('subpekerjaan/edit/'.$key->id.'/'.$key->pekerjaan_id, 'Edit');?></td>
       <td><a data-toggle="modal" href="#myModal<?=$key->id;?>"><i class="icon-trash"></i>Delete</a></td>
     </tr>

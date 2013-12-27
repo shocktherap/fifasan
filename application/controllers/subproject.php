@@ -87,41 +87,11 @@ class Subproject extends CI_Controller
     $data['content'] = "subproject/detail";
     $this->load->view('template',$data);
   }
-  
-  // public function output($id_project)
-  // {
-  //   $nomor = 0;
-  //   $this->load->helper('pdf');
-  //   $this->load->library('cezpdf');
-  //   prep_pdf();
-  //   $subproject = $this->get_data->subproject_pekerjaan($id_project);
-  //   $project = $this->get_data->get_project_by_id($id_project);
-  //   $this->cezpdf->addText(220,800,15,"Rencana Anggaran Biaya");
-  //   $this->cezpdf->addText(50,750,12,"Nama Project: ".$project->nama);
-  //   $this->cezpdf->addText(50,730,12,"Lokasi Project: ".$project->lokasi);
-  //   $this->cezpdf->addText(50,710,12,"Tahun Project: ".$project->tahun);
-  //   $this->cezpdf->addText(50,690,12,"Jenis Project: ".$project->jenis);
-  //   $this->cezpdf->addText(50,670,12,"Pemilik Project: ".$project->pemilik);    
-
-  //   // foreach ($subproject as $key) {
-  //   //   $db_data[] = array('Nomor' => $nomor+=1, 'category' =>  $key->subpekerjaan_id, 'output' => 'Rp. '.$key->pengeluaran);
-  //   // }
-
-  //   $db_data[] = array('Nomor' => 1, 'category' =>  "Buku", 'output' => 'Rp. 100000');
-
-  //   $col_names = array(
-  //     'Nomor' => 'Nomor',
-  //     'category' => 'Uraian',
-  //     'output' => 'Jumlah',
-  //   );
-  //   $this->cezpdf->ezTable($db_data,$col_names,'Kriteria Utama',array('width'=>10,'showHeading'=> 0));
-  //   $this->cezpdf->ezStream();
-  // }
 
   public function pdf_output($id_project)
   {    
     $subproject = $this->get_data->subproject_pekerjaan($id_project);
-    // print_r($subproject);
+    
     $project = $this->get_data->get_project_by_id($id_project);
     $this->load->library('cezpdf');
     $pdf = new CezPDF("a4");
@@ -138,10 +108,10 @@ class Subproject extends CI_Controller
     foreach ($pekerjaan as $key) {
       $pekerjaan = $this->get_data->get_subprojectpekerjaan2($id_project,$key->id);
       $no = 0;
-      $data[$key->id][] = array('no' => '','item' => "<strong>$key->nama</strong>",'harga_satuan' => '', 'volume' => '', 'total_harga' => '' );
+      $data[$key->id][] = array('item' => "<strong>$key->nama</strong>");
       foreach ($pekerjaan as $subpekerjaan) {
         $no+=1;
-        $data[$key->id][] = array('no' => $no, 'item' => $subpekerjaan->nama,'harga_satuan' => $subpekerjaan->harga_satuan,'volume' => $subpekerjaan->volume,'total_harga' => $subpekerjaan->pengeluaran);
+        $data[$key->id][] = array('no' => $no, 'item' => $subpekerjaan->nama,'satuan' => $subpekerjaan->satuan, 'harga_satuan' => $subpekerjaan->harga_satuan,'volume' => $subpekerjaan->volume,'total_harga' => $subpekerjaan->pengeluaran);
       }
       $subtotal = $this->get_data->get_subtotal($id_project, $key->id);  
       $data[$key->id][] = array('no' => "#", 'item' => "<strong>Subtotal</strong>", 'total_harga' => "<strong>$subtotal->subtotal</strong>");
@@ -150,14 +120,15 @@ class Subproject extends CI_Controller
     $cols = array(
       'no'            => 'No',
       'item'         => 'Item Pekerjaan',
+      'satuan'        => 'SAT',
       'harga_satuan'  => 'Harga Satuan',
-      'volume'        => 'Volume',
+      'volume'        => 'VOL',
       'total_harga'   => 'Total Harga'
     );
     $row = $this->get_data->get_pekerjaan_row();
     for ($i=0; $i < $row+2; $i++) { 
     $pdf->ezTable(
-      $data[$i], $cols,'',array('width'=>400, 'shadeHeadingCol'=>array(0.4,0.6,0.6), 'cols'=>array('item'=>array('justification'=>'left', 'width'=>250), 'volume'=>array('justification'=>'left', 'width'=>50), 'harga_satuan'=>array('justification'=>'left', 'width'=>50), 'total_harga'=>array('justification'=>'left', 'width'=>80), 'no'=>array('justification'=>'left', 'width'=>30)))
+      $data[$i], $cols,'',array('width'=>400, 'shadeHeadingCol'=>array(0.4,0.6,0.6), 'cols'=>array('item'=>array('justification'=>'center', 'width'=>250), 'volume'=>array('justification'=>'center', 'width'=>35), 'harga_satuan'=>array('justification'=>'center', 'width'=>50), 'total_harga'=>array('justification'=>'center', 'width'=>80), 'no'=>array('justification'=>'center', 'width'=>30)))
     );
     $pdf->ezText("", 10);
     $pdf->ezText("", 10);

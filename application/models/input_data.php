@@ -146,7 +146,8 @@ class Input_data extends CI_Model
     $object = array(
       'nama' => $this->input->post('nama'),
       'keterangan_peraturan' => $this->input->post('keterangan'),
-      'pekerjaan_id' => $pekerjaan_id
+      'pekerjaan_id' => $pekerjaan_id,
+      'satuan' => $this->input->post('satuan')
     );
     $this->db->insert('subpekerjaan', $object);
   }
@@ -155,7 +156,8 @@ class Input_data extends CI_Model
     $this->db->where('id', $id);
     $object = array(
       'nama' => $this->input->post('nama'),
-      'keterangan_peraturan' => $this->input->post('keterangan')
+      'keterangan_peraturan' => $this->input->post('keterangan'),
+      'satuan' => $this->input->post('satuan')
     );
     $this->db->update('subpekerjaan', $object);
   }

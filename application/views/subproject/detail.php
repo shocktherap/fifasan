@@ -31,6 +31,7 @@
       <tr>
         <td class="span1">#</td>
         <td class="span7">Subpekerjaan</td>
+        <td class="span1">Satuan</td>
         <td class="span2">Harga Satuan</td>
         <td class="span1">Volume</td>
         <td class="span1">Jumlah</td>
@@ -48,6 +49,7 @@
           ?>
           <td><?=$number;?></td>
           <td><?=$pekerjaan_data->nama; ?></td>
+          <td><?=$pekerjaan_data->satuan; ?></td>
           <td><?=$pekerjaan_data->harga_satuan;?></td>
           <td><?=$value->volume;?></td>
           <td><?=number_format($value->pengeluaran,0,",",".");?></td>
