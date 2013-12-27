@@ -14,13 +14,19 @@
           <a class="brand" href="#"></a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li class="active">
+              <li class="<?php if ($this->uri->segment(1)=='home') {
+                echo "active";
+              }?>">
                 <?=anchor('home/index', 'Home');?>
               </li>
-              <li class="">
+              <li class="<?php if ($this->uri->segment(1)=='formula') {
+                echo "active";
+              }?>">
                 <?=anchor('formula/index', 'Formula');?>
               </li>
-              <li class="">
+              <li class="<?php if ($this->uri->segment(1)=='pekerjaan') {
+                echo "active";
+              }?>">
                 <?=anchor('pekerjaan/index', 'Pekerjaan');?>
               </li>
               <li class="">

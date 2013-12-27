@@ -45,7 +45,7 @@ class Subpekerjaan extends CI_Controller
   public function edit($id, $pekerjaan_id)
   {
     $this->general->setValidation();
-    $data['subpekerjaan'] = $this->get_data->get_subpekerjaan_by_ids($id);
+    $data['subpekerjaan'] = $this->get_data->get_subpekerjaan_by_params('id',$id, '*');
     $data['content'] = "subpekerjaan/edit";
     if($this->form_validation->run('subpekerjaan') == true) {
       $this->input_data->edit_subpekerjaan($id);

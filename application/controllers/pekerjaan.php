@@ -53,7 +53,7 @@
     public function edit($id)
     {
       $this->general->setValidation();
-      $data['pekerjaan'] = $this->get_data->get_pekerjaan_by_id($id);
+      $data['pekerjaan'] = $this->get_data->get_pekerjaan_by('id', $id);
       $data['content'] = "pekerjaan/edit";
       if($this->form_validation->run('pekerjaan') == true) {
         $this->input_data->edit_pekerjaan($id);

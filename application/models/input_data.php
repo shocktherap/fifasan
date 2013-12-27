@@ -130,5 +130,44 @@ class Input_data extends CI_Model
     $object = array('total_rab' => $total);
     $this->db->update('projects', $object);
   }
+  public function new_pekerjaan()
+  {
+    $object = array('nama' => $this->input->post('nama'));
+    $this->db->insert('pekerjaan', $object);
+  }
+  public function edit_pekerjaan($id)
+  {
+    $object = array('nama' => $this->input->post('nama'));
+    $this->db->where('id', $id);
+    $this->db->update('pekerjaan', $object);
+  }
+  public function new_subpekerjaan($pekerjaan_id)
+  {
+    $object = array(
+      'nama' => $this->input->post('nama'),
+      'keterangan_peraturan' => $this->input->post('keterangan'),
+      'pekerjaan_id' => $pekerjaan_id
+    );
+    $this->db->insert('subpekerjaan', $object);
+  }
+  public function edit_subpekerjaan($id)
+  {
+    $this->db->where('id', $id);
+    $object = array(
+      'nama' => $this->input->post('nama'),
+      'keterangan_peraturan' => $this->input->post('keterangan')
+    );
+    $this->db->update('subpekerjaan', $object);
+  }
+  public function delete_subpekerjaan($id)
+  {
+    $this->db->where('id', $id);
+    $this->db->delete('subpekerjaan');
+  }
+  public function delete_pekerjaan($id)
+  {
+    $this->db->where('id', $id);
+    $this->db->delete('pekerjaan');
+  }
 }
 ?>

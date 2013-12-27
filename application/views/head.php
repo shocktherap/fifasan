@@ -1,5 +1,5 @@
 <meta charset='utf-8'>
-<title>Sistem Pendukung Keputusan</title>
+<title>Sistem RAB</title>
 <meta name='viewport' content='width=device-width, initial-scale=1.0'>
 <meta name='description' content=''>
 <meta name='author' content=''>

@@ -154,8 +154,8 @@ class Subproject extends CI_Controller
       'volume'        => 'Volume',
       'total_harga'   => 'Total Harga'
     );
-
-    for ($i=0; $i < 14; $i++) { 
+    $row = $this->get_data->get_pekerjaan_row();
+    for ($i=0; $i < $row+2; $i++) { 
     $pdf->ezTable(
       $data[$i], $cols,'',array('width'=>400, 'shadeHeadingCol'=>array(0.4,0.6,0.6), 'cols'=>array('item'=>array('justification'=>'left', 'width'=>250), 'volume'=>array('justification'=>'left', 'width'=>50), 'harga_satuan'=>array('justification'=>'left', 'width'=>50), 'total_harga'=>array('justification'=>'left', 'width'=>80), 'no'=>array('justification'=>'left', 'width'=>30)))
     );

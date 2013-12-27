@@ -134,6 +134,13 @@ class Get_data extends CI_Model
     $query = $this->db->get('pekerjaan');
     return $query->num_rows();
   }
+
+  public function get_pekerjaan_by($params, $value)
+  {
+    $this->db->where($params, $value);
+    $query = $this->db->get('pekerjaan',1);
+    return $query->row();
+  }
   
   function get_pagin_pekerjaan($limit = array()) {
   $this->db->where('id >=', 2);

@@ -83,6 +83,25 @@ $config = array(
                 'rules' => 'required'
              ),
         ),
+    'pekerjaan' => array(
+        array(
+                'field' => 'nama',
+                'label' => 'Nama',
+                'rules' => 'required'
+             ),
+        ),
+    'subpekerjaan' => array(
+        array(
+                'field' => 'nama',
+                'label' => 'Nama',
+                'rules' => 'required'
+             ),
+        array(
+                'field' => 'peraturan',
+                'label' => 'peraturan',
+                'rules' => ''
+             ),
+        ),
 );
 
 ?>
