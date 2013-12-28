@@ -15,7 +15,7 @@
         <?php $data = $this->get_data->get_subpekerjaan_by($key->id);
           foreach ($data as $pekerjaan_data) { ?>
           <label class="checkbox">
-            <input type="checkbox" name="data_subpekerjaan[]" id="inlineCheckbox<?=$pekerjaan_data->id;?>" value="<?=$pekerjaan_data->id?>"/><?=$pekerjaan_data->nama;?>
+            <input type="checkbox" name="data_subpekerjaan[]" id="inlineCheckbox<?=$pekerjaan_data->id;?>" value="<?=$pekerjaan_data->id?>" checked="checked"/><?=$pekerjaan_data->nama;?>
           </label>
         <?php
           }

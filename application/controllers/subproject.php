@@ -76,6 +76,7 @@ class Subproject extends CI_Controller
       }
       $number1+=1;
     }
+    $this->input_data->input_data_pengeluaran($id_project);
     redirect('subproject/detail/'.$id_project);
   }
 
@@ -134,15 +135,12 @@ class Subproject extends CI_Controller
     $pdf->ezText("", 10);
     }
 
-    $total = $project->total_rab;
-    $tax   = $project->total_rab*(10/100);
-    $bersih = $total +$tax;
-    $pembulatan = $this->input->post('pembulatan');
+    $rab = $this->get_data->get_total($id_project);
     $datatotal = array(
-     array('keterangan'=> "Total Kotor",'value'=> 'Rp. '.number_format($total,2,",","."))
-    ,array('keterangan'=> "Tax (10%)",'value'=> $tax = 'Rp. '.number_format($tax,2,",","."))
-    ,array('keterangan'=> "Total Bersih",'value'=>  'Rp. '.number_format($bersih,2,",","."))
-    ,array('keterangan'=> "Pembulatan",'value'=>  'Rp. '.number_format($pembulatan,2,",","."))
+     array('keterangan'=> "Total Kotor",'value'=> 'Rp. '.number_format($rab->total_kotor,2,",","."))
+    ,array('keterangan'=> "Jasa",'value'=> $rab->jasa.'%')
+    ,array('keterangan'=> "Total Bersih",'value'=>  'Rp. '.number_format($rab->total_bersih,2,",","."))
+    ,array('keterangan'=> "Pembulatan",'value'=>  'Rp. '.number_format($rab->pembulatan,2,",","."))
     );
 
     $cols2 = array(

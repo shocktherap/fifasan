@@ -190,5 +190,17 @@ class Get_data extends CI_Model
     $query = $this->db->get('subtotal',1);
     return $query->row();
   }
+  public function get_last_project()
+  {
+    $this->db->order_by('project_id', 'desc');
+    $query = $this->db->get('projects', 1);
+    return $query->row();
+  }
+  public function get_total($id_project)
+  {
+    $this->db->where('project_id', $id_project);
+    $query = $this->db->get('pengeluaran', 1);
+    return $query->row();
+  }
 }
 ?>

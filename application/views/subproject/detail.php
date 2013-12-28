@@ -71,14 +71,23 @@
   </table>
 </section>
 <?php } ?>
-<h2>Total semua pembelanjaan adalah : Rp <?=number_format($total,2,",",".");?> </h2>
-<?=form_open('subproject/pdf_output/'.$id_project);?>
-<?php $tax = $total*(10/100);
-      $bersih = $total+$tax;
-?>
-<label>Total Kotor: </label><input type="text" name="total" value="<?=$total;?>" disabled></input>
-<label>Tax(10 %): </label><input type="text" name="tax" value="<?=$tax;?>"disabled></input>
-<label>Total Bersih: </label><input type="text" name="bersih" value="<?=$bersih;?>"disabled></input>
-<label>Pembulatan: </label><input type="text" name="pembulatan" value="<?=$bersih;?>"></input>
-<button type="submit" class="btn btn-primary"> Print PDF</button>
-<?php form_close(); ?>
+<?php $pengeluaran = $this->get_data->get_total($id_project);?>
+<table class="table table-bordered">
+  <tr>
+    <td><h4>Total Kotor</h4></td>
+    <td>Rp. <?=number_format($pengeluaran->total_kotor,2,",",".");?></td>
+  </tr>
+  <tr>
+    <td><h4>Jasa</h4></td>
+    <td>Rp. <?=$pengeluaran->jasa;?>%</td>
+  </tr>
+  <tr>
+    <td><h4>Total Bersih</h4></td>
+    <td>Rp. <?=number_format($pengeluaran->total_bersih,2,",",".");?></td>
+  </tr>
+  <tr>
+    <td><h4>Pembulatan</h4></td>
+    <td>Rp. <?=number_format($pengeluaran->pembulatan,2,",",".");?></td>
+  </tr>
+</table>
+<?=anchor('subproject/pdf_output/'.$id_project, 'Cetak PDF', 'class ="btn btn-primary"');?>

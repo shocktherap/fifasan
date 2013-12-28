@@ -28,6 +28,8 @@ class Home extends CI_Controller
       $this->load->view('template',$data);
     } else { 
       $this->input_data->create_new_project();
+      $data = $this->get_data->get_last_project();
+      $this->input_data->input_pengeluaran($data->project_id);
       $info = "Project Berhasil di tambah";
       $this->general->informationSuccess($info);
       redirect('home/index');

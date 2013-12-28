@@ -31,7 +31,12 @@
       <?php for ($i=2; $i <= $pekerjaan_row+1 ; $i++) { ?>
         totali[<?=$i;?>] = document.form.sum_work<?=$i;?>.value
       <?php } ?>
-      document.form.total.value = totali.reduce(function(pv, cv){return parseInt(pv)+parseInt(cv);});
+      document.form.total_kotor.value = totali.reduce(function(pv, cv){return parseInt(pv)+parseInt(cv);});
+  }
+  function jasa_product() {
+    total_bersih = (document.form.jasa.value / 100) * (document.form.total_kotor.value - 0) + (document.form.total_kotor.value - 0);
+    document.form.total_bersih.value = total_bersih
+    document.form.pembulatan.value = total_bersih
   }
 </script>
 
@@ -80,6 +85,12 @@
     </tr>
 </table>
 <?php } ?>
-<h2>Total semua pembelanjaan adalah : Rp <input id="total" type="text" name="total" onclick="call()" value="0"></input></h2>
-<button type="submit" class="btn btn-primary">Submit</button>
+
+<label>Total Kotor: </label><input id="total_kotor" type="text" name="total_kotor" onclick="call()" value=""></input>
+<label>Jasa : </label><input id="jasa" type="text" name="jasa" value="" onkeyup="jasa_product()">%</input>
+<label>Total Bersih: </label><input id="total_bersih" type="text" name="total_bersih" value=""></input>
+<label>Pembulatan: </label><input id="pembulatan" type="text" name="pembulatan" value=""></input>
+<div class="form-actions">
+  <button type="submit" class="btn btn-primary">Submit</button>
+</div>
 <?php form_close(); ?>

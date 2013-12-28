@@ -171,5 +171,21 @@ class Input_data extends CI_Model
     $this->db->where('id', $id);
     $this->db->delete('pekerjaan');
   }
+  public function input_pengeluaran($id_project)
+  {
+    $object = array('project_id' => $id_project);
+    $this->db->insert('pengeluaran', $object);
+  }
+  public function input_data_pengeluaran($id_project)
+  {
+    $object = array(
+      'total_kotor' => $this->input->post('total_kotor'), 
+      'total_bersih' => $this->input->post('total_bersih'), 
+      'jasa' => $this->input->post('jasa'), 
+      'pembulatan' => $this->input->post('pembulatan'), 
+    );
+    $this->db->where('project_id', $id_project);
+    $this->db->update('pengeluaran', $object);
+  }
 }
 ?>
