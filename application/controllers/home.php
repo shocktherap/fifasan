@@ -11,6 +11,7 @@ class Home extends CI_Controller
     $this->load->model('get_data');
     $this->load->model('general');
     $this->load->model('input_data');
+    $this->load->helper('download');
     session_start();
   }
 
@@ -46,6 +47,8 @@ class Home extends CI_Controller
   }
   public function show_project($id_project)
   {
+    $data['id_project'] = $id_project;
+    $data['storage'] =  $this->get_data->get_storage('project_id',$id_project);
     $data['data_project'] = $this->get_data->get_project_by_id($id_project);
     $data['content'] = "home/show_of_project";
     $this->load->view('template',$data);
@@ -84,6 +87,26 @@ class Home extends CI_Controller
         redirect('home/show_user');   
       }
     }    
+  }
+  public function download($id)
+  {
+    $key = $this->get_data->dowload_data($id);
+
+    $data = file_get_contents(base_url("filestorage/".$key->file)); // Read the file's contents
+    $name = $key->file;
+    force_download($name, $data);
+  }
+  public function delete_file($id, $id_project)
+  {
+
+    $key = $this->get_data->dowload_data($id);
+    $string = base_url('filestorage/'.$key->file);
+    unlink($string);
+    // $this->input_data->delete_file($id);
+
+    $info = "File Berhasil Dihapus";
+    $this->general->informationSuccess($info);
+    redirect('home/show_project/'.$id_project);   
   }
 }
 ?>

@@ -202,5 +202,17 @@ class Get_data extends CI_Model
     $query = $this->db->get('pengeluaran', 1);
     return $query->row();
   }
+  public function get_storage($params, $value)
+  {
+    $this->db->where($params, $value);
+    $query = $this->db->get('storage');
+    return $query->result();
+  }
+  public function dowload_data($id)
+  {
+    $this->db->where('id', $id);
+    $query = $this->db->get('storage', 1);
+    return $query->row();
+  }
 }
 ?>

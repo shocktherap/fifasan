@@ -1,3 +1,4 @@
+<?=anchor('upload/form_new/'.$id_project, 'Upload File', 'class="btn btn-primary"');?>
 <table class="table table-condensed">
 <tr>
   <td>Nama Project</td>
@@ -27,4 +28,34 @@
   </td>
 </tr>
 </table>
+
+
+<?php
+  if ($storage) { ?>
+    <table class="table table-bordered">
+      <thead>
+      <tr>
+        <td>File</td>
+        <td>Description</td>
+        <td>Date</td>
+      </tr>
+      </thead>
+      <tbody>
+        <?php foreach ($storage as $key) { ?>
+        <tr>
+          <td><?=$key->tipe;?></td>
+          <td><?=$key->description;?></td>
+          <td><?=substr($key->date, 0, 19);?></td>
+          
+          <td><?=anchor('home/download/'.$key->id, 'Download', 'class="btn"');?></td>
+          <td><?=anchor('home/delete_file/'.$key->id.'/'.$id_project, 'Delete', 'attributs');?></td>
+        </tr>
+        <?php } ?>
+      </tbody>
+    </table> 
+  <? } else {
+    echo "Tidak ada file";
+  }
+?>
+
 <?=anchor('home/index', 'Back', 'class="btn btn-primary"');?>

@@ -1,0 +1,48 @@
+<?php
+  /**
+  * 
+  */
+  class Upload extends CI_Controller
+  {
+    
+    function __construct()
+    {
+      parent::__construct();
+      $this->load->model('get_data');
+      $this->load->model('general');
+      $this->load->model('input_data');
+      session_start();
+    }
+
+    public function form_new($id_project)
+    {
+      $this->general->setValidation();
+      $data['id_project'] = $id_project;
+      $data['content'] = "upload/new";
+      $data['error'] = "";
+      if($this->form_validation->run('upload') == FALSE) {
+        $this->load->view('template',$data);
+      } else { 
+        $config['upload_path'] = './filestorage/';
+        $config['allowed_types'] = 'gif|jpg|png';
+        $config['max_size'] = '100';
+        $config['max_width']  = '1024';
+        $config['max_height']  = '768';
+
+        $this->load->library('upload', $config);
+        if (!$this->upload->do_upload()){
+          $data['error'] = $this->upload->display_errors('<p>', '</p>');
+          $this->load->view('template', $data);
+        } else {
+          $upload_data = $this->upload->data();
+          $this->input_data->insert_file($id_project, $upload_data['file_name'], $upload_data['file_type']);
+          $info = "File Berhasil di tambah";
+          $this->general->informationSuccess($info);
+          redirect('home/show_project/'.$id_project);
+        }
+        
+      }
+    }
+    
+  }
+?>

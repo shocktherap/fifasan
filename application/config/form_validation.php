@@ -90,6 +90,13 @@ $config = array(
                 'rules' => 'required'
              ),
         ),
+    'upload' => array(
+        array(
+                'field' => 'description',
+                'label' => 'Description',
+                'rules' => 'required'
+             ),
+        ),
     'subpekerjaan' => array(
         array(
                 'field' => 'nama',

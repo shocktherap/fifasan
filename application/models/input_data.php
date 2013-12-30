@@ -187,5 +187,20 @@ class Input_data extends CI_Model
     $this->db->where('project_id', $id_project);
     $this->db->update('pengeluaran', $object);
   }
+  public function insert_file($project_id, $file_name, $file_type)
+  {
+    $object = array(
+      'project_id' => $project_id,
+      'description' => $this->input->post('description'),
+      'file' => $file_name,
+      'tipe' => $file_type
+       );
+    $this->db->insert('storage', $object);
+  }
+  public function delete_file($id)
+  {
+    $this->db->where('id', $id);
+    $this->db->delete('storage');
+  }
 }
 ?>
