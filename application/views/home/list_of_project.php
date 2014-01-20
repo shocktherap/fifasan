@@ -11,6 +11,7 @@ if (!$list_project) {
       <th>No</th>
       <th>Nama</th>
       <th>Status</th>
+      <th>Keterangan</th>
       <th>Actions</th>
     </tr>
     <?php 
@@ -23,6 +24,7 @@ if (!$list_project) {
       <td><?php $status = $this->get_data->get_nama_status($list->status_id);
       echo $status->name;
       ?></td>
+      <td><span class="label label-success">Approved</span></td>
       <td><?=anchor('home/show_project/'.$list->project_id, '<i class="icon-eye-open"></i> Detail');?> || <?=anchor('home/edit_project/'.$list->project_id, '<i class="icon-edit"></i> Edit');?> || <a data-toggle="modal" href="#myModal<?=$list->project_id;?>"><i class="icon-trash"></i>Delete</a></td>
     </tr>  
     <?php $data['list'] = $list;

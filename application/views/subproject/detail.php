@@ -97,4 +97,5 @@ $session_data = $this->session->userdata('login');
     <td>Rp. <?=number_format($pengeluaran->pembulatan,2,",",".");?></td>
   </tr>
 </table>
-<?=anchor('subproject/pdf_output/'.$id_project, 'Cetak PDF', 'class ="btn btn-primary"');?>
+<?=anchor('subproject/pdf_output/'.$id_project, 'Cetak PDF', 'class ="btn btn-primary"');?><br />
+<?=anchor('subproject/aggreement/', 'Setujui Anggaran', 'class ="btn btn-primary"');?>
