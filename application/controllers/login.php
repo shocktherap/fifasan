@@ -32,12 +32,14 @@
              'logged_in'  => TRUE
             );   
             $this->session->set_userdata('login',$newdata);
-            if ($datalevel->level == 'user1') {
+            if ($datalevel->level == 'branch') {
               redirect('home');
             } elseif ($datalevel->level == 'user2') {
               redirect('home/user2');
             } elseif ($datalevel->level == 'user3') {
               redirect('home/user3');
+            } elseif ($datalevel->level == 'manager') {
+              redirect('manager');
             }
           } else {
             $this->general->information("Username atau Password Salah");

@@ -1,6 +1,6 @@
 <?php 
   $pekerjaan_row = $this->get_data->get_pekerjaan_row();
-  echo $pekerjaan_row;
+  $pekerjaan_row;
   $count_sub = 0;
   for ($pekerjaan_id=2; $pekerjaan_id <= $pekerjaan_row+1; $pekerjaan_id++) { 
     $subpekerjaan_row = $this->get_data->get_project_subpekerjaan_row("pekerjaan_id", $pekerjaan_id, $id_project);?>

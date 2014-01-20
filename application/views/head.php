@@ -12,5 +12,3 @@
 <script type="text/javascript" src="<?=base_url('assets/js/jquery.js');?>"></script>
 <script type="text/javascript" src="<?php echo base_url('/assets/jquery-1.7.2.min.js'); ?>"></script>
 <link rel="shortcut icon" href="<?= base_url(); ?>assets/ico/download.jpg">
-        
-		

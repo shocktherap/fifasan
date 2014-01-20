@@ -9,27 +9,47 @@ class Home extends CI_Controller
   {
     parent::__construct();
     $this->load->model('get_data');
+    $this->load->model('managers');
+    $this->load->model('projects');
     $this->load->model('general');
     $this->load->model('input_data');
     $this->load->helper('download');
+    
     session_start();
   }
 
   public function index()
   {
-    $data['list_project'] = $this->get_data->get_all_project();
+    $session_data = $this->session->userdata('login');
+    $branch = $this->managers->get_branch_by('leader_id',$session_data['id']);
+    $data['list_project'] = $this->projects->get_project_using('branch_id', $branch->id);
     $data['content'] = "home/list_of_project";
     $this->load->view('template',$data);
   }
   public function create_project()
   {
+    $session_data = $this->session->userdata('login');
+    $branch = $this->managers->get_branch_by('leader_id',$session_data['id']);
+    $this->load->library('googlemaps');
+    $config['center'] = $branch->address;
+    $config['zoom'] = 'auto';
+    $config['onclick'] = 'document.entry.lokasi.value = event.latLng.lat() + \', \' + event.latLng.lng();';
+    $this->googlemaps->initialize($config);
+    $marker = array();
+    $marker['position'] = $branch->address;
+    $marker['draggable'] = true;
+    $marker['ondragend'] = 'document.entry.lokasi.value = event.latLng.lat() + \', \' + event.latLng.lng();';
+    $this->googlemaps->add_marker($marker);
+    
+    $data['map'] = $this->googlemaps->create_map();
+
     $this->general->setValidation();
-    $data['content'] = "home/from_create_project";
+    $data['content'] = "home/form_create_project";
     if($this->form_validation->run('create_project') == FALSE) {
       $this->load->view('template',$data);
     } else { 
-      $this->input_data->create_new_project();
-      $data = $this->get_data->get_last_project();
+      $this->input_data->create_new_project($branch->id);
+      $data = $this->projects->get_last_project();
       $this->input_data->input_pengeluaran($data->project_id);
       $info = "Project Berhasil di tambah";
       $this->general->informationSuccess($info);
@@ -48,16 +68,43 @@ class Home extends CI_Controller
   public function show_project($id_project)
   {
     $data['id_project'] = $id_project;
-    $data['storage'] =  $this->get_data->get_storage('project_id',$id_project);
-    $data['data_project'] = $this->get_data->get_project_by_id($id_project);
+    $data['storage'] =  $this->projects->get_storage('project_id',$id_project);
+    $data['data_project'] = $this->projects->get_project_by('project_id', $id_project);
+    $project = $this->projects->get_project_by('project_id', $id_project);
+    
+
+    $this->load->library('googlemaps');
+    $config['center'] = $project->lokasi;
+    $config['zoom'] = 'auto';
+    $this->googlemaps->initialize($config);
+    $marker = array();
+    $marker['position'] = $project->lokasi;
+    $this->googlemaps->add_marker($marker);
+    $data['map'] = $this->googlemaps->create_map();
+
+
     $data['content'] = "home/show_of_project";
     $this->load->view('template',$data);
   }
   public function edit_project($id_project)
   {
+    $project = $this->projects->get_project_by('project_id', $id_project);
+    $this->load->library('googlemaps');
+    $config['center'] = $project->lokasi;
+    $config['zoom'] = 'auto';
+    $config['onclick'] = 'document.entry.lokasi.value = event.latLng.lat() + \', \' + event.latLng.lng();';
+    $this->googlemaps->initialize($config);
+    $marker = array();
+    $marker['position'] = $project->lokasi;
+    $marker['draggable'] = true;
+    $marker['ondragend'] = 'document.entry.lokasi.value = event.latLng.lat() + \', \' + event.latLng.lng();';
+    $this->googlemaps->add_marker($marker);
+    
+    $data['map'] = $this->googlemaps->create_map();
+
     $this->general->setValidation();
-    $data['status'] = $this->get_data->get_status();
-    $data['data_project'] = $this->get_data->get_project_by_id($id_project);
+    $data['status'] = $this->projects->get_status();
+    $data['data_project'] = $this->projects->get_project_by('project_id', $id_project);
     $data['content'] = "home/update_of_project";
     if($this->form_validation->run('create_project') == FALSE) {
       $this->load->view('template',$data);
@@ -90,7 +137,7 @@ class Home extends CI_Controller
   }
   public function download($id)
   {
-    $key = $this->get_data->dowload_data($id);
+    $key = $this->projects->dowload_data($id);
 
     $data = file_get_contents(base_url("filestorage/".$key->file)); // Read the file's contents
     $name = $key->file;
@@ -99,7 +146,7 @@ class Home extends CI_Controller
   public function delete_file($id, $id_project)
   {
 
-    $key = $this->get_data->dowload_data($id);
+    $key = $this->projects->download_data($id);
     $string = base_url('filestorage/'.$key->file);
     unlink($string);
     // $this->input_data->delete_file($id);
@@ -108,5 +155,27 @@ class Home extends CI_Controller
     $this->general->informationSuccess($info);
     redirect('home/show_project/'.$id_project);   
   }
+
+  public function onthemap()
+    {
+      $this->load->library('googlemaps');      
+      $config['zoom'] = 'auto';
+      $session_data = $this->session->userdata('login');
+      $branch = $this->managers->get_branch_by('leader_id',$session_data['id']);
+      $project = $this->projects->get_project_using('branch_id', $branch->id);
+      $this->googlemaps->initialize($config);
+      foreach ($project as $key) {
+
+        $marker = array();
+        $marker['position'] = $key->lokasi;
+        $marker['infowindow_content'] = anchor('home/show_project/'.$key->project_id, $key->nama);
+        $this->googlemaps->add_marker($marker);
+      }
+      
+      $data['map'] = $this->googlemaps->create_map();
+      $data['content'] = "home/onthemap";
+      $this->load->view('template', $data);
+    }
+
 }
 ?>

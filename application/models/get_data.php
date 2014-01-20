@@ -17,28 +17,15 @@ class Get_data extends CI_Model
     return $query->row();
   }
 
-  public function get_all_project()
-  {
-    $query = $this->db->get('projects');
-    return $query->result();
-  }
+  
   public function get_nama_status($id_status)
   {
     $this->db->where('id', $id_status);
     $query = $this->db->get('status', 1);
     return $query->row();
   }
-  public function get_project_by_id($project_id)
-  {
-    $this->db->where('project_id', $project_id);
-    $query = $this->db->get('projects', 1);
-    return $query->row();
-  }
-  public function get_status()
-  {
-    $query = $this->db->get('status');
-    return $query->result();
-  }
+  
+  
   public function get_pekerjaan()
   {
     $this->db->where('id >=', 2);
@@ -58,6 +45,7 @@ class Get_data extends CI_Model
   }
   public function get_subpekerjaan_by($pekerjaan_id)
   {
+    $this->db->order_by('id', 'asc');
     $this->db->where('pekerjaan_id', $pekerjaan_id);
     $query = $this->db->get('subpekerjaan');
     return $query->result();
@@ -108,6 +96,7 @@ class Get_data extends CI_Model
   }
   public function get_sub_in_formula($id_sub)
   {
+    $this->db->order_by('id', 'asc');
     $this->db->where('subpekerjaan_id', $id_sub);
     $query = $this->db->get('formula');
     return $query->result();
@@ -124,7 +113,7 @@ class Get_data extends CI_Model
     return $query->result();
   }
   public function get_subprojectpekerjaan2($id, $pekerjaan_id)
-  {
+  { 
     $query = $this->db->query("select * from project_subpekerjaans p join subpekerjaan q on p.subpekerjaan_id = q.id  where p.project_id ='$id' and q.pekerjaan_id = '$pekerjaan_id' ORDER BY p.project_id");
     return $query->result();
   }
@@ -190,29 +179,14 @@ class Get_data extends CI_Model
     $query = $this->db->get('subtotal',1);
     return $query->row();
   }
-  public function get_last_project()
-  {
-    $this->db->order_by('project_id', 'desc');
-    $query = $this->db->get('projects', 1);
-    return $query->row();
-  }
+  
   public function get_total($id_project)
   {
     $this->db->where('project_id', $id_project);
     $query = $this->db->get('pengeluaran', 1);
     return $query->row();
   }
-  public function get_storage($params, $value)
-  {
-    $this->db->where($params, $value);
-    $query = $this->db->get('storage');
-    return $query->result();
-  }
-  public function dowload_data($id)
-  {
-    $this->db->where('id', $id);
-    $query = $this->db->get('storage', 1);
-    return $query->row();
-  }
+  
+  
 }
 ?>

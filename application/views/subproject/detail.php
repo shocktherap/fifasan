@@ -13,7 +13,14 @@
   }
   $this->input_data->input_total($id_project, $total_count);
 ?>
-<?=anchor('subproject/edit/'.$id_project, 'Edit RAB', 'class="btn"');?>
+<?php 
+$session_data = $this->session->userdata('login');
+  if ($session_data['level'] != 'manager') { ?>
+  <?=anchor('subproject/edit/'.$id_project, 'Edit RAB', 'class="btn"');?>
+<?php      
+  }
+?>
+
 <h3>Rencana Anggaran Biaya <?=$project->nama;?></h3>
 <?php 
   $number_id = 0;

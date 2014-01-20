@@ -1,4 +1,18 @@
-<?=anchor('upload/form_new/'.$id_project, 'Upload File', 'class="btn btn-primary"');?>
+<?php 
+  echo $map['js']; 
+?>    
+<?php $session_data = $this->session->userdata('login');?>
+<?php echo $map['html']; ?>
+
+  <?php $status = $this->get_data->get_nama_status($data_project->status_id);?>
+
+<label>Progres</label>
+<div class="progress progress-striped active">
+  <div class="bar" style="width: <?=$data_project->status_id*20;?>%;"><?=$data_project->status_id*20;?>% | <?=$status->name?></div>
+</div>
+<?php if ($session_data['username'] != 'manager') { ?>
+  <?=anchor('upload/form_new/'.$id_project, 'Upload File', 'class="btn btn-primary"');?>
+<?php } ?>
 <table class="table table-condensed">
 <tr>
   <td>Nama Project</td>
@@ -13,6 +27,10 @@
   <td><?=$data_project->lokasi;?></td>
 </tr>
 <tr>
+  <td>Alamat Project</td>
+  <td><?=$data_project->alamat;?></td>
+</tr>
+<tr>
   <td>Owner Project</td>
   <td><?=$data_project->pemilik;?></td>
 </tr>
@@ -22,14 +40,13 @@
 </tr>
 <tr>
   <td>Status Project</td>
-  <td>
-    <?php $status = $this->get_data->get_nama_status($data_project->status_id);
-      echo $status->name;?>
+  <td>   
+      <?=$status->name;?>
   </td>
 </tr>
 </table>
 
-
+<?php $session_data = $this->session->userdata('login');?>
 <?php
   if ($storage) { ?>
     <table class="table table-bordered">
@@ -57,5 +74,6 @@
     echo "Tidak ada file";
   }
 ?>
-
+<?php if ($session_data['username'] != 'manager') { ?>
 <?=anchor('home/index', 'Back', 'class="btn btn-primary"');?>
+<?php }?>

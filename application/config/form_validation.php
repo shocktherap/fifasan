@@ -16,12 +16,12 @@ $config = array(
         array(
                 'field' => 'nama',
                 'label' => 'Nama Project',
-                'rules' => 'required'
+                'rules' => 'required|max_length[40]'
              ),
         array(
                 'field' => 'jenis',
                 'label' => 'Jenis Project',
-                'rules' => 'required'
+                'rules' => 'required|max_length[30]'
              ),
         array(
                 'field' => 'lokasi',
@@ -29,14 +29,19 @@ $config = array(
                 'rules' => 'required'
              ),
         array(
+                'field' => 'alamat',
+                'label' => 'Alamat Pelaksanaan Project',
+                'rules' => 'required|max_length[60]'
+             ),
+        array(
                 'field' => 'owner',
                 'label' => 'Owner Project',
-                'rules' => 'required'
+                'rules' => 'required|max_length[30]'
              ),
         array(
                 'field' => 'tahun',
                 'label' => 'Tahun Anggaran Project',
-                'rules' => 'required'
+                'rules' => 'required|max_length[4]'
              )
         ),
     'change_password' => array(
@@ -107,6 +112,38 @@ $config = array(
                 'field' => 'peraturan',
                 'label' => 'peraturan',
                 'rules' => ''
+             ),
+        ),
+    'branch' => array(
+        array(
+                'field' => 'name',
+                'label' => 'Nama Cabang',
+                'rules' => 'required'
+             ),
+        array(
+                'field' => 'address',
+                'label' => 'Alamat Cabang',
+                'rules' => 'required'
+             ),
+        array(
+                'field' => 'phone_number',
+                'label' => 'Nomer Telepon',
+                'rules' => 'required'
+             ),
+        array(
+                'field' => 'leader',
+                'label' => 'Nama Pimpinan Cabang',
+                'rules' => 'required'
+             ),
+        array(
+                'field' => 'username',
+                'label' => 'Username',
+                'rules' => 'required'
+             ),
+        array(
+                'field' => 'password',
+                'label' => 'password',
+                'rules' => 'required'
              ),
         ),
 );

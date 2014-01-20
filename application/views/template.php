@@ -3,6 +3,7 @@
   <?php $this->load->view('head');?>
   </head>
   <body>
+    <?php $session_data = $this->session->userdata('login');?>
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container-fluid">
@@ -14,10 +15,28 @@
           <a class="brand" href="#"></a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li class="<?php if ($this->uri->segment(1)=='home') {
+              <?php if ($session_data['username'] != 'manager') { ?>
+              <li class="<?php if ($this->uri->segment(1)=='home' && $this->uri->segment(2)=='') {
                 echo "active";
               }?>">
                 <?=anchor('home/index', 'Home');?>
+              </li>
+              <li class="<?php if ($this->uri->segment(2)=='onthemap') {
+                echo "active";
+              }?>">
+                <?=anchor('home/onthemap', 'Onthemap');?>
+              </li>
+              <?php } ?>
+              <?php if ($session_data['username'] == 'manager') { ?>
+              <li class="<?php if ($this->uri->segment(1)=='branch') {
+                echo "active";
+              }?>">
+                <?=anchor('manager/index', 'Branch');?>
+              </li>
+              <li class="<?php if ($this->uri->segment(1)=='onthemap') {
+                echo "active";
+              }?>">
+                <?=anchor('manager/onthemap', 'Onthemap');?>
               </li>
               <li class="<?php if ($this->uri->segment(1)=='formula') {
                 echo "active";
@@ -28,13 +47,14 @@
                 echo "active";
               }?>">
                 <?=anchor('pekerjaan/index', 'Pekerjaan');?>
-              </li>
+              </li>  
+              <?php } ?>
               <li class="">
                 <?=anchor('login/sign_out', 'Sign Out');?>
               </li>
             </ul>
             <p class="navbar-text pull-right">
-              <?php $session_data = $this->session->userdata('login');?>
+              
               <i class="icon-user icon-white"></i> <?=anchor('home/show_user/', 'Selamat Datang '.$session_data['name']);?>
               </a>
             </p>
