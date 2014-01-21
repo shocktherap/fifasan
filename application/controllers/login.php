@@ -32,6 +32,8 @@
              'logged_in'  => TRUE
             );   
             $this->session->set_userdata('login',$newdata);
+            $this->session->set_userdata('oauth_token', "aetildfvc3gc8apo");
+            $this->session->set_userdata('oauth_token_secret', "l0bnxt00kgp2roi");
             if ($datalevel->level == 'branch') {
               redirect('home');
             } elseif ($datalevel->level == 'user2') {

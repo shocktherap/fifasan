@@ -15,7 +15,7 @@ if (!$list_project) {
     <?php foreach ($list_project as $key) { ?>
     <tr>
       <td><?=$number+=1;?></td>
-      <?php if ($key->status_id > 1) { ?>
+      <?php if ($key->status_id > 2) { ?>
         <td><?=anchor('subproject/show/'.$key->project_id, $key->nama);?></td>
       <?php } else { ?>
         <td><?php print_r($key->nama);?></td>

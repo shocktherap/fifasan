@@ -10,6 +10,15 @@ class General extends CI_Model
 	{
 		parent::__construct();
 	}
+    
+    function start_engine()
+    {
+      $params['key'] = 'xkyyxbuqotb6m81';
+      $params['secret'] = 'cnqyeay9b5kaz4w';
+      $params['access'] = array('oauth_token'=>urlencode($this->session->userdata('oauth_token')),
+                       'oauth_token_secret'=>urlencode($this->session->userdata('oauth_token_secret')));
+      return $this->load->library('dropbox', $params);
+    }
 
 	function information($info) {
         $this->session->set_flashdata('message', "<div class='alert alert-block alert-error fade in'>"."<button type='button' class='close' data-dismiss='alert'>×</button>".$info."</div>");

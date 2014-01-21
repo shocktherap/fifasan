@@ -25,12 +25,23 @@
     {
       if($this->form_validation->run('branch') == TRUE) {
         if ($this->verify->checkuserbranch($this->input->post('username')) == TRUE ) {
+          if ($this->verify->checknamebranch($this->input->post('name')) == TRUE ) {
             $this->user->inputnewuser();
             $leader = $this->user->getleaderby('username', $this->input->post('username'));
             $this->managers->inputnewbrach($leader->id);
-            $info = "Brach Telah Ditambah";
+
+            $this->general->start_engine();
+            $path1 = $this->input->post('name').'-branch';
+            $data1 = $this->dropbox->create_folder($path1, $root='dropbox');
+
+            $info = "Branch Telah Ditambah";
             $this->general->informationSuccess($info);
             redirect('manager/index');
+          } else {
+            $info = "Nama Cabang Telah Terdaftar";
+            $this->general->information($info);
+            $data['content'] = "manager/form_create_branch";  
+          }    
         } else {
           $info = "Username Telah Terdaftar";
           $this->general->information($info);
@@ -68,9 +79,11 @@
     public function delete_branch($id)
     {
       $branchdata = $this->managers->get_branch_by('id', $id);
-      $this->user->delete_user($branchdata->leader_id);
-      $this->managers->delete_branch($id);
-      $this->projects->delete_project($id);
+
+      $this->general->start_engine();
+      $path = $branchdata->name.'-branch';
+      $data = $this->dropbox->delete($path, $root='dropbox');
+      
       $info = "Data Branch Telah Dihapus";
       $this->general->informationSuccess($info);
       redirect('manager/index');

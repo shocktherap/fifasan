@@ -46,7 +46,6 @@
 </tr>
 </table>
 
-<?php $session_data = $this->session->userdata('login');?>
 <?php
   if ($storage) { ?>
     <table class="table table-bordered">
@@ -70,10 +69,10 @@
         <?php } ?>
       </tbody>
     </table> 
-  <? } else {
+  <?php } else {
     echo "Tidak ada file";
   }
 ?>
 <?php if ($session_data['username'] != 'manager') { ?>
 <?=anchor('home/index', 'Back', 'class="btn btn-primary"');?>
-<?php }?>
+<?php } ?>

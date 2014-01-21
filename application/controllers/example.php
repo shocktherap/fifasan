@@ -11,8 +11,8 @@ class Example extends CI_Controller
     // Call this method first by visiting http://SITE_URL/example/request_dropbox
     public function request_dropbox()
 	{
-		$params['key'] = 'fm7p8se2eeqxd25';
-		$params['secret'] = 'idalyixqo8dmv0t';
+		$params['key'] = 'xkyyxbuqotb6m81';
+		$params['secret'] = 'cnqyeay9b5kaz4w';
 		
 		$this->load->library('dropbox', $params);
 		$data = $this->dropbox->get_request_token(site_url("example/access_dropbox"));
@@ -23,8 +23,8 @@ class Example extends CI_Controller
     //the user approves your application and dropbox redirects to it
 	public function access_dropbox()
 	{
-		$params['key'] = 'fm7p8se2eeqxd25';
-		$params['secret'] = 'idalyixqo8dmv0t';
+		$params['key'] = 'xkyyxbuqotb6m81';
+		$params['secret'] = 'cnqyeay9b5kaz4w';
 		
 		$this->load->library('dropbox', $params);
 		
@@ -40,16 +40,33 @@ class Example extends CI_Controller
     //dropbox and can use the library to interact with your account.
 	public function test_dropbox()
 	{
-		$params['key'] = 'fm7p8se2eeqxd25';
-		$params['secret'] = 'idalyixqo8dmv0t';
+		$params['key'] = 'xkyyxbuqotb6m81';
+		$params['secret'] = 'cnqyeay9b5kaz4w';
 		$params['access'] = array('oauth_token'=>urlencode($this->session->userdata('oauth_token')),
 								  'oauth_token_secret'=>urlencode($this->session->userdata('oauth_token_secret')));
 		
 		$this->load->library('dropbox', $params);
 		
         $dbobj = $this->dropbox->account();
-		
-        print_r($dbobj);
+		    // print_r($this->session->userdata('oauth_token'));
+        // print_r($dbobj);
+        // $path1 = 'basmol-branch/branch';
+        // $data1 = $this->dropbox->create_folder($path1, $root='dropbox');
+        // $path2 = 'depok-branch/branch';
+        // $data2 = $this->dropbox->create_folder($path2, $root='dropbox')basmol-branch/branch;
+        // $path = 'Apps';
+        // $dbpath = 'basmol-branch/branch';
+        // $filepath = '/home/izqil/Pictures/15.jpg';
+          $path = 'uin-branch';
+          $data = $this->dropbox->delete($path, $root='dropbox');
+          print_r($data);
+        // $data = $this->dropbox->add($dbpath, $filepath, array(), $root='dropbox');
+        // print_r($data);
+        // $data1 = $this->dropbox->metadata($path, array(), $root='dropbox');
+        // print_r($data);
+        // $destination = 'filestorage/c.jpg';
+        // $c = $this->dropbox->get($destination, $path, $root='dropbox');
+        // print_r($c);
 	}
 }
 

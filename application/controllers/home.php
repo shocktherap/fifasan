@@ -9,6 +9,7 @@ class Home extends CI_Controller
   {
     parent::__construct();
     $this->load->model('get_data');
+    $this->load->model('verify');
     $this->load->model('managers');
     $this->load->model('projects');
     $this->load->model('general');
@@ -44,17 +45,29 @@ class Home extends CI_Controller
     $data['map'] = $this->googlemaps->create_map();
 
     $this->general->setValidation();
-    $data['content'] = "home/form_create_project";
-    if($this->form_validation->run('create_project') == FALSE) {
-      $this->load->view('template',$data);
+    
+    if($this->form_validation->run('create_project') == TRUE) {
+      if ($this->verify->checknameproject($this->input->post('nama'), $branch->id) == TRUE ) {
+        $this->input_data->create_new_project($branch->id);
+        $data = $this->projects->get_last_project();
+        $this->input_data->input_pengeluaran($data->project_id);
+
+        $this->general->start_engine();
+        $path1 = $branch->name.'-branch/'.$this->input->post('nama');
+        $data1 = $this->dropbox->create_folder($path1, $root='dropbox');
+
+        $info = "Project Berhasil di tambah";
+        $this->general->informationSuccess($info);
+        redirect('home/index');
+      } else {
+        $info = "Nama Project Telah Terdaftar";
+        $this->general->information($info);
+        $data['content'] = "manager/form_create_branch";  
+      }
     } else { 
-      $this->input_data->create_new_project($branch->id);
-      $data = $this->projects->get_last_project();
-      $this->input_data->input_pengeluaran($data->project_id);
-      $info = "Project Berhasil di tambah";
-      $this->general->informationSuccess($info);
-      redirect('home/index');
+      $data['content'] = "home/form_create_project";  
     }
+    $this->load->view('template',$data);
   }
   public function delete_project($id_project)
   {
@@ -137,11 +150,20 @@ class Home extends CI_Controller
   }
   public function download($id)
   {
-    $key = $this->projects->dowload_data($id);
+    $key = $this->projects->download_data($id);
+    $session_data = $this->session->userdata('login');
+    $branch = $this->managers->get_branch_by('leader_id',$session_data['id']);
+    $project = $this->projects->get_project_by('project_id', $key->project_id);
 
-    $data = file_get_contents(base_url("filestorage/".$key->file)); // Read the file's contents
-    $name = $key->file;
-    force_download($name, $data);
+    // $data = file_get_contents(base_url("filestorage/".$key->file)); // Read the file's contents
+    // $name = $key->file;
+
+    $this->general->start_engine();
+    $path = $branch->name.'-branch/'.$project->nama.'/'.$key->file;
+    $destination = 'filestorage/'.$key->file;
+    $this->dropbox->get($destination, $path, $root='dropbox');
+
+    // force_download($name, $data);
   }
   public function delete_file($id, $id_project)
   {

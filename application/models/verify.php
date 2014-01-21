@@ -20,6 +20,30 @@ class Verify extends CI_Model
       return TRUE;
     }
   }
+
+  public function checknamebranch($name)
+  {
+    $this->db->where('name', $name);
+    $query = $this->db->get('branch');
+    if ($query->result()) {
+      return FALSE;
+    } else {
+      return TRUE;
+    }
+  }
+
+  public function checknameproject($name, $id)
+  {
+    $this->db->where('nama', $name);
+    $this->db->where('branch_id', $id);
+    $query = $this->db->get('projects');
+    if ($query->result()) {
+      return FALSE;
+    } else {
+      return TRUE;
+    }
+  }
+
 }
 
 
