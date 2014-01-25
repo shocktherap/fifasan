@@ -57,9 +57,9 @@ class Example extends CI_Controller
         // $path = 'Apps';
         // $dbpath = 'basmol-branch/branch';
         // $filepath = '/home/izqil/Pictures/15.jpg';
-          $path = 'uin-branch';
-          $data = $this->dropbox->delete($path, $root='dropbox');
-          print_r($data);
+          // $path = 'uin-branch';
+          // $data = $this->dropbox->delete($path, $root='dropbox');
+          // print_r($data);
         // $data = $this->dropbox->add($dbpath, $filepath, array(), $root='dropbox');
         // print_r($data);
         // $data1 = $this->dropbox->metadata($path, array(), $root='dropbox');
@@ -67,6 +67,7 @@ class Example extends CI_Controller
         // $destination = 'filestorage/c.jpg';
         // $c = $this->dropbox->get($destination, $path, $root='dropbox');
         // print_r($c);
+
 	}
 }
 

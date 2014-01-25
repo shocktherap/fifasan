@@ -12,6 +12,9 @@
 </div>
 <?php if ($session_data['username'] != 'manager') { ?>
   <?=anchor('upload/form_new/'.$id_project, 'Upload File', 'class="btn btn-primary"');?>
+  <?php if($data_project->aggreement == 0){ ?>
+    <?=anchor('home/agreement/'.$id_project, 'Setujui', 'class="btn btn-success"');?>
+  <?php } ?>
 <?php } ?>
 <table class="table table-condensed">
 <tr>
@@ -43,6 +46,14 @@
   <td>   
       <?=$status->name;?>
   </td>
+</tr>
+<tr>
+  <td>Status RAB</td>
+  <?php if($data_project->aggreement == 0){?>
+    <td><span class="label label-waning">Not-approved</span></td>
+  <?php } else {?>
+    <td><span class="label label-success">Approved</span></td>
+  <?php } ?>
 </tr>
 </table>
 

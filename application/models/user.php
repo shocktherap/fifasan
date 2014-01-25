@@ -21,11 +21,31 @@ class User extends CI_Model
     $this->db->insert('users', $object);
   }
 
+  public function inputnewemploye($branch_id)
+  {
+    $object = array(
+      'username' => $this->input->post('username'),
+      'password' => $this->input->post('password'),
+      'name' => $this->input->post('name'),
+      'phone_number' => $this->input->post('phone_number'),
+      'level' => 'employe',
+      'branch_id' => $branch_id
+    );
+    $this->db->insert('users', $object);
+  }
+
   public function getleaderby($params, $value)
   {
     $this->db->where($params, $value);
     $query = $this->db->get('users');
     return $query->row();
+  }
+
+  public function getuserusing($params, $value)
+  {
+    $this->db->where($params, $value);
+    $query = $this->db->get('users');
+    return $query->result();
   }
 
   public function edituser($id)
@@ -43,6 +63,13 @@ class User extends CI_Model
   {
     $this->db->where('id', $id);
     $this->db->delete('users');
+  }
+
+  public function resetpassword($id)
+  {
+    $this->db->where('id', $id);
+    $object = array('password' => 12345);
+    $this->db->update('users', $object);
   }
 }
 

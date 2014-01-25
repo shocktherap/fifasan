@@ -10,7 +10,7 @@ class Input_data extends CI_Model
     parent::__construct();
   }
 
-  public function create_new_project($id)
+  public function create_new_project($id, $id_employe)
   {
     $data = array(  
       'nama'      => $this->input->post('nama'),
@@ -21,7 +21,9 @@ class Input_data extends CI_Model
       'alamat'     => $this->input->post('alamat'),
       'status_id' => 1,
       'subpekerjaan' => 0,
-      'branch_id' => $id
+      'aggreement' => 0,
+      'branch_id' => $id,
+      'employe_id' => $id_employe
     );
     $this->db->insert('projects', $data);
   }

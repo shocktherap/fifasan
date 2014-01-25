@@ -63,6 +63,13 @@ class Projects extends CI_Model
     $this->db->where('branch_id', $id);
     $this->db->delete('projects');
   }
+
+  public function agreement($id)
+  {
+    $this->db->where('project_id', $id);
+    $object = array('aggreement' => 1 );
+    $this->db->update('projects', $object);
+  }
 }
 
 

@@ -29,6 +29,7 @@
              'id'         => $datalevel->id,
              'name'       => $datalevel->name,
              'level'      => $datalevel->level,
+             'branch_id'  => $datalevel->branch_id,
              'logged_in'  => TRUE
             );   
             $this->session->set_userdata('login',$newdata);
@@ -36,8 +37,8 @@
             $this->session->set_userdata('oauth_token_secret', "l0bnxt00kgp2roi");
             if ($datalevel->level == 'branch') {
               redirect('home');
-            } elseif ($datalevel->level == 'user2') {
-              redirect('home/user2');
+            } elseif ($datalevel->level == 'employe') {
+              redirect('home');
             } elseif ($datalevel->level == 'user3') {
               redirect('home/user3');
             } elseif ($datalevel->level == 'manager') {

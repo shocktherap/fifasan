@@ -22,15 +22,24 @@ class Home extends CI_Controller
   public function index()
   {
     $session_data = $this->session->userdata('login');
-    $branch = $this->managers->get_branch_by('leader_id',$session_data['id']);
-    $data['list_project'] = $this->projects->get_project_using('branch_id', $branch->id);
+    if ($session_data['level'] == 'branch') {
+      $branch = $this->managers->get_branch_by('leader_id',$session_data['id']);
+      $data['list_project'] = $this->projects->get_project_using('branch_id', $branch->id);
+    } elseif($session_data['level'] == 'employe') {
+      $data['list_project'] = $this->projects->get_project_using('employe_id', $session_data['id']);
+    }
+    
     $data['content'] = "home/list_of_project";
     $this->load->view('template',$data);
   }
   public function create_project()
   {
     $session_data = $this->session->userdata('login');
-    $branch = $this->managers->get_branch_by('leader_id',$session_data['id']);
+    if ($session_data['level'] == 'manager') {
+      $branch = $this->managers->get_branch_by('leader_id',$session_data['id']);
+    } elseif($session_data['level'] == 'employe') {
+      $branch = $this->managers->get_branch_by('id',$session_data['branch_id']);
+    }
     $this->load->library('googlemaps');
     $config['center'] = $branch->address;
     $config['zoom'] = 'auto';
@@ -48,7 +57,7 @@ class Home extends CI_Controller
     
     if($this->form_validation->run('create_project') == TRUE) {
       if ($this->verify->checknameproject($this->input->post('nama'), $branch->id) == TRUE ) {
-        $this->input_data->create_new_project($branch->id);
+        $this->input_data->create_new_project($branch->id, $session_data['id']);
         $data = $this->projects->get_last_project();
         $this->input_data->input_pengeluaran($data->project_id);
 
@@ -179,25 +188,37 @@ class Home extends CI_Controller
   }
 
   public function onthemap()
-    {
-      $this->load->library('googlemaps');      
-      $config['zoom'] = 'auto';
-      $session_data = $this->session->userdata('login');
+  {
+    $this->load->library('googlemaps');      
+    $config['zoom'] = 'auto';
+    $session_data = $this->session->userdata('login');
+    
+    if ($session_data['level'] == 'branch') {
       $branch = $this->managers->get_branch_by('leader_id',$session_data['id']);
-      $project = $this->projects->get_project_using('branch_id', $branch->id);
-      $this->googlemaps->initialize($config);
-      foreach ($project as $key) {
-
-        $marker = array();
-        $marker['position'] = $key->lokasi;
-        $marker['infowindow_content'] = anchor('home/show_project/'.$key->project_id, $key->nama);
-        $this->googlemaps->add_marker($marker);
-      }
-      
-      $data['map'] = $this->googlemaps->create_map();
-      $data['content'] = "home/onthemap";
-      $this->load->view('template', $data);
+      $project = $this->projects->get_project_using('branch_id', $branch->id);  
+    } elseif ($session_data['level'] == 'employe') {
+      $project = $this->projects->get_project_using('employe_id', $session_data['id']);  
     }
+    $this->googlemaps->initialize($config);
+    foreach ($project as $key) {
+
+      $marker = array();
+      $marker['position'] = $key->lokasi;
+      $marker['infowindow_content'] = anchor('home/show_project/'.$key->project_id, $key->nama);
+      $this->googlemaps->add_marker($marker);
+    }
+    
+    $data['map'] = $this->googlemaps->create_map();
+    $data['content'] = "home/onthemap";
+    $this->load->view('template', $data);
+  }
+  public function agreement($id)
+  {
+   $this->projects->agreement($id);
+    $info = "RAB Telah Disetujui";
+    $this->general->informationSuccess($info);
+    redirect('home/show_project/'.$id);   
+  }
 
 }
 ?>

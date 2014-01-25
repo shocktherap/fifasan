@@ -15,19 +15,36 @@
           <a class="brand" href="#"></a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <?php if ($session_data['username'] != 'manager') { ?>
+              <?php if ($session_data['level'] == 'employe') {?>
               <li class="<?php if ($this->uri->segment(1)=='home' && $this->uri->segment(2)=='') {
+              echo "active";
+              }?>">
+              <?=anchor('home/index', 'Home');?>
+              </li>  
+              <li class="<?php if ($this->uri->segment(2)=='onthemap') {
+                echo "active";
+              }?>">
+                <?=anchor('home/onthemap', 'Onthemap');?>
+              </li>
+
+              <?php } elseif ($session_data['level'] == 'branch') { ?>
+              <li class="<?php if ($this->uri->segment(1)=='home' && $this->uri->segment(2)=='index') {
                 echo "active";
               }?>">
                 <?=anchor('home/index', 'Home');?>
+              </li>
+              <li class="<?php if ($this->uri->segment(1)=='employe') {
+                echo "active";
+              }?>">
+                <?=anchor('employe', 'Employe');?>
               </li>
               <li class="<?php if ($this->uri->segment(2)=='onthemap') {
                 echo "active";
               }?>">
                 <?=anchor('home/onthemap', 'Onthemap');?>
               </li>
-              <?php } ?>
-              <?php if ($session_data['username'] == 'manager') { ?>
+              <?php } elseif($session_data['level'] == 'manager'){ ?>
+
               <li class="<?php if ($this->uri->segment(1)=='branch') {
                 echo "active";
               }?>">

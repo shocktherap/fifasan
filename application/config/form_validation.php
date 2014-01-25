@@ -146,6 +146,28 @@ $config = array(
                 'rules' => 'required'
              ),
         ),
+    'employe' => array(
+        array(
+                'field' => 'name',
+                'label' => 'Nama Pegawai',
+                'rules' => 'required'
+             ),
+        array(
+                'field' => 'phone_number',
+                'label' => 'Nomer Telepon',
+                'rules' => 'required'
+             ),
+        array(
+                'field' => 'username',
+                'label' => 'Username',
+                'rules' => 'required'
+             ),
+        array(
+                'field' => 'password',
+                'label' => 'password',
+                'rules' => 'required'
+             ),
+        ),
 );
 
 ?>
