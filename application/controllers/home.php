@@ -35,7 +35,7 @@ class Home extends CI_Controller
   public function create_project()
   {
     $session_data = $this->session->userdata('login');
-    if ($session_data['level'] == 'manager') {
+    if ($session_data['level'] == 'branch') {
       $branch = $this->managers->get_branch_by('leader_id',$session_data['id']);
     } elseif($session_data['level'] == 'employe') {
       $branch = $this->managers->get_branch_by('id',$session_data['branch_id']);
