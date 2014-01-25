@@ -39,8 +39,6 @@ if (!$list_project) {
         <td><span class="label label-success">Approved</span></td>
       <?php } ?>
         <td><?=anchor('home/show_project/'.$list->project_id, '<i class="icon-eye-open"></i> Detail');?> || <a data-toggle="modal" href="#myModal<?=$list->project_id;?>"><i class="icon-trash"></i>Delete</a><?php if ($session_data['level'] == 'employe') { ?>||<?=anchor('home/edit_project/'.$list->project_id, '<i class="icon-edit"></i> Edit');?><?php }?></td> 
-      
-      
     </tr>  
     <?php $data['list'] = $list;
     $this->load->view('home/modal_delete_project', $data);?>
