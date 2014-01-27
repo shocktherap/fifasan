@@ -55,6 +55,7 @@
               }?>">
                 <?=anchor('manager/onthemap', 'Onthemap');?>
               </li>
+              <?php } elseif ($session_data['level'] == 'estimator') { ?>
               <li class="<?php if ($this->uri->segment(1)=='formula') {
                 echo "active";
               }?>">

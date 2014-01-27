@@ -15,7 +15,7 @@ class Home extends CI_Controller
     $this->load->model('general');
     $this->load->model('input_data');
     $this->load->helper('download');
-    
+    $this->load->model('user');    
     session_start();
   }
 
@@ -40,15 +40,16 @@ class Home extends CI_Controller
     } elseif($session_data['level'] == 'employe') {
       $branch = $this->managers->get_branch_by('id',$session_data['branch_id']);
     }
+    $data['branch'] = $branch;
     $this->load->library('googlemaps');
-    $config['center'] = $branch->address;
-    $config['zoom'] = 'auto';
-    $config['onclick'] = 'document.entry.lokasi.value = event.latLng.lat() + \', \' + event.latLng.lng();';
+    $config['center']     = $branch->address;
+    $config['zoom']       = 'auto';
+    $config['onclick']    = 'document.entry.lokasi.value = event.latLng.lat() + \', \' + event.latLng.lng();';
     $this->googlemaps->initialize($config);
     $marker = array();
-    $marker['position'] = $branch->address;
-    $marker['draggable'] = true;
-    $marker['ondragend'] = 'document.entry.lokasi.value = event.latLng.lat() + \', \' + event.latLng.lng();';
+    $marker['position']   = $branch->address;
+    $marker['draggable']  = true;
+    $marker['ondragend']  = 'document.entry.lokasi.value = event.latLng.lat() + \', \' + event.latLng.lng();';
     $this->googlemaps->add_marker($marker);
     
     $data['map'] = $this->googlemaps->create_map();
@@ -57,7 +58,9 @@ class Home extends CI_Controller
     
     if($this->form_validation->run('create_project') == TRUE) {
       if ($this->verify->checknameproject($this->input->post('nama'), $branch->id) == TRUE ) {
-        $this->input_data->create_new_project($branch->id, $session_data['id']);
+        $this->input_data->create_new_project($branch->id
+          );
+        $this->user->update_project($this->input->post('employe'));
         $data = $this->projects->get_last_project();
         $this->input_data->input_pengeluaran($data->project_id);
 
@@ -80,9 +83,12 @@ class Home extends CI_Controller
   }
   public function delete_project($id_project)
   {
+    $project = $this->projects->get_project_by('project_id', $id_project);
+
     $this->input_data->delete_sub($id_project);
     $this->input_data->delete_project($id_project);
     $this->input_data->delete_subtotal($id_project);
+    $this->user->reset_on_project($project->employe_id);
     $info = "Project Berhasil di hapus";
     $this->general->information($info);
     redirect('home/index');
@@ -126,12 +132,16 @@ class Home extends CI_Controller
 
     $this->general->setValidation();
     $data['status'] = $this->projects->get_status();
+    $data_project = $this->projects->get_project_by('project_id', $id_project);
     $data['data_project'] = $this->projects->get_project_by('project_id', $id_project);
     $data['content'] = "home/update_of_project";
     if($this->form_validation->run('create_project') == FALSE) {
       $this->load->view('template',$data);
     } else { 
       $this->input_data->update_project($id_project);
+      if ($this->input->post('status') == 5) {
+        $this->user->reset_on_project($data_project->employe_id);
+      }
       $info = "Project Berhasil di Update";
       $this->general->informationSuccess($info);
       redirect('home/index');
@@ -146,6 +156,7 @@ class Home extends CI_Controller
       $this->load->view('template', $data);
     } else {
       if ($data['user']->password == $this->input->post('old_password')) {
+        $this->user->change_password($session_data['id']);
         $info = "Password berhasil diubah";
         $this->general->informationSuccess($info);
         redirect('home/show_user');   
@@ -176,12 +187,18 @@ class Home extends CI_Controller
   }
   public function delete_file($id, $id_project)
   {
-
+    $this->general->start_engine();
     $key = $this->projects->download_data($id);
+
+    $project = $this->projects->get_project_by('project_id', $id_project);
+    $branch  = $this->managers->get_branch_by('id', $project->branch_id);
+    $path = $branch->name.'-branch/'.$project->nama.'/'.$key->file;
+    $data = $this->dropbox->delete($path, $root='dropbox');
+    
     $string = base_url('filestorage/'.$key->file);
     unlink($string);
-    // $this->input_data->delete_file($id);
 
+    $this->input_data->delete_file($id);
     $info = "File Berhasil Dihapus";
     $this->general->informationSuccess($info);
     redirect('home/show_project/'.$id_project);   

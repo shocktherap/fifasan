@@ -19,7 +19,7 @@
     public function form_new($id_project)
     {
       $session_data = $this->session->userdata('login');
-      $branch = $this->managers->get_branch_by('leader_id',$session_data['id']);
+      $branch = $this->managers->get_branch_by('id',$session_data['branch_id']);
       $project = $this->projects->get_project_by('project_id', $id_project);
       $this->general->setValidation();
       $data['id_project'] = $id_project;
@@ -45,7 +45,7 @@
           $this->load->helper('file');
           $this->input_data->insert_file($id_project, $upload_data['file_name'], $upload_data['file_type']);
 
-          $this->general->start_engine();
+            $this->general->start_engine();
             $dbpath = $branch->name.'-branch/'.$project->nama;
             $filepath = $upload_data['full_path'];
             $data = $this->dropbox->add($dbpath, $filepath, array(), $root='dropbox');

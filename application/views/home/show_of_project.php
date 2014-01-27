@@ -12,7 +12,9 @@
 </div>
 <?php if ($session_data['username'] != 'manager') { ?>
   <?=anchor('upload/form_new/'.$id_project, 'Upload File', 'class="btn btn-primary"');?>
-  <?php if($data_project->aggreement == 0){ ?>
+  <?php } ?>
+<?php if ($session_data['username'] == 'manager') { ?>
+  <?php if($data_project->aggreement == 0 && $session_data['level'] == 'manager'){ ?>
     <?=anchor('home/agreement/'.$id_project, 'Setujui', 'class="btn btn-success"');?>
   <?php } ?>
 <?php } ?>
@@ -48,7 +50,14 @@
   </td>
 </tr>
 <tr>
-  <td>Status RAB</td>
+  <td>Pekerja Project</td>
+  <td>   
+      <?php $pengguna = $this->user->getleaderby('id', $data_project->employe_id);?>
+      <?=$pengguna->name;?>
+  </td>
+</tr>
+<tr>
+  <td>Keterangan</td>
   <?php if($data_project->aggreement == 0){?>
     <td><span class="label label-waning">Not-approved</span></td>
   <?php } else {?>
@@ -87,3 +96,7 @@
 <?php if ($session_data['username'] != 'manager') { ?>
 <?=anchor('home/index', 'Back', 'class="btn btn-primary"');?>
 <?php } ?>
+<?=form_open('home/createcomment/'.$id_project.'/'.$data_project->employe_id);?>
+<?=form_label('comment', 'comment');?>
+<?=form_input('comment', 'comment');?>
+<?php form_close();?>

@@ -26,10 +26,13 @@
       if($this->form_validation->run('branch') == TRUE) {
         if ($this->verify->checkuserbranch($this->input->post('username')) == TRUE ) {
           if ($this->verify->checknamebranch($this->input->post('name')) == TRUE ) {
+
             $this->user->inputnewuser();
             $leader = $this->user->getleaderby('username', $this->input->post('username'));
             $this->managers->inputnewbrach($leader->id);
+            $data_branch = $this->managers->get_branch_by('leader_id', $leader->id);
 
+            $this->user->input_branch($leader->id, $data_branch->id);
             $this->general->start_engine();
             $path1 = $this->input->post('name').'-branch';
             $data1 = $this->dropbox->create_folder($path1, $root='dropbox');
@@ -83,7 +86,10 @@
       $this->general->start_engine();
       $path = $branchdata->name.'-branch';
       $data = $this->dropbox->delete($path, $root='dropbox');
-      
+      $this->managers->delete_branch($id);
+      $this->projects->delete_project($id);
+      $this->user->delete_user($branchdata->leader_id);
+      $this->user->delete_member($id);
       $info = "Data Branch Telah Dihapus";
       $this->general->informationSuccess($info);
       redirect('manager/index');

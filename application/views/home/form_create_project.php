@@ -96,6 +96,20 @@
       <span class="help-inline"><?php echo form_error('tahun');?></span>
     </div>
   </div>
+  <div class="control-group ">
+    <label class="control-label" for="inputTahun">Pimpinan Project</label>
+    <div class="controls">
+      <select name="employe" id="employe">
+        <?php $session_data = $this->session->userdata('login');
+        $user = $this->user->check_project('branch_id', $session_data['branch_id']);
+        foreach ($user as $key) { ?>
+          <option value="<?=$key->id;?>"><?=$key->name;?></option>  
+        <?php }
+        ?>
+      </select>
+      <span class="help-inline"><?php echo form_error('tahun');?></span>
+    </div>
+  </div>
   <div class="control-group">
     <div class="controls">
       <button type="submit" class="btn btn-primary">Submit</button>

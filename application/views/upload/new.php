@@ -1,4 +1,3 @@
-
 <?php 
   $attributes = array('class' => 'form_inline', 'id' => 'myform', 'name' => 'upload');
   echo form_open_multipart('upload/form_new/'.$id_project, $attributes);

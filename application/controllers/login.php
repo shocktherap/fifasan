@@ -39,8 +39,8 @@
               redirect('home');
             } elseif ($datalevel->level == 'employe') {
               redirect('home');
-            } elseif ($datalevel->level == 'user3') {
-              redirect('home/user3');
+            } elseif ($datalevel->level == 'estimator') {
+              redirect('formula/index');
             } elseif ($datalevel->level == 'manager') {
               redirect('manager');
             }
