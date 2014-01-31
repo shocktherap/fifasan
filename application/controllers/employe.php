@@ -12,15 +12,20 @@ class Employe extends CI_Controller
     $this->load->model('user'); 
     $this->load->model('verify');
     $this->load->model('general');
+    $this->load->model('projects');
+    $this->load->model('get_data');
     session_start();
   }
 
   public function index()
   {
     $session_data = $this->session->userdata('login');
-    $branch = $this->managers->get_branch_by('leader_id',$session_data['id']);
-
-    $data['employe'] = $this->user->getuserusing('branch_id', $branch->id);
+    if ($session_data['level'] == 'branch') {
+      $branch = $this->managers->get_branch_by('leader_id',$session_data['id']);
+      $data['employe'] = $this->user->getuserusing('branch_id', $branch->id);
+    } elseif($session_data['level'] == 'estimator'){
+      $data['employe'] = $this->user->get_all_user();
+    }
     $data['content'] = "employe/index";
     $this->load->view('template', $data);
   }
@@ -60,6 +65,13 @@ class Employe extends CI_Controller
     $info = "Password Pegawai Telah Direset (12345) ";
     $this->general->informationSuccess($info);
     redirect('employe/index'); 
+  }
+
+  public function show_project($employe_id)
+  {
+    $data['project'] = $this->projects->get_project_using('employe_id', $employe_id);
+    $data['content'] = 'employe/show_project';
+    $this->load->view('template', $data);
   }
 }
 ?>

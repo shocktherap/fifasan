@@ -114,6 +114,12 @@ class User extends CI_Model
     $object = array('on_project' => 0);
     $this->db->update('users', $object);  
   }
+
+  public function get_all_user()
+  {
+    $query = $this->db->get('users');
+    return $query->result();
+  }
 }
 
 

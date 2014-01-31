@@ -1,8 +1,14 @@
+<?php
+  $session_data = $this->session->userdata('login');
+?>
+<?php if ($session_data['level'] == 'branch') { ?>
 <?=anchor('employe/createemploye', 'Create Employe', 'class="btn"');?>
+<?php } ?>
 <table class="table table-bordered">
 <thead>
   <th>No</th>
   <th>Nama</th>
+  <th>Nomer Telepon</th>
   <th>Username</th>
 </thead>
 <tbody>
@@ -10,7 +16,8 @@
   <?php foreach ($employe as $key) { ?>
   <tr>
     <td><?=$number+=1;?></td>
-    <td><?=$key->name;?></td>
+    <td><?=anchor('employe/show_project/'.$key->id, $key->name);?></td>
+    <td><?=$key->phone_number;?></td>
     <td><?=$key->username;?></td>
     <td><a data-toggle="modal" href="#myModal<?=$key->id;?>"><i class="icon-trash"></i>Delete</a></td>
     <?php 

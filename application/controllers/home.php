@@ -58,15 +58,16 @@ class Home extends CI_Controller
     
     if($this->form_validation->run('create_project') == TRUE) {
       if ($this->verify->checknameproject($this->input->post('nama'), $branch->id) == TRUE ) {
-        $this->input_data->create_new_project($branch->id
-          );
+        $this->input_data->create_new_project($branch->id);
         $this->user->update_project($this->input->post('employe'));
         $data = $this->projects->get_last_project();
+        
         $this->input_data->input_pengeluaran($data->project_id);
+        $this->input_data->initmilestone($data->project_id);
 
-        $this->general->start_engine();
-        $path1 = $branch->name.'-branch/'.$this->input->post('nama');
-        $data1 = $this->dropbox->create_folder($path1, $root='dropbox');
+        // $this->general->start_engine();
+        // $path1 = $branch->name.'-branch/'.$this->input->post('nama');
+        // $data1 = $this->dropbox->create_folder($path1, $root='dropbox');
 
         $info = "Project Berhasil di tambah";
         $this->general->informationSuccess($info);
@@ -90,7 +91,7 @@ class Home extends CI_Controller
     $this->input_data->delete_subtotal($id_project);
     $this->user->reset_on_project($project->employe_id);
     $info = "Project Berhasil di hapus";
-    $this->general->information($info);
+    $this->general->informationSuccess($info);
     redirect('home/index');
   }
   public function show_project($id_project)
@@ -129,16 +130,17 @@ class Home extends CI_Controller
     $this->googlemaps->add_marker($marker);
     
     $data['map'] = $this->googlemaps->create_map();
-
     $this->general->setValidation();
     $data['status'] = $this->projects->get_status();
     $data_project = $this->projects->get_project_by('project_id', $id_project);
+
     $data['data_project'] = $this->projects->get_project_by('project_id', $id_project);
     $data['content'] = "home/update_of_project";
     if($this->form_validation->run('create_project') == FALSE) {
       $this->load->view('template',$data);
     } else { 
       $this->input_data->update_project($id_project);
+      $this->input_data->create_milestone($id_project);
       if ($this->input->post('status') == 5) {
         $this->user->reset_on_project($data_project->employe_id);
       }

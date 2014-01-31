@@ -187,6 +187,27 @@ class Get_data extends CI_Model
     return $query->row();
   }
   
-  
+  public function last_milestone($project_id)
+  {
+    $this->db->where('project_id', $project_id);
+    $this->db->order_by('tanggal', 'desc');
+    $query = $this->db->get('milestone', 1);
+    return $query->row();
+  }
+
+  public function status_row()
+  {
+    $query = $this->db->get('status');
+    return $query->num_rows();
+  }
+
+  public function get_milestone($id_project, $status_id)
+  {
+    $this->db->where('project_id', $id_project);
+    $this->db->where('status_id', $status_id);
+    $this->db->order_by('tanggal', 'desc');
+    $query = $this->db->get('milestone', 1);
+    return $query->row();
+  }
 }
 ?>

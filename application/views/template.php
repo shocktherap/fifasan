@@ -44,7 +44,6 @@
                 <?=anchor('home/onthemap', 'Onthemap');?>
               </li>
               <?php } elseif($session_data['level'] == 'manager'){ ?>
-
               <li class="<?php if ($this->uri->segment(1)=='branch') {
                 echo "active";
               }?>">
@@ -60,6 +59,11 @@
                 echo "active";
               }?>">
                 <?=anchor('formula/index', 'Formula');?>
+              </li>
+              <li class="<?php if ($this->uri->segment(1)=='employe') {
+                echo "active";
+              }?>">
+                <?=anchor('employe', 'Employe');?>
               </li>
               <li class="<?php if ($this->uri->segment(1)=='pekerjaan') {
                 echo "active";

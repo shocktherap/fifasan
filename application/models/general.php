@@ -136,39 +136,38 @@ class General extends CI_Model
 
     public function checkpass()
     {
-        $session_data = $this->session->userdata('login');
-        $username = $session_data['username'];
-        $hash = $this->encrypt->sha1($this->input->post('oldpassword'));
-        $this->db->where('username', $username);
-        $this->db->where('password', $hash);
-        $query = $this->db->get('user');
-            if ($query->num_rows() == 1)
-                {
-                    return TRUE;
-                } elseif ($query->num_rows() > 1) {
-                    return FALSE;
-                }
-
+      $session_data = $this->session->userdata('login');
+      $username = $session_data['username'];
+      $hash = $this->encrypt->sha1($this->input->post('oldpassword'));
+      $this->db->where('username', $username);
+      $this->db->where('password', $hash);
+      $query = $this->db->get('user');
+      if ($query->num_rows() == 1)
+      {
+          return TRUE;
+      } elseif ($query->num_rows() > 1) {
+          return FALSE;
+      }
     }
 
     public function checkbulantahun($bulan, $tahun)
     {
-        if ($bulan > 2013 && $bulan < 0) {
-            redirect('home/warning');
-        }
-        if ($tahun < 2012 && $tahun > 2017) {
-            redirect('home/warning');
-        }
+      if ($bulan > 2013 && $bulan < 0) {
+          redirect('home/warning');
+      }
+      if ($tahun < 2012 && $tahun > 2017) {
+          redirect('home/warning');
+      }
     }
 
     function setValidation() {
-        $this->form_validation->set_message('required', '%s Harap Diisi');
-        $this->form_validation->set_message('valid_email', '%s tidak benar');
-        $this->form_validation->set_message('min_length', '%s minimal 4 character');
-        $this->form_validation->set_message('max_length', '%s maximal 32 character');
-        $this->form_validation->set_message('exact_length', '%s harus 4 angkar');
-        $this->form_validation->set_message('numeric', '%s Harap Diisi dengan angka');
-        $this->form_validation->set_message('matches', 'password dan confirm password harus sama');
+      $this->form_validation->set_message('required', '%s Harap Diisi');
+      $this->form_validation->set_message('valid_email', '%s tidak benar');
+      $this->form_validation->set_message('min_length', '%s minimal 4 character');
+      $this->form_validation->set_message('max_length', '%s maximal 32 character');
+      $this->form_validation->set_message('exact_length', '%s harus 4 angkar');
+      $this->form_validation->set_message('numeric', '%s Harap Diisi dengan angka');
+      $this->form_validation->set_message('matches', 'password dan confirm password harus sama');
     }
 }
 

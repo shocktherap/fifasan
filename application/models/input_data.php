@@ -19,7 +19,6 @@ class Input_data extends CI_Model
       'pemilik'   => $this->input->post('owner'),
       'tahun'     => $this->input->post('tahun'),
       'alamat'     => $this->input->post('alamat'),
-      'status_id' => 1,
       'subpekerjaan' => 0,
       'aggreement' => 0,
       'branch_id' => $id,
@@ -27,6 +26,43 @@ class Input_data extends CI_Model
     );
     $this->db->insert('projects', $data);
   }
+
+  public function initmilestone($id_project)
+  {
+    $this->load->helper('date');
+    $now = time();
+    $timestamp = $now;
+    $timezone = 'UM1';
+    $daylight_saving = FALSE;
+    $GMY = gmt_to_local($timestamp, $timezone, $daylight_saving);
+    $human = unix_to_human($GMY);
+
+    $object = array(
+      'status_id'   => 1, 
+      'tanggal'     => $human,
+      'project_id'  => $id_project
+    );
+    $this->db->insert('milestone', $object);
+  }
+
+  public function create_milestone($id_project)
+  {
+    $this->load->helper('date');
+    $now = time();
+    $timestamp = $now;
+    $timezone = 'UM1';
+    $daylight_saving = FALSE;
+    $GMY = gmt_to_local($timestamp, $timezone, $daylight_saving);
+    $human = unix_to_human($GMY);
+
+    $object = array(
+      'project_id'  => $id_project,
+      'status_id'   => $this->input->post('status'),
+      'tanggal'     => $human
+    );
+    $this->db->insert('milestone', $object);
+  }
+
   public function delete_project($id_project)
   {
     $this->db->where('project_id', $id_project);

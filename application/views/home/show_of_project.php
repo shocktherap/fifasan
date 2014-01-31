@@ -1,15 +1,34 @@
 <?php 
+  error_reporting(1);
   echo $map['js']; 
 ?>    
 <?php $session_data = $this->session->userdata('login');?>
 <?php echo $map['html']; ?>
-
   <?php $status = $this->get_data->get_nama_status($data_project->status_id);?>
-
 <label>Progres</label>
 <div class="progress progress-striped active">
   <div class="bar" style="width: <?=$data_project->status_id*20;?>%;"><?=$data_project->status_id*20;?>% | <?=$status->name?></div>
 </div>
+<table class="table table-condensed">
+  <thead>
+    <th>Status</th>
+    <th>Time</th>
+  </thead>
+  <tbody>
+    <?php $row = $this->get_data->status_row();
+    for ($i=1; $i <= $row; $i++) { 
+      $miles = $this->get_data->get_milestone($data_project->project_id, $i);
+      $status2 = $this->get_data->get_nama_status($miles->status_id);
+    ?>
+    <tr>
+      <td><?=$status2->name;?></td>
+      <td><?=$miles->tanggal;?></td>
+    </tr>
+    <?php
+    }
+    ?>
+  </tbody>
+</table>
 <?php if ($session_data['username'] != 'manager') { ?>
   <?=anchor('upload/form_new/'.$id_project, 'Upload File', 'class="btn btn-primary"');?>
   <?php } ?>
