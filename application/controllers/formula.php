@@ -11,6 +11,8 @@ class Formula extends CI_Controller
     $this->load->model('get_data');
     $this->load->model('general');
     $this->load->model('input_data');
+    $this->load->model('branch');
+    $this->load->model('managers');
     session_start();
   }
   public function index()
@@ -56,6 +58,21 @@ class Formula extends CI_Controller
       $data['content'] = "formula/formula_form_new";
     }
     $this->load->view('template',$data); 
+  }
+
+  public function set_basic_price($formula_id)
+  {
+    $data['formula_id']       = $formula_id;
+    $data['content']          = 'formula/set_basic_price';
+    $this->load->view('template', $data);
+  }
+
+  public function update_basic_price($formula_id)
+  {
+    $this->input_data->update_multiple($formula_id);
+    $info = "Fomula Berhasil di ubah";
+    $this->general->informationSuccess($info);
+    redirect('formula/set_basic_price/'.$formula_id);
   }
 }
 ?>

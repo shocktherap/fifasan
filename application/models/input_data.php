@@ -7,6 +7,7 @@ class Input_data extends CI_Model
   
   function __construct()
   {
+    $this->load->model('branch');
     parent::__construct();
   }
 
@@ -230,10 +231,10 @@ class Input_data extends CI_Model
   public function insert_file($project_id, $file_name, $file_type)
   {
     $object = array(
-      'project_id' => $project_id,
+      'project_id'  => $project_id,
       'description' => $this->input->post('description'),
-      'file' => $file_name,
-      'tipe' => $file_type
+      'file'        => $file_name,
+      'tipe'        => $file_type
        );
     $this->db->insert('storage', $object);
   }
@@ -241,6 +242,61 @@ class Input_data extends CI_Model
   {
     $this->db->where('id', $id);
     $this->db->delete('storage');
+  }
+
+  public function init_multiple_formula($branch_id, $formula_id, $harga_dasar, $harga_item )
+  {
+    $object = array(
+      'formula_id'        => $formula_id,
+      'branch_id'         => $branch_id,
+      'harga_dasar'       => $harga_dasar,
+      'harga_item'        => $harga_item
+    );
+    $this->db->insert('multiple_formula', $object);
+  }
+
+  public function delete_multiple($branch_id)
+  {
+    $this->db->where('branch_id', $branch_id);
+    $this->db->delete('multiple_formula');
+  }
+
+  public function update_multiple($formula_id)
+  {
+    $branch = $this->branch->get_all_branch();
+    foreach ($branch as $key) {
+      $object = array(
+        'harga_dasar'         => $this->input->post('formula'.$key->id),
+        'harga_item'          => $this->input->post('total'.$key->id),
+      );
+      $this->db->where('formula_id', $formula_id);
+      $this->db->where('branch_id', $key->id);
+      $this->db->update('multiple_formula', $object);
+    }
+  }
+
+  public function init_formula_branch($branch_id, $subpekerjaan_id, $harga_satuan)
+  {
+    $object = array(
+      'branch_id' => $branch_id, 
+      'subpekerjaan_id' => $subpekerjaan_id,
+      'harga_satuan'  => $harga_satuan
+    );
+    $this->db->insert('formula_branch', $object);
+  }
+
+  public function input_formula_branch($subpekerjaan_id, $branch_id, $harga_satuan)
+  {
+    $this->db->where('subpekerjaan_id', $subpekerjaan_id);
+    $this->db->where('branch_id', $branch_id);
+    $object = array('harga_satuan' => $harga_satuan);
+    $this->db->update('formula_branch', $object);
+  }
+
+  public function delete_formula_branch($branch_id)
+  {
+    $this->db->where('branch_id', $branch_id);
+    $this->db->delete('formula_branch');
   }
 }
 ?>

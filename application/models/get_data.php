@@ -16,7 +16,6 @@ class Get_data extends CI_Model
     $query = $this->db->get('users', 1);
     return $query->row();
   }
-
   
   public function get_nama_status($id_status)
   {
@@ -24,8 +23,7 @@ class Get_data extends CI_Model
     $query = $this->db->get('status', 1);
     return $query->row();
   }
-  
-  
+    
   public function get_pekerjaan()
   {
     $this->db->where('id >=', 2);
@@ -37,6 +35,11 @@ class Get_data extends CI_Model
     $this->db->where('id >=', 2);
     $query = $this->db->get('pekerjaan');
     return $query->num_rows();
+  }
+  public function get_all_subpekerjaan()
+  {
+    $query = $this->db->get('subpekerjaan');
+    return $query->result();
   }
   public function get_subpekerjaan_rows()
   {
@@ -207,6 +210,28 @@ class Get_data extends CI_Model
     $this->db->where('status_id', $status_id);
     $this->db->order_by('tanggal', 'desc');
     $query = $this->db->get('milestone', 1);
+    return $query->row();
+  }
+
+  public function get_multiple_by($branch_id, $formula_id)
+  {
+    $this->db->where('branch_id', $branch_id);
+    $this->db->where('formula_id', $formula_id);
+    $query = $this->db->get('multiple_formula');
+    return $query->row();
+  }
+  
+  public function get_all_formula()
+  {
+    $query = $this->db->get('formula');
+    return $query->result();
+  }
+
+  public function get_branch_formula($branch_id, $subpekerjaan_id)
+  {
+    $this->db->where('branch_id', $branch_id);
+    $this->db->where('subpekerjaan_id', $subpekerjaan_id);
+    $query = $this->db->get('formula_branch');
     return $query->row();
   }
 }

@@ -123,7 +123,7 @@
       <footer>
         <!-- <div class="container"> -->
           <p class="pull-right"><a href="#">Back to top</a></p>
-          <p>Designed and built with love to Fifasan by <a href="http://twitter.com/twitter" target="_blank">@izqil</a> </p>
+          <p>Designed and built with love to Fifasan by <a href="http://twitter.com/izqil" target="_blank">@izqil</a> </p>
         <!-- </div> -->
       </footer>
     </div>

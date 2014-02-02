@@ -39,7 +39,8 @@
     document.form.pembulatan.value = total_bersih
   }
 </script>
-
+<?php $userdata = $this->session->userdata('login');
+?>
 <h3>Daftar Subpekerjaan</h3>
 <?=form_open('subproject/rab/'.$id_project,'name="form"');?>
 <?php 
@@ -59,17 +60,18 @@
       <td class="span1">Jumlah</td>
     </tr>
   </thead>
-    <?php $data = $this->get_data->get_subprojectpekerjaan2($id_project,$key->id);
+    <?php $data = $this->get_data->get_subprojectpekerjaan2($id_project, $key->id);
       $number = 0;
       foreach ($data as $pekerjaan_data) { ?>
       <tr>
         <?php $value = $this->get_data->get_row_value($id_project, $pekerjaan_data->subpekerjaan_id);?>
+        <?php $formula_branch = $this->get_data->get_branch_formula($userdata['branch_id'], $pekerjaan_data->subpekerjaan_id);?>
         <?php $number_id+=1; 
         $number+=1;
         ?>
         <td><?=$number;?></td>
         <td><?=$pekerjaan_data->nama; ?></td>
-        <td><input id="harga_satuan<?=$number_id;?>" type="text" name="harga_satuan_<?=$work_id;?>_<?=$number;?>" class="input-small" value="<?=$pekerjaan_data->harga_satuan;?>" disabled></input></td>
+        <td><input id="harga_satuan<?=$number_id;?>" type="text" name="harga_satuan_<?=$work_id;?>_<?=$number;?>" class="input-small" value="<?=$formula_branch->harga_satuan;?>" disabled></input></td>
         <td><input id="volume<?=$number_id;?>" type="text" name="volume_<?=$work_id;?>_<?=$number;?>" class="input-small" onkeyup="sumup<?=$number_id;?>()" onblur="count_sub<?=$pekerjaan_ids;?>()" value="0" ></input></td>
         <td><input id="jumlah_<?=$work_id;?>_<?=$number;?>"type="text" name="jumlah_<?=$work_id;?>_<?=$number;?>" class="input-small" value="0" ></input></td>
       </tr>

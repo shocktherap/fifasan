@@ -11,6 +11,7 @@
       $this->load->model('user');
       $this->load->model('get_data');
       $this->load->model('projects');
+      $this->load->model('input_data');
       session_start();
     }
 
@@ -31,6 +32,15 @@
             $leader = $this->user->getleaderby('username', $this->input->post('username'));
             $this->managers->inputnewbrach($leader->id);
             $data_branch = $this->managers->get_branch_by('leader_id', $leader->id);
+            
+            $subpekerjaan = $this->get_data->get_all_formula();
+            foreach ($subpekerjaan as $key) {
+               $this->input_data->init_multiple_formula($data_branch->id, $key->id, 0, 0);
+             }
+            $subpekerjaan = $this->get_data->get_all_subpekerjaan();
+            foreach ($subpekerjaan as $key) {
+               $this->input_data->init_formula_branch($data_branch->id, $key->id, 0);
+             } 
 
             $this->user->input_branch($leader->id, $data_branch->id);
             $this->general->start_engine();
@@ -82,7 +92,8 @@
     public function delete_branch($id)
     {
       $branchdata = $this->managers->get_branch_by('id', $id);
-
+      $this->input_data->delete_multiple($branchdata->id);
+      $this->input_data->delete_formula_branch($branchdata->id);
       $this->general->start_engine();
       $path = $branchdata->name.'-branch';
       $data = $this->dropbox->delete($path, $root='dropbox');
