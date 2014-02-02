@@ -100,24 +100,23 @@ class Subproject extends CI_Controller
     $this->cezpdf->ezText("Rencana Anggaran Biaya", 16, array('justification' => 'center'));    
     $this->cezpdf->ezText("", 10);
     $this->cezpdf->ezText("Nama Project     : ".$project->nama, 12);
-    // $this->cezpdf->ezText("Lokasi Project    : ".$project->lokasi, 12);
-    // $this->cezpdf->ezText("Tahun Project    : ".$project->tahun, 12);
-    // $this->cezpdf->ezText("Jenis Project      : ".$project->jenis, 12);
-    // $this->cezpdf->ezText("Pemilik Project   : ".$project->pemilik, 12);
+    $this->cezpdf->ezText("Lokasi Project    : ".$project->lokasi, 12);
+    $this->cezpdf->ezText("Tahun Project    : ".$project->tahun, 12);
+    $this->cezpdf->ezText("Jenis Project      : ".$project->jenis, 12);
+    $this->cezpdf->ezText("Pemilik Project   : ".$project->pemilik, 12);
     $this->cezpdf->ezText("", 10);
+
     $id = 0;
-
     $pekerjaan = $this->get_data->get_pekerjaan();
-
     foreach ($pekerjaan as $key) {
-      $pekerjaan_data = $this->get_data->get_subprojectpekerjaan2($id_project,$key->id);
+      $pekerjaan_data = $this->get_data->get_subprojectpekerjaan2($id_project, $key->id);
       $no = 0;
+      $nama[$key->id] = $key->nama;
       foreach ($pekerjaan_data as $subpekerjaan) {
         $no+=1;
-        $data[$key->id][] = array('no' => $no, 'item' => $subpekerjaan->nama,'satuan' => $subpekerjaan->satuan, 'harga_satuan' => $subpekerjaan->harga_satuan,'volume' => $subpekerjaan->volume,'total_harga' => $subpekerjaan->pengeluaran);
+        $data[$key->id][] = array('no' => $no, 'item' => $subpekerjaan->nama, 'satuan' => $subpekerjaan->satuan, 'harga_satuan' => $subpekerjaan->harga_satuan,'volume' => $subpekerjaan->volume,'total_harga' => $subpekerjaan->pengeluaran);
       }
     }
-
     $cols = array(
       'no'            => 'No',
       'item'          => 'Item Pekerjaan',
@@ -126,9 +125,17 @@ class Subproject extends CI_Controller
       'volume'        => 'VOL',
       'total_harga'   => 'Total Harga'
     );
+    // $row_pekerjaan = $this->get_data->get_pekerjaan_row();
+    for ($i=2; $i <= 5; $i++) { 
+    $this->cezpdf->ezTable( $data[$i], $cols, $nama[$i],array('width'=>600,'showLines'=>4,'cols'=>array('no' => array('width'=>30),
+        'item'=>array('width'=>270),'satuan'=>array('width'=>40),'harga_satuan'=>array('width'=>80),'volume'=>array('width'=>40),
+        'total_harga'=>array('width'=>70))));
+      $this->cezpdf->ezText("", 10);
+      $this->cezpdf->ezText("", 10);
+    }
 
-    for ($i=2; $i < 11; $i++) { 
-    $this->cezpdf->ezTable( $data[$i], $cols,"$key->nama",array('width'=>600,'showLines'=>4,'cols'=>array('no' => array('width'=>30),
+    for ($i=6; $i <= 10; $i++) { 
+    $this->cezpdf->ezTable( $data[$i], $cols, $nama[$i],array('width'=>600,'showLines'=>4,'cols'=>array('no' => array('width'=>30),
         'item'=>array('width'=>270),'satuan'=>array('width'=>40),'harga_satuan'=>array('width'=>80),'volume'=>array('width'=>40),
         'total_harga'=>array('width'=>70))));
       $this->cezpdf->ezText("", 10);
@@ -148,7 +155,7 @@ class Subproject extends CI_Controller
       'value'      => 'Value'
     );
     $this->cezpdf->ezTable(
-      $datatotal, $cols2,'',array('width'=>400, 'shadeHeadingCol'=>array(0.4,0.6,0.6), 'cols'=>array('keterangan'=>array('justification'=>'left', 'width'=>250), 'value'=>array('justification'=>'left', 'width'=>100))));
+    $datatotal, $cols2,'',array('width'=>400, 'shadeHeadingCol'=>array(0.4,0.6,0.6), 'cols'=>array('keterangan'=>array('justification'=>'left', 'width'=>250), 'value'=>array('justification'=>'left', 'width'=>100))));
     $this->cezpdf->ezText("", 10);
     $this->cezpdf->ezText("Harga Diatas Belum termasuk: ", 11);
     $this->cezpdf->ezText("1. Pemasangan instalasi listrik PLN", 10);

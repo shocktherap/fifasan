@@ -21,6 +21,7 @@ class Input_data extends CI_Model
       'tahun'     => $this->input->post('tahun'),
       'alamat'     => $this->input->post('alamat'),
       'subpekerjaan' => 0,
+      'status_id' => 1,
       'aggreement' => 0,
       'branch_id' => $id,
       'employe_id' => $this->input->post('employe')
