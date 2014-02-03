@@ -65,9 +65,9 @@ class Home extends CI_Controller
         $this->input_data->input_pengeluaran($data->project_id);
         $this->input_data->initmilestone($data->project_id);
 
-        // $this->general->start_engine();
-        // $path1 = $branch->name.'-branch/'.$this->input->post('nama');
-        // $data1 = $this->dropbox->create_folder($path1, $root='dropbox');
+        $this->general->start_engine();
+        $path1 = $branch->name.'-branch/'.$this->input->post('nama');
+        $data1 = $this->dropbox->create_folder($path1, $root='dropbox');
 
         $info = "Project Berhasil di tambah";
         $this->general->informationSuccess($info);
@@ -174,18 +174,18 @@ class Home extends CI_Controller
   {
     $key = $this->projects->download_data($id);
     $session_data = $this->session->userdata('login');
-    $branch = $this->managers->get_branch_by('leader_id',$session_data['id']);
+    $branch = $this->managers->get_branch_by('id',$session_data['branch_id']);
     $project = $this->projects->get_project_by('project_id', $key->project_id);
 
-    // $data = file_get_contents(base_url("filestorage/".$key->file)); // Read the file's contents
-    // $name = $key->file;
+    $data = file_get_contents(base_url("filestorage/".$key->file)); // Read the file's contents
+    $name = $key->file;
 
     $this->general->start_engine();
     $path = $branch->name.'-branch/'.$project->nama.'/'.$key->file;
     $destination = 'filestorage/'.$key->file;
     $this->dropbox->get($destination, $path, $root='dropbox');
 
-    // force_download($name, $data);
+    force_download($name, $data);
   }
   public function delete_file($id, $id_project)
   {
@@ -197,7 +197,7 @@ class Home extends CI_Controller
     $path = $branch->name.'-branch/'.$project->nama.'/'.$key->file;
     $data = $this->dropbox->delete($path, $root='dropbox');
     
-    $string = base_url('filestorage/'.$key->file);
+    $string = 'filestorage/'.$key->file;
     unlink($string);
 
     $this->input_data->delete_file($id);
@@ -246,6 +246,10 @@ class Home extends CI_Controller
     $this->general->informationSuccess($info);
     redirect('home/show_project/'.$id_project);   
   }
-
+  public function deletepo()
+  {
+    $data = "filestorage/-_!_2.jpg";
+    unlink($data);
+  }
 }
 ?>
