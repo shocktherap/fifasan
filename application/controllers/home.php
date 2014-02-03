@@ -239,5 +239,13 @@ class Home extends CI_Controller
     redirect('home/show_project/'.$id);   
   }
 
+  public function createcomment($id_project, $user_id)
+  {
+    $this->input_data->init_comment($id_project, $user_id);
+    $info = "Comment Telah ditambah";
+    $this->general->informationSuccess($info);
+    redirect('home/show_project/'.$id_project);   
+  }
+
 }
 ?>

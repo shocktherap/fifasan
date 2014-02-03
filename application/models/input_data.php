@@ -299,5 +299,24 @@ class Input_data extends CI_Model
     $this->db->where('branch_id', $branch_id);
     $this->db->delete('formula_branch');
   }
+
+  public function init_comment($id_project, $user_id)
+  {
+    $this->load->helper('date');
+    $now = time();
+    $timestamp = $now;
+    $timezone = 'UM1';
+    $daylight_saving = FALSE;
+    $GMY = gmt_to_local($timestamp, $timezone, $daylight_saving);
+    $human = unix_to_human($GMY);
+
+    $object = array(
+      'project_id'  => $id_project, 
+      'user_id'     => $user_id,
+      'comment'     => $this->input->post('comment'),
+      'time'        => $human
+    );
+    $this->db->insert('comments', $object);
+  }
 }
 ?>

@@ -29,9 +29,7 @@
     ?>
   </tbody>
 </table>
-<?php if ($session_data['username'] != 'manager') { ?>
   <?=anchor('upload/form_new/'.$id_project, 'Upload File', 'class="btn btn-primary"');?>
-  <?php } ?>
 <?php if ($session_data['username'] == 'manager') { ?>
   <?php if($data_project->aggreement == 0 && $session_data['level'] == 'manager'){ ?>
     <?=anchor('home/agreement/'.$id_project, 'Setujui', 'class="btn btn-success"');?>
@@ -115,7 +113,20 @@
 <?php if ($session_data['username'] != 'manager') { ?>
 <?=anchor('home/index', 'Back', 'class="btn btn-primary"');?>
 <?php } ?>
-<?=form_open('home/createcomment/'.$id_project.'/'.$data_project->employe_id);?>
-<?=form_label('comment', 'comment');?>
+<?=form_open('home/createcomment/'.$id_project.'/'.$session_data['id']);?>
 <?=form_input('comment', 'comment');?>
+<?=form_submit('mysubmit', 'Submit Comment!');?>
 <?php form_close();?>
+<?php $comments = $this->get_data->get_comment_using('project_id', $id_project);
+?>
+<table class="table span7">
+  <?php foreach ($comments as $key) { ?>
+  <tr><?php $user = $this->get_data->get_detail_user($key->user_id);?>
+    <td>
+      <blockquote>
+        <p><?=$key->comment;?></p>
+        <small><?=$user->name;?> <cite title="Source Title"><?=$key->time;?></cite></small>
+      </blockquote>
+  </tr>
+  <?php }?>
+</table>

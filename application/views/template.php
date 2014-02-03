@@ -65,6 +65,11 @@
               }?>">
                 <?=anchor('employe', 'Employe');?>
               </li>
+              <li class="<?php if ($this->uri->segment(1)=='branch') {
+                echo "active";
+              }?>">
+                <?=anchor('manager/index', 'Branch');?>
+              </li>
               <li class="<?php if ($this->uri->segment(1)=='pekerjaan') {
                 echo "active";
               }?>">

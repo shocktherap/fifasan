@@ -234,5 +234,13 @@ class Get_data extends CI_Model
     $query = $this->db->get('formula_branch');
     return $query->row();
   }
+
+  public function get_comment_using($params, $value)
+  {
+    $this->db->where($params, $value);
+    $this->db->order_by('time', 'desc');
+    $query = $this->db->get('comments');
+    return $query->result();
+  }
 }
 ?>
