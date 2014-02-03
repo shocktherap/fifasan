@@ -394,11 +394,11 @@ h6 {
     </thead>
 
     <?php $data = $this->get_data->get_subprojectpekerjaan2($id_project,$key->id);
-        $number = 0;
-        $count = 0;
-        foreach ($data as $pekerjaan_data) { ?>
-        <tr></tr>
-        <?php } ?>
+      $number = 0;
+      $count = 0;
+      foreach ($data as $pekerjaan_data) { ?>
+      <tr></tr>
+      <?php } ?>
   </table>
 
   <?php }?>
