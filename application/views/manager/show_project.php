@@ -9,6 +9,7 @@ if (!$list_project) {
       <th>No</th>
       <th>Nama</th>
       <th>Status</th>
+      <th>Keterangan</th>
       <th>Actions</th>
     </tr>
     <?php $number=0; ?>
@@ -21,8 +22,12 @@ if (!$list_project) {
         <td><?php print_r($key->nama);?></td>
       <?php } ?>
       <td><?php $status = $this->get_data->get_nama_status($key->status_id); echo $status->name;?></td>
+      <?php if($key->aggreement == 0){?>
+        <td><span class="label label-waning">Not-approved</span></td>
+      <?php } else {?>
+        <td><span class="label label-success">Approved</span></td>
+      <?php } ?>
       <td><?=anchor('home/show_project/'.$key->project_id, 'detail project');?></td>
-      <td></td>
     </tr>  
     <?php } ?>
   </table>

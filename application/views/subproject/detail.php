@@ -121,5 +121,3 @@ if ($row <= 10) { ?>
   <?=anchor('subproject/pdf_output_data/'.$id_project.'/41/'.$row, 'Cetak PDF(4)', 'class ="btn"');?><br />
 <?php }
 ?>
-
-<?=anchor('subproject/aggreement/', 'Setujui Anggaran', 'class ="btn btn-primary"');?>
