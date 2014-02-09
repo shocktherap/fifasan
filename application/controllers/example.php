@@ -69,6 +69,43 @@ class Example extends CI_Controller
         // print_r($c);
 
 	}
+
+  public function excel_call()
+  {
+    $this->load->library('excel');
+    $this->excel->setActiveSheetIndex(0);
+    $this->excel->getActiveSheet()->setTitle('Rencana Anggaran Belanja');
+    $this->excel->getActiveSheet()->setCellValue('A1', 'Rencana Anggaran Belanja');
+    $this->excel->getActiveSheet()->setCellValue('A2', '');
+    $this->excel->getActiveSheet()->setCellValue('A3', 'Nama Project');
+    $this->excel->getActiveSheet()->setCellValue('A4', 'Jenis Project');
+    $this->excel->getActiveSheet()->setCellValue('A5', 'Alamat Project');
+    $this->excel->getActiveSheet()->setCellValue('A6', 'Owner Project');
+    $this->excel->getActiveSheet()->setCellValue('A7', 'Pekerja Project');
+    $this->excel->getActiveSheet()->setCellValue('B3', 'TEST');
+    $arrayData = array(
+      array(NULL, 2010, 2011, 2012),
+      array('Q1',   12,   15,   21),
+      array('Q2',   56,   73,   86),
+      array('Q3',   52,   61,   69),
+      array('Q4',   30,   32,    0),
+    );
+    $this->excel->getActiveSheet()
+        ->fromArray(
+            $arrayData,  // The data to set
+            NULL,        // Array values with this value will not be set
+            'C3'         // Top left coordinate of the worksheet range where
+                         //    we want to set these values (default is A1)
+        );
+    $filename = 'Rencana Anggaran Belanja.xls'; //save our workbook as this file name
+    header('Content-Type: application/vnd.ms-excel'); //mime type
+    header('Content-Disposition: attachment;filename="'.$filename.'"'); //tell browser what's the file name
+    header('Cache-Control: max-age=0');
+    $objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel5');
+    $objWriter->save('php://output');
+
+
+  }
 }
 
 /* End of file example.php */

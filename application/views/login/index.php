@@ -54,10 +54,10 @@
 	      <div class="span4">
 	      </div>
 	    </div>
-
 	    <hr class="soften">
 	  </div>
 	</div>
+	<?php $_SERVER['DOCUMENT_ROOT'];?>
 <?=$this->load->view('script');?>
 </body>
 </html>
