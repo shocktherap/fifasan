@@ -246,10 +246,81 @@ class Home extends CI_Controller
     $this->general->informationSuccess($info);
     redirect('home/show_project/'.$id_project);   
   }
+
   public function deletepo()
   {
     $data = "filestorage/-_!_2.jpg";
     unlink($data);
+  }
+
+  public function excel_print($id_project)
+  {
+    $project = $this->projects->get_project_by('project_id', $id_project);
+    $this->load->library('excel');
+    $this->excel->setActiveSheetIndex(0);
+    $this->excel->getActiveSheet()->setTitle('Rencana Anggaran Belanja');
+    $this->excel->getActiveSheet()->setCellValue('A1', 'Rencana Anggaran Belanja');
+    $this->excel->getActiveSheet()->setCellValue('A2', '');
+    $this->excel->getActiveSheet()->setCellValue('A3', 'Nama Project');
+    $this->excel->getActiveSheet()->setCellValue('A4', 'Jenis Project');
+    $this->excel->getActiveSheet()->setCellValue('A5', 'Alamat Project');
+    $this->excel->getActiveSheet()->setCellValue('A6', 'Owner Project');
+    $this->excel->getActiveSheet()->setCellValue('A7', 'Pekerja Project');
+    $this->excel->getActiveSheet()->setCellValue('B3', $project->nama);
+    $this->excel->getActiveSheet()->setCellValue('B4', $project->jenis);
+    $this->excel->getActiveSheet()->setCellValue('B5', $project->lokasi);
+    $this->excel->getActiveSheet()->setCellValue('B6', $project->pemilik);
+    
+    $pekerjaan = $this->get_data->get_pekerjaan();
+    $number = 9;
+    foreach ($pekerjaan as $key) {
+      $number+=2;
+      $this->excel->getActiveSheet()->setCellValue('A'.$number, $key->nama);
+      $number+=1;
+      $this->excel->getActiveSheet()->setCellValue('A'.$number, 'Nama Subproject');
+      $this->excel->getActiveSheet()->setCellValue('B'.$number, 'Aturan');
+      $this->excel->getActiveSheet()->setCellValue('C'.$number, 'Satuan');
+      $this->excel->getActiveSheet()->setCellValue('D'.$number, 'Harga Satuan');
+      $this->excel->getActiveSheet()->setCellValue('E'.$number, 'Volume');
+      $this->excel->getActiveSheet()->setCellValue('F'.$number, 'Harga Item');
+      $pekerjaan_data = $this->get_data->get_subprojectpekerjaan2($id_project, $key->id);
+      foreach ($pekerjaan_data as $key2) {
+        $number+=1;
+        $this->excel->getActiveSheet()->setCellValue('A'.$number, $key2->nama);    
+        $this->excel->getActiveSheet()->setCellValue('B'.$number, $key2->keterangan_peraturan);    
+        $this->excel->getActiveSheet()->setCellValue('C'.$number, $key2->satuan);    
+        $this->excel->getActiveSheet()->setCellValue('D'.$number, $key2->harga_satuan);    
+        $this->excel->getActiveSheet()->setCellValue('E'.$number, $key2->volume);    
+        $this->excel->getActiveSheet()->setCellValue('F'.$number, $key2->pengeluaran);    
+        }
+    }
+    
+    $rab = $this->get_data->get_total($id_project);
+    $number+=2;
+    $this->excel->getActiveSheet()->setCellValue('A'.$number+=1, 'Total Kotor');
+    $this->excel->getActiveSheet()->setCellValue('B'.$number, $rab->total_kotor);
+    $this->excel->getActiveSheet()->setCellValue('A'.$number+=1, 'Jasa');
+    $this->excel->getActiveSheet()->setCellValue('B'.$number, $rab->jasa.'%');
+    $this->excel->getActiveSheet()->setCellValue('A'.$number+=1, 'Total Bersih');
+    $this->excel->getActiveSheet()->setCellValue('B'.$number, $rab->total_bersih);
+    $this->excel->getActiveSheet()->setCellValue('A'.$number+=1, 'Pembulatan');
+    $this->excel->getActiveSheet()->setCellValue('B'.$number, $rab->pembulatan);
+
+    $number+=2;
+    $this->excel->getActiveSheet()->setCellValue('A'.$number+=1, 'Harga Diatas Belum Termasuk');
+    $this->excel->getActiveSheet()->setCellValue('A'.$number+=1, '1. Pemasangan Instalasi Listrik PLN');
+    $number+=2;
+    $this->excel->getActiveSheet()->setCellValue('D'.$number+=1, 'Moelia Graha Estetika');
+    $number+=2;
+    $this->excel->getActiveSheet()->setCellValue('D'.$number+=1, 'Ir. Masyuri Kurniawan');
+
+
+    $filename = 'Rencana Anggaran Belanja.xls'; //save our workbook as this file name
+    header('Content-Type: application/vnd.ms-excel'); //mime type
+    header('Content-Disposition: attachment;filename="'.$filename.'"'); //tell browser what's the file name
+    header('Cache-Control: max-age=0');
+    $objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel5');
+    $objWriter->save('php://output');
   }
 }
 ?>
