@@ -97,27 +97,4 @@ $session_data = $this->session->userdata('login');
     <td>Rp. <?=number_format($pengeluaran->pembulatan,2,",",".");?></td>
   </tr>
 </table>
-<?php $row = $this->get_data->get_pekerjaan_rows();
-$row+=1;
-if ($row <= 10) { ?>
-  <?=anchor('subproject/pdf_output/'.$id_project.'/2/10', 'Cetak PDF', 'class ="btn"');?><br />
-<?php }elseif ($row >= 11 && $row <= 20) { ?>
-  <?=anchor('subproject/pdf_output/'.$id_project.'/2/10', 'Cetak PDF (1)', 'class ="btn"');?><br />
-  <?=anchor('subproject/pdf_output_data/'.$id_project.'/11/'.$row, 'Cetak PDF (2)', 'class ="btn"');?><br />
-<?php }elseif ($row >= 21 && $row <= 30) { ?>
-  <?=anchor('subproject/pdf_output/'.$id_project.'/2/10', 'Cetak PDF (1)', 'class ="btn"');?><br />
-  <?=anchor('subproject/pdf_output/'.$id_project.'/11/20', 'Cetak PDF (2)', 'class ="btn"');?><br />
-  <?=anchor('subproject/pdf_output_data/'.$id_project.'/21/'.$row, 'Cetak PDF(3)', 'class ="btn"');?><br />
-<?php }elseif ($row >= 31 && $row <= 40) { ?>
-  <?=anchor('subproject/pdf_output/'.$id_project.'/2/10', 'Cetak PDF (1)', 'class ="btn"');?><br />
-  <?=anchor('subproject/pdf_output/'.$id_project.'/11/20', 'Cetak PDF (2)', 'class ="btn"');?><br />
-  <?=anchor('subproject/pdf_output/'.$id_project.'/21/30', 'Cetak PDF (3)', 'class ="btn"');?><br />
-  <?=anchor('subproject/pdf_output_data/'.$id_project.'/31/'.$row, 'Cetak PDF(4)', 'class ="btn"');?><br />
-  <?php }elseif ($row >= 41 && $row <= 50) { ?>
-  <?=anchor('subproject/pdf_output/'.$id_project.'/2/10', 'Cetak PDF (1)', 'class ="btn"');?><br />
-  <?=anchor('subproject/pdf_output/'.$id_project.'/11/20', 'Cetak PDF (2)', 'class ="btn"');?><br />
-  <?=anchor('subproject/pdf_output/'.$id_project.'/21/30', 'Cetak PDF (3)', 'class ="btn"');?><br />
-  <?=anchor('subproject/pdf_output/'.$id_project.'/31/40', 'Cetak PDF (3)', 'class ="btn"');?><br />
-  <?=anchor('subproject/pdf_output_data/'.$id_project.'/41/'.$row, 'Cetak PDF(4)', 'class ="btn"');?><br />
-<?php }
-?>
+<?=anchor('home/excel_print/'.$id_project, 'Print Excel', "class='btn btn-primary'");?>

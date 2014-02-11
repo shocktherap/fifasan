@@ -284,6 +284,7 @@ class Home extends CI_Controller
       $this->excel->getActiveSheet()->setCellValue('E'.$number, 'Volume');
       $this->excel->getActiveSheet()->setCellValue('F'.$number, 'Harga Item');
       $pekerjaan_data = $this->get_data->get_subprojectpekerjaan2($id_project, $key->id);
+      $count = 0;
       foreach ($pekerjaan_data as $key2) {
         $number+=1;
         $this->excel->getActiveSheet()->setCellValue('A'.$number, $key2->nama);    
@@ -292,7 +293,11 @@ class Home extends CI_Controller
         $this->excel->getActiveSheet()->setCellValue('D'.$number, $key2->harga_satuan);    
         $this->excel->getActiveSheet()->setCellValue('E'.$number, $key2->volume);    
         $this->excel->getActiveSheet()->setCellValue('F'.$number, $key2->pengeluaran);    
+        $count+=$key2->pengeluaran;
         }
+      $number+=1;
+      $this->excel->getActiveSheet()->setCellValue('E'.$number, 'Subtotal');    
+      $this->excel->getActiveSheet()->setCellValue('F'.$number, $count);    
     }
     
     $rab = $this->get_data->get_total($id_project);
