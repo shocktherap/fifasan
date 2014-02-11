@@ -137,10 +137,15 @@ class Get_data extends CI_Model
   
   function get_pagin_pekerjaan($limit = array()) {
   $this->db->where('id >=', 2);
-    if ($limit == NULL)
-      return $this->db->get('pekerjaan')->result();
-    else
-      return $this->db->limit($limit['perpage'], $limit['offset'])->get('pekerjaan')->result();
+    if ($limit == NULL){
+      $this->db->order_by('id', 'asc');
+      $query = $this->db->get('pekerjaan');
+      return $query->result();
+    }else{
+      return $this->db->limit(
+        $limit['perpage'], 
+        $limit['offset'])->get('pekerjaan')->result();
+    }
   }
 
   public function get_project_subpekerjaan_row($params, $value, $project_id)

@@ -15,15 +15,16 @@
     }
 
     public function index($offset = 0){
-      $perpage = 10;
+      // $perpage = 15;
       $this->load->library('pagination');
       $config['base_url'] = base_url('pekerjaan/index');
-      $config['total_rows'] = $this->get_data->get_pekerjaan_rows();
-      $config['per_page'] = $perpage; 
-      $this->pagination->initialize($config); 
+      // $config['total_rows'] = $this->get_data->get_pekerjaan_rows();
+      // $config['per_page'] = $perpage; 
+      // $this->pagination->initialize($config); 
 
-      $data['link'] = $this->pagination->create_links();
-      $data['pekerjaan'] = $this->get_data->get_pagin_pekerjaan(array('perpage' => $perpage, 'offset' => $offset));
+      // $data['link'] = $this->pagination->create_links();
+      // $data['pekerjaan'] = $this->get_data->get_pagin_pekerjaan(array('perpage' => $perpage, 'offset' => $offset));
+      $data['pekerjaan'] = $this->get_data->get_pekerjaan();
       $data['content'] = "pekerjaan/index";
       $this->load->view('template',$data);
     }

@@ -20,5 +20,5 @@
   <h3>Data pekerjaan tidak ada</h3>
 <?php } ?>
 <div class="pagination">
-<?=$link;?>
+<?#=$link;?>
 </div>
