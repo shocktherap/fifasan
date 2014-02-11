@@ -7,6 +7,7 @@ $db['default']['hostname']  = 'ec2-54-197-241-95.compute-1.amazonaws.com';
 $db['default']['username']  = 'wchvulojmozzzq';
 $db['default']['password']  = 'yh96QTTwmhKfjlXKciqTfAEYak';
 $db['default']['database']  = 'db6iajlvbhhckf';
+
 // $db['default']['hostname']  = 'localhost';
 // $db['default']['username']  = 'izqil';
 // $db['default']['password']  = 'izqil';

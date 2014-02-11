@@ -27,6 +27,7 @@ class Get_data extends CI_Model
   public function get_pekerjaan()
   {
     $this->db->where('id >=', 2);
+    $this->db->order_by('id', 'asc');
     $query = $this->db->get('pekerjaan');
     return $query->result();
   }
