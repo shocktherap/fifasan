@@ -176,15 +176,12 @@ class Home extends CI_Controller
     $session_data = $this->session->userdata('login');
     $branch = $this->managers->get_branch_by('id',$session_data['branch_id']);
     $project = $this->projects->get_project_by('project_id', $key->project_id);
-
-    $data = file_get_contents(base_url("filestorage/".$key->file)); // Read the file's contents
-    $name = $key->file;
-
     $this->general->start_engine();
     $path = $branch->name.'-branch/'.$project->nama.'/'.$key->file;
     $destination = 'filestorage/'.$key->file;
     $this->dropbox->get($destination, $path, $root='dropbox');
-
+    $data = file_get_contents(base_url("filestorage/".$key->file)); // Read the file's contents
+    $name = $key->file;
     force_download($name, $data);
   }
   public function delete_file($id, $id_project)
