@@ -100,7 +100,6 @@ class Home extends CI_Controller
     $data['storage'] =  $this->projects->get_storage('project_id',$id_project);
     $data['data_project'] = $this->projects->get_project_by('project_id', $id_project);
     $project = $this->projects->get_project_by('project_id', $id_project);
-    
 
     $this->load->library('googlemaps');
     $config['center'] = $project->lokasi;
@@ -177,13 +176,13 @@ class Home extends CI_Controller
     $branch = $this->managers->get_branch_by('id',$session_data['branch_id']);
     $project = $this->projects->get_project_by('project_id', $key->project_id);
     $this->general->start_engine();
-    $path = $branch->name.'-branch/'.$project->nama.'/'.$key->file;
-    $destination = 'filestorage/'.$key->file;
-    $this->dropbox->get($destination, $path, $root='dropbox');
-    $data = file_get_contents(base_url("filestorage/".$key->file)); // Read the file's contents
+    $path = $branch->name.'-branch/'.$project->nama.'/'.$key->file;  
+    $link = $this->dropbox->media($path, $root='dropbox');
+    $data = file_get_contents($link->url);
     $name = $key->file;
     force_download($name, $data);
   }
+
   public function delete_file($id, $id_project)
   {
     $this->general->start_engine();

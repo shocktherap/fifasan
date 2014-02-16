@@ -88,19 +88,22 @@
     <table class="table table-bordered">
       <thead>
       <tr>
+        <td>Name</td>
         <td>File</td>
         <td>Description</td>
         <td>Date</td>
       </tr>
       </thead>
       <tbody>
-        <?php foreach ($storage as $key) { ?>
+        <?php 
+        foreach ($storage as $key) { ?>
         <tr>
+          <?php $pengguna = $this->user->getleaderby('id', $key->user_id);?>
+          <td><?=$pengguna->name;?></td>
           <td><?=$key->tipe;?></td>
           <td><?=$key->description;?></td>
           <td><?=substr($key->date, 0, 19);?></td>
-          
-          <td><?=anchor('home/download/'.$key->id, 'Download', 'class="btn"');?></td>
+          <td><?=anchor("home/download/$key->id", 'Download', 'class="btn"');?></td>
           <td><?=anchor('home/delete_file/'.$key->id.'/'.$id_project, 'Delete', 'attributs');?></td>
         </tr>
         <?php } ?>
@@ -114,7 +117,7 @@
 <?=anchor('home/index', 'Back', 'class="btn btn-primary"');?>
 <?php } ?>
 <?=form_open('home/createcomment/'.$id_project.'/'.$session_data['id']);?>
-<?=form_input('comment', 'comment');?>
+<?=form_input('comment', '');?>
 <?=form_submit('mysubmit', 'Submit Comment!');?>
 <?php form_close();?>
 <?php $comments = $this->get_data->get_comment_using('project_id', $id_project);

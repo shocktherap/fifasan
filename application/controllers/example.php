@@ -48,25 +48,29 @@ class Example extends CI_Controller
 		$this->load->library('dropbox', $params);
 		
         $dbobj = $this->dropbox->account();
+        print_r($dbobj);
 		    // print_r($this->session->userdata('oauth_token'));
         // print_r($dbobj);
         // $path1 = 'basmol-branch/branch';
         // $data1 = $this->dropbox->create_folder($path1, $root='dropbox');
         // $path2 = 'depok-branch/branch';
         // $data2 = $this->dropbox->create_folder($path2, $root='dropbox')basmol-branch/branch;
-        // $path = 'Apps';
-        // $dbpath = 'basmol-branch/branch';
-        // $filepath = '/home/izqil/Pictures/15.jpg';
+        // $path = 'Jakarta-branch/nama/Kartu_Hasil_Studi_19_Desember_2011(4).pdf';
+        // $dbpath = 'Jakarta-branch/branch/15.jpg';
+        // $filepath = 'filestorage/15.jpg';
           // $path = 'uin-branch';
           // $data = $this->dropbox->delete($path, $root='dropbox');
           // print_r($data);
         // $data = $this->dropbox->add($dbpath, $filepath, array(), $root='dropbox');
         // print_r($data);
-        // $data1 = $this->dropbox->metadata($path, array(), $root='dropbox');
-        // print_r($data);
-        // $destination = 'filestorage/c.jpg';
-        // $c = $this->dropbox->get($destination, $path, $root='dropbox');
+        // $data1 = $this->dropbox->metadata($dbpath, array(), $root='dropbox');
+        // print_r($data1);
+        // $destination = 'downloads/a.jpg';
+        // $c = $this->dropbox->get($destination, $dbpath, $root='dropbox');
         // print_r($c);
+        $path = 'Jakarta-branch/nama/format.docx';
+        $link = $this->dropbox->media($path, $root='dropbox');
+        print_r($link);
 
 	}
 
