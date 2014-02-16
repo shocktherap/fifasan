@@ -231,13 +231,22 @@ class Input_data extends CI_Model
   }
   public function insert_file($project_id, $file_name, $file_type, $user_id)
   {
+    $this->load->helper('date');
+    $now = time();
+    $timestamp = $now;
+    $timezone = 'UP7';
+    $daylight_saving = FALSE;
+    $GMY = gmt_to_local($timestamp, $timezone, $daylight_saving);
+    $human = unix_to_human($GMY);
+
     $object = array(
       'project_id'  => $project_id,
       'description' => $this->input->post('description'),
       'file'        => $file_name,
       'tipe'        => $file_type,
-      'user_id'     => $user_id
-       );
+      'user_id'     => $user_id,
+      'date'        => $human
+    );
     $this->db->insert('storage', $object);
   }
   public function delete_file($id)
