@@ -10,7 +10,7 @@ class Pdf extends CI_Controller {
     $this->load->model('projects');
   }
 
-  public function index() {
+  public function index($id_project) {
      $html = '<html>
          <body>
          <?php echo 1;?>
@@ -25,7 +25,7 @@ class Pdf extends CI_Controller {
          </body>
          </html>
          ';
-    $data = 1;
+    $data['id_project'] = $id_project;
     $print = $this->load->view('print', $data, TRUE);
 
     $pdf_filename  = 'report.pdf';
