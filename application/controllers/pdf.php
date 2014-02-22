@@ -11,19 +11,26 @@ class Pdf extends CI_Controller {
   }
 
   public function index() {
-     // $html = '<html>
-     //     <head>
-     //      <title>Print Rincian Rencana Anggaran</title>
-     //     </head>
-     //     <body>
-     //       1
-     //     </body>
-     //     </html>
-     //     ';
-    $html = $this->load->view('html','', true);
+     $html = '<html>
+         <body>
+         <?php echo 1;?>
+           <table border="1">
+           <tr>
+           <td>No</td>
+           <td>Nama</td>
+           <td>Pengeluaran</td>
+           <td>Keterangan</td>
+           </tr>
+           </table>
+         </body>
+         </html>
+         ';
+    $data = 1;
+    $print = $this->load->view('print', $data, TRUE);
+
     $pdf_filename  = 'report.pdf';
     $this->load->library('dompdf_lib');
-    $this->dompdf_lib->convert_html_to_pdf($html, $pdf_filename, true);
+    $this->dompdf_lib->convert_html_to_pdf($print, $pdf_filename, true);
   }
 }
 

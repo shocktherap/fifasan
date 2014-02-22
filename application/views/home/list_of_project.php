@@ -24,6 +24,8 @@ if (!$list_project) {
     <tr>
       <td><?=$number+=1;?></td>
       <?php if ($session_data['level'] == 'branch') { ?>
+        <td><?=anchor('subproject/show/'.$list->project_id, $list->nama , 'attributs');?></td>
+      <?php } elseif ($session_data['level'] == 'manager') { ?>
         <td><?=anchor('subproject/show/'.$list->project_id, $list->nama , 'attributs');?></td>  
       <?php } elseif ($session_data['level'] == 'employe' && $list->status_id > 2) { ?>
         <td><?=anchor('subproject/show/'.$list->project_id, $list->nama , 'attributs');?></td>  
