@@ -97,4 +97,5 @@ $session_data = $this->session->userdata('login');
     <td>Rp. <?=number_format($pengeluaran->pembulatan,2,",",".");?></td>
   </tr>
 </table>
-<?=anchor('home/excel_print/'.$id_project, 'Print Excel', "class='btn btn-primary'");?>
+<?=anchor('home/excel_print/'.$id_project, 'Print Excel', "class='btn'");?>
+<?=anchor('pdf/index/'.$id_project, 'Print PDF', "class='btn btn-info'");?>

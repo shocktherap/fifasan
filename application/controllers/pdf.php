@@ -7,6 +7,7 @@ class Pdf extends CI_Controller {
     parent::__construct();
     $this->load->model('input_data');
     $this->load->model('get_data');
+    $this->load->model('user');
     $this->load->model('projects');
   }
 
@@ -26,6 +27,7 @@ class Pdf extends CI_Controller {
          </html>
          ';
     $data['id_project'] = $id_project;
+    $data['data_project'] = $this->projects->get_project_by('project_id', $id_project);
     $print = $this->load->view('print', $data, TRUE);
 
     $pdf_filename  = 'report.pdf';

@@ -43,6 +43,7 @@ class Subproject extends CI_Controller
     $this->general->informationSuccess($info);
     redirect('home/index');
   }
+  
   public function delete_sub($id_project)
   {
     $this->input_data->delete_sub($id_project);
