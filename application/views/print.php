@@ -3,27 +3,29 @@
     <title>Print PDF Output</title>
   </head>
   <body>
-  <table border='2'>
-    <tr>
-      <td>Nama Project</td>
-      <td>Jenis Project</td>
-      <td>Owner Project</td>
-      <td>Alamat Project</td>
-      <td>Tahun Anggaran Project</td>
-      <td>Pekerja Project</td>
-    </tr>
-    <tr>
-      <td><?=$data_project->nama;?></td>
-      <td><?=$data_project->jenis;?></td>
-      <td><?=$data_project->pemilik;?></td>
-      <td><?=$data_project->alamat;?></td>
-      <td><?=$data_project->tahun;?></td>
-      <td>   
-        <?php $pengguna = $this->user->getleaderby('id', $data_project->employe_id);?>
-        <?=$pengguna->name;?>
-      </td>
-    </tr>
-  </table>
+  <div>  
+    <table>
+      <tr>
+        <td>Nama Project</td>
+        <td>Jenis Project</td>
+        <td>Owner Project</td>
+        <td>Alamat Project</td>
+        <td>Tahun Anggaran Project</td>
+        <td>Pekerja Project</td>
+      </tr>
+      <tr>
+        <td><?=$data_project->nama;?></td>
+        <td><?=$data_project->jenis;?></td>
+        <td><?=$data_project->pemilik;?></td>
+        <td><?=$data_project->alamat;?></td>
+        <td><?=$data_project->tahun;?></td>
+        <td>   
+          <?php $pengguna = $this->user->getleaderby('id', $data_project->employe_id);?>
+          <?=$pengguna->name;?>
+        </td>
+      </tr>
+    </table>
+  </div>
   <?php 
     $pekerjaan = $this->get_data->get_pekerjaan();
     $total = 0;
