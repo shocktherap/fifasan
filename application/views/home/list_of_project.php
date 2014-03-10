@@ -42,7 +42,7 @@ if (!$list_project) {
       <?php } else {?>
         <td><span class="label label-success">Approved</span></td>
       <?php } ?>
-        <td><?php if ($session_data['level'] == 'branch') { ?><a data-toggle="modal" href="#myModal<?=$list->project_id;?>"><i class="icon-trash"></i>Delete</a>||<?php }?><?=anchor('home/edit_project/'.$list->project_id, '<i class="icon-edit"></i> Edit');?>||<?=anchor('home/show_project/'.$list->project_id, '<i class="icon-eye-open"></i> Detail');?></td> 
+        <td><?php if ($session_data['level'] == 'branch') { ?><a data-toggle="modal" href="#myModal<?=$list->project_id;?>"><i class="icon-trash"></i>Delete</a>||<?=anchor('home/edit_project/'.$list->project_id, '<i class="icon-edit"></i> Edit');?>||<?php }?><?=anchor('home/show_project/'.$list->project_id, '<i class="icon-eye-open"></i> Detail');?></td> 
     </tr>  
     <?php $data['list'] = $list;
     $this->load->view('home/modal_delete_project', $data);?>

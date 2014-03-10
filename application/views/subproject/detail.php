@@ -1,6 +1,7 @@
 <?php 
   $this->input_data->delete_subtotal($id_project);
-  $row_pekerjaan = $this->get_data->get_pekerjaan_rows(); 
+  $row_pekerjaan = $this->get_data->get_pekerjaan_rows();
+  $data_project = $this->projects->get_project_by('project_id', $id_project);
   $total_count = 0;
   for ($i=2; $i <= $row_pekerjaan+1; $i++) { 
     $subpekerjaan_count = 0;
@@ -15,7 +16,7 @@
 ?>
 <?php 
 $session_data = $this->session->userdata('login');
-  if ($session_data['level'] != 'manager') { ?>
+  if ($session_data['level'] == 'branch' && $data_project->aggreement == 0) { ?>
   <?=anchor('subproject/edit/'.$id_project, 'Edit RAB', 'class="btn"');?>
 <?php      
   }

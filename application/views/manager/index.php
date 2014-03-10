@@ -1,10 +1,10 @@
 <?php $userdata = $this->session->userdata('login');
-if ($userdata['level'] == 'branch') {?>
+if ($userdata['level'] == 'manager') {?>
 <?=anchor('manager/createbranch', 'Create Branch', 'class ="btn"');?>
 <?php  
 }
 ?>
-
+</br>
 <table class="table table-bordered">
 <thead>
   <th>#</th>

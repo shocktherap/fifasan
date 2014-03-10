@@ -18,9 +18,9 @@
 
     public function form_new($id_project)
     {
-      $session_data = $this->session->userdata('login');
-      $branch = $this->managers->get_branch_by('id',$session_data['branch_id']);
+      $session_data = $this->session->userdata('login');      
       $project = $this->projects->get_project_by('project_id', $id_project);
+      $branch = $this->managers->get_branch_by('id', $project->branch_id);
       $this->general->setValidation();
       $data['id_project'] = $id_project;
       $data['content'] = "upload/new";

@@ -30,11 +30,9 @@
   </tbody>
 </table>
   <?=anchor('upload/form_new/'.$id_project, 'Upload File', 'class="btn btn-primary"');?>
-<?php if ($session_data['username'] == 'manager') { ?>
   <?php if($data_project->aggreement == 0 && $session_data['level'] == 'manager'){ ?>
     <?=anchor('home/agreement/'.$id_project, 'Setujui', 'class="btn btn-success"');?>
   <?php } ?>
-<?php } ?>
 <table class="table table-condensed">
 <tr>
   <td>Nama Project</td>

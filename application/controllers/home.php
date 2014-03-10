@@ -173,8 +173,8 @@ class Home extends CI_Controller
   {
     $key = $this->projects->download_data($id);
     $session_data = $this->session->userdata('login');
-    $branch = $this->managers->get_branch_by('id',$session_data['branch_id']);
     $project = $this->projects->get_project_by('project_id', $key->project_id);
+    $branch = $this->managers->get_branch_by('id',$project->branch_id);
     $this->general->start_engine();
     $path = $branch->name.'-branch/'.$project->nama.'/'.$key->file;  
     $link = $this->dropbox->media($path, $root='dropbox');
