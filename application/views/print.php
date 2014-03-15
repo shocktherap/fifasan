@@ -98,12 +98,12 @@
       </table>
       <br>
       <br>
-      <p class="mycss">PT. Torchsphere Indonesia</p>
+      <p class="mycss">Moelia Graha Estetika</p>
       <br>
       <br>
       <br>
       <br>
-      <p class="mycss">Ahmad Hizqil</p>
+      <p class="mycss"> Ir. Masyuri Kurniawan</p>
       <style type="text/css">
         .tg  {border-collapse:collapse;border-spacing:0;border-color:#999;margin-bottom: 20px;}
         .tg td{font-family:Arial, sans-serif;font-size:12px;padding:5px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#444;background-color:#F7FDFA;}
