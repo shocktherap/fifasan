@@ -34,7 +34,6 @@ class Employe extends CI_Controller
   {
     $session_data = $this->session->userdata('login');
     $branch = $this->managers->get_branch_by('leader_id',$session_data['id']);
-
     if($this->form_validation->run('employe') == TRUE) {
       if ($this->verify->checkuserbranch($this->input->post('username')) == TRUE ) {
           $this->user->inputnewemploye($branch->id);
@@ -51,6 +50,7 @@ class Employe extends CI_Controller
     }
       $this->load->view('template',$data);
   }
+
   public function delete($id)
   {
     $this->user->delete_user($id);
@@ -72,6 +72,34 @@ class Employe extends CI_Controller
     $data['project'] = $this->projects->get_project_using('employe_id', $employe_id);
     $data['content'] = 'employe/show_project';
     $this->load->view('template', $data);
+  }
+
+  public function edit($employe_id)
+  {
+    $data['employe']  = $this->user->getleaderby('id', $employe_id);
+    $data['content'] = 'employe/edit';
+    $this->load->view('template', $data);
+  }
+
+  public function update($employe_id)
+  {
+    $session_data = $this->session->userdata('login');
+    $branch = $this->managers->get_branch_by('leader_id',$session_data['id']);
+    if($this->form_validation->run('employe_edit') == TRUE) {
+      if($this->user->username_check() == true) {
+        $this->user->update_employe($employe_id);
+        $info = "Pegawai Telah Diubah";
+        $this->general->informationSuccess($info);
+        redirect('employe/index');
+      } else {
+        $info = "Username telah digunakan";
+        $this->general->information($info);
+        redirect('employe/edit/'.$employe_id);
+      }
+    } else {
+      $data['content'] = "employe/edit";
+    }
+      $this->load->view('template',$data);
   }
 }
 ?>

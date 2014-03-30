@@ -168,6 +168,23 @@ $config = array(
                 'rules' => 'required'
              ),
         ),
+    'employe_edit' => array(
+        array(
+                'field' => 'name',
+                'label' => 'Nama Pegawai',
+                'rules' => 'required'
+             ),
+        array(
+                'field' => 'phone_number',
+                'label' => 'Nomer Telepon',
+                'rules' => 'required'
+             ),
+        array(
+                'field' => 'username',
+                'label' => 'Username',
+                'rules' => 'required'
+             ),
+        ),
 );
 
 ?>

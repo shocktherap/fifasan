@@ -120,6 +120,30 @@ class User extends CI_Model
     $query = $this->db->get('users');
     return $query->result();
   }
+
+  public function update_employe($id)
+  {
+    $this->db->where('id', $id);
+    $object = array(
+      'username' => $this->input->post('username'),
+      'password' => $this->input->post('password'),
+      'name' => $this->input->post('name'),
+      'phone_number' => $this->input->post('phone_number')
+    );
+    $this->db->update('users', $object);  
+  }
+
+  public function username_check()
+  {
+    $username = $this->input->post('username');
+    $this->db->where('username', $username);
+    $query = $this->db->get('users');
+    if ($query->num_rows() == 0){
+        return TRUE;
+    } elseif ($query->num_rows() > 0) {
+        return FALSE;
+    }
+  }
 }
 
 

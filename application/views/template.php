@@ -24,7 +24,7 @@
               <li class="<?php if ($this->uri->segment(2)=='onthemap') {
                 echo "active";
               }?>">
-                <?=anchor('home/onthemap', 'Onthemap');?>
+                <?=anchor('home/onthemap', 'Peta Lokasi');?>
               </li>
 
               <?php } elseif ($session_data['level'] == 'branch') { ?>
@@ -36,44 +36,44 @@
               <li class="<?php if ($this->uri->segment(1)=='employe') {
                 echo "active";
               }?>">
-                <?=anchor('employe', 'Employe');?>
+                <?=anchor('employe', 'Data Pegawai');?>
               </li>
               <li class="<?php if ($this->uri->segment(2)=='onthemap') {
                 echo "active";
               }?>">
-                <?=anchor('home/onthemap', 'Onthemap');?>
+                <?=anchor('home/onthemap', 'Peta Lokasi');?>
               </li>
               <?php } elseif($session_data['level'] == 'manager'){ ?>
               <li class="<?php if ($this->uri->segment(1)=='branch') {
                 echo "active";
               }?>">
-                <?=anchor('manager/index', 'Branch');?>
+                <?=anchor('manager/index', 'Data Cabang');?>
               </li>
               <li class="<?php if ($this->uri->segment(1)=='onthemap') {
                 echo "active";
               }?>">
-                <?=anchor('manager/onthemap', 'Onthemap');?>
+                <?=anchor('manager/onthemap', 'Peta Lokasi');?>
               </li>
               <?php } elseif ($session_data['level'] == 'estimator') { ?>
               <li class="<?php if ($this->uri->segment(1)=='formula') {
                 echo "active";
               }?>">
-                <?=anchor('formula/index', 'Formula');?>
+                <?=anchor('formula/index', 'Rumus RAB');?>
               </li>
               <li class="<?php if ($this->uri->segment(1)=='employe') {
                 echo "active";
               }?>">
-                <?=anchor('employe', 'Employe');?>
+                <?=anchor('employe', 'Data Pegawai');?>
               </li>
               <li class="<?php if ($this->uri->segment(1)=='branch') {
                 echo "active";
               }?>">
-                <?=anchor('manager/index', 'Branch');?>
+                <?=anchor('manager/index', 'Data Cabang');?>
               </li>
               <li class="<?php if ($this->uri->segment(1)=='pekerjaan') {
                 echo "active";
               }?>">
-                <?=anchor('pekerjaan/index', 'Pekerjaan');?>
+                <?=anchor('pekerjaan/index', 'Data Pekerjaan');?>
               </li>  
               <?php } ?>
               <li class="">
@@ -128,7 +128,7 @@
       <footer>
         <!-- <div class="container"> -->
           <p class="pull-right"><a href="#">Back to top</a></p>
-          <p>Designed and built with love to Fifasan by <a href="http://twitter.com/izqil" target="_blank">@izqil</a> </p>
+          <p>PT. Moelia Graha Estetika ©2014</p>
         <!-- </div> -->
       </footer>
     </div>

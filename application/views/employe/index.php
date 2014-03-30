@@ -24,6 +24,7 @@
       $data['id'] = $key->id;
       $data['name'] = $key->name;
       $this->load->view('employe/modal_delete_employe', $data, FALSE);?>
+    <td><?=anchor('employe/edit/'.$key->id, 'Edit');?></td>
     <td><?=anchor('employe/resetpassword/'.$key->id, 'Reset Password');?></td>
   </tr>  
 
