@@ -21,7 +21,7 @@ class General extends CI_Model
     }
 
 	function information($info) {
-        $this->session->set_flashdata('message', "<div class='alert alert-block alert-error fade in'>"."<button type='button' class='close' data-dismiss='alert'>×</button>".$info."</div>");
+        $this->session->set_flashdata('message', "<div class='alert alert-warning fade in'>"."<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button><strong>Warning! </strong>".$info."</div>");
     }
 
     function informationSuccess($info) {
