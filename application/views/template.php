@@ -86,13 +86,13 @@
         <?php if ($this->uri->segment(2)!='detail') { ?>
         <div class="col-md-2"></div>
         <?php }  else { ?>
-          <div class="span3 bs-docs-sidebar">          
+          <!-- <div class="span3 bs-docs-sidebar">          
             <ul class="nav nav-list bs-docs-sidenav affix-top">
               <?php foreach ($pekerjaan as $key) { ?>
                 <li><a href="#<?=$key->id;?>"><i class="icon-chevron-right"></i> <?=$key->nama;?></a></li>  
               <?php } ?>
             </ul>
-        </div>
+        </div> -->
         <?php } ?>
         <div class="col-md-12">
           <ol class="breadcrumb" style="margin-top: 10px, margin-bottom: 5px;">

@@ -1,3 +1,13 @@
+<div class='col-md-3'>
+<div class="bs-docs-sidebar">          
+  <ul class="nav nav-list bs-docs-sidenav affix-top">
+    <?php foreach ($pekerjaan as $key) { ?>
+      <li><a href="#<?=$key->id;?>"><i class="icon-chevron-right"></i> <?=$key->nama;?></a></li>  
+    <?php } ?>
+  </ul>
+</div>
+</div>
+<div class='col-md-9'>
 <?php 
   $this->input_data->delete_subtotal($id_project);
   $row_pekerjaan = $this->get_data->get_pekerjaan_rows();
@@ -98,5 +108,10 @@ $session_data = $this->session->userdata('login');
     <td>Rp. <?=number_format($pengeluaran->pembulatan,2,",",".");?></td>
   </tr>
 </table>
-<?=anchor('home/excel_print/'.$id_project, 'Print Excel', "class='btn'");?>
-<?=anchor('pdf/index/'.$id_project, 'Print PDF', "class='btn btn-info'");?>
+<button type='button' class='btn btn-default' title='Cetak Excel'>
+<?=anchor('home/excel_print/'.$id_project,"<span class='glyphicon glyphicon-download'></span>");?>
+</button>
+<button type='button' class='btn btn-default' title='Cetak PDF'>
+<?=anchor('pdf/index/'.$id_project,"<span class='glyphicon glyphicon-print'></span>");?>
+</button>
+</div>
