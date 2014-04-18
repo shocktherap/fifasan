@@ -1,10 +1,7 @@
 <?php 
   echo $map['js']; 
 ?>    
-<?php 
-  $attributes = array('class' => 'form_inline', 'id' => 'myform', 'name' => 'entry');
-  echo form_open('home/create_project', $attributes);
-?>
+
 <?php
   if ($this->session->flashdata('message')) {
     echo $this->session->flashdata('message');
@@ -52,54 +49,47 @@
     $message6 = "error";
   }
 ?>
-
-  <div class="control-group <?=$message;?>">
+<div class='row'>
+  <div class='col-md-4'></div>
+  <div class='col-md-4'>
+<?php 
+  $attributes = array('id' => 'myform', 'name' => 'entry', 'role' => 'form');
+  echo form_open('home/create_project', $attributes);
+?>
+  <div class="form-group <?=$message;?>">
     <label class="control-label" for="inputName">Name</label>
-    <div class="controls">
-      <input type="text" id="inputname" name="nama" value="<?php echo set_value('nama');?>" placeholder="nama"></input>
+      <input class='form-control' type="text" id="inputname" name="nama" value="<?php echo set_value('nama');?>" placeholder="nama"></input>
       <span class="help-inline"><?php echo form_error('nama');?></span>
-    </div>
   </div>
-  <div class="control-group <?=$message2;?>">
+  <div class="form-group <?=$message2;?>">
     <label class="control-label" for="inputJenis">jenis</label>
-    <div class="controls">
-      <input type="text" id="inputjenis" name="jenis" value="<?php echo set_value('jenis');?>" placeholder="jenis"></input>
+      <input class='form-control' type="text" id="inputjenis" name="jenis" value="<?php echo set_value('jenis');?>" placeholder="jenis"></input>
       <span class="help-inline"><?php echo form_error('jenis');?></span>
-    </div>
   </div>
-  <div class="control-group <?=$message3;?>">
+  <div class="form-group <?=$message3;?>">
     <label class="control-label" for="inputLokasi">lokasi</label>
-    <div class="controls">
       <?php echo $map['html']; ?>
-      <input type="text" id="inputlokasi" name="lokasi" value="<?php echo set_value('lokasi');?>" placeholder="lokasi"></input>
+      <input class='form-control' type="text" id="inputlokasi" name="lokasi" value="<?php echo set_value('lokasi');?>" placeholder="lokasi"></input>
       <span class="help-inline"><?php echo form_error('lokasi');?></span>
-    </div>
   </div>
-  <div class="control-group <?=$message6;?>">
+  <div class="form-group <?=$message6;?>">
     <label class="control-label" for="inputLokasi">Alamat</label>
-    <div class="controls">
-      <input type="text" id="inputalamat" name="alamat" value="<?php echo set_value('alamat');?>" placeholder="alamat"></input>
+      <input class='form-control' type="text" id="inputalamat" name="alamat" value="<?php echo set_value('alamat');?>" placeholder="alamat"></input>
       <span class="help-inline"><?php echo form_error('alamat');?></span>
-    </div>
   </div>
-  <div class="control-group <?=$message4;?>">
+  <div class="form-group <?=$message4;?>">
     <label class="control-label" for="inputOwner">owner</label>
-    <div class="controls">
-      <input type="text" id="inputowner" name="owner" value="<?php echo set_value('owner');?>" placeholder="owner"></input>
+      <input class='form-control' type="text" id="inputowner" name="owner" value="<?php echo set_value('owner');?>" placeholder="owner"></input>
       <span class="help-inline"><?php echo form_error('owner');?></span>
-    </div>
   </div>
-  <div class="control-group <?=$message5;?>">
+  <div class="form-group <?=$message5;?>">
     <label class="control-label" for="inputTahun">tahun</label>
-    <div class="controls">
-      <input type="text" id="inputtahun" name="tahun" value="<?php echo set_value('tahun');?>" placeholder="tahun"></input>
+      <input class='form-control' type="text" id="inputtahun" name="tahun" value="<?php echo set_value('tahun');?>" placeholder="tahun"></input>
       <span class="help-inline"><?php echo form_error('tahun');?></span>
-    </div>
   </div>
-  <div class="control-group ">
+  <div class="form-group ">
     <label class="control-label" for="inputTahun">Pimpinan Project</label>
-    <div class="controls">
-      <select name="employe" id="employe">
+      <select name="employe" id="employe" class='form-control'>
         <?php $session_data = $this->session->userdata('login');
         $user = $this->user->check_project('branch_id', $session_data['branch_id']);
         foreach ($user as $key) { ?>
@@ -109,11 +99,11 @@
       </select>
       <span class="help-inline"><?php echo form_error('tahun');?></span>
     </div>
-  </div>
-  <div class="control-group">
-    <div class="controls">
+  <div class="form-group">
       <button type="submit" class="btn btn-primary">Submit</button>
       <?=anchor('home/index', 'Cancel', 'class="btn"');?>
     </div>
-  </div>
 <?php form_close();?>
+</div>
+<div class='col-md-4'></div>
+</div>

@@ -89,7 +89,7 @@
         </div>
       </div>
     </div> -->
-    <div class='container'>
+    <div class='container bs-docs-container'>
       <ul class="nav nav-pills">
         <li class='pull-right'><span class="glyphicon glyphicon-user"> <?=anchor('home/show_user/', 'Selamat Datang '.$session_data['name']);?>
         </li>
