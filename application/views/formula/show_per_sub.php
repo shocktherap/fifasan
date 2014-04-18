@@ -1,7 +1,7 @@
 <?php $nama_sub = $this->get_data->get_subpekerjaan_by_id($id_sub);
   echo "<h3>Daftar Rumus ".$nama_sub->nama." :</h3>";
 ?>
-<?=anchor('formula/create/'.$id_sub, 'Create New Formula', 'button class="btn btn-primary"');?>
+<?=anchor('formula/create/'.$id_sub, "<span class='glyphicon glyphicon-new-window'></span> Buat Formula", 'button class="btn btn-default"');?>
 <table class="table table-hover">
 <tr>
   <td>Rumus</td>
@@ -22,7 +22,16 @@
   <!-- <td><?#=$key->harga_dasar;?></td> -->
   <!-- <td><?#=$key->harga_item;?></td> -->
   <td><?=$key->keterangan;?></td>
-  <td><i class="icon-edit"></i><?=anchor('formula/edit/'.$key->id.'/'.$key->subpekerjaan_id, 'Edit');?> || <a data-toggle="modal" href="#myModal<?=$key->id;?>"><i class="icon-trash"></i>Delete</a>||<i class="icon-star"></i><?=anchor('formula/set_basic_price/'.$key->id, 'Set Harga');?></td>
+  <td><?=anchor('formula/edit/'.$key->id.'/'.$key->subpekerjaan_id, "<button type='button' class='btn btn-info btn-sm' title='Edit'>
+          <span class='glyphicon glyphicon-edit'></span>
+        </button>");?>
+        <i class="icon-star"></i><?=anchor('formula/set_basic_price/'.$key->id, "<button type='button' class='btn btn-default btn-sm' title='Set Harga'>
+          <span class='glyphicon glyphicon-lock'></span>
+        </button>");?>
+        <a data-toggle="modal" href="#myModal<?=$key->id;?>"><button type="button" class="btn btn-danger btn-sm" title="Delete">
+          <span class='glyphicon glyphicon-trash'></span>
+        </button></a>
+        </td>
   <?php 
   $data['id'] = $key->id;
   $data['id_sub'] = $key->subpekerjaan_id;
@@ -51,4 +60,3 @@
 // $test = $this->get_data->get_multiple_by(22, 4); ?>
 <?php #$this->input_data->input_harga_satuan($id_sub, $harga_satuan);?>
 <!-- <h3>Harga Satuan: Rp. <?=$harga_satuan;?></h3> -->
-<?=anchor('formula/index', 'Back', 'class="btn"');?>

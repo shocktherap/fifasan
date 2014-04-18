@@ -61,22 +61,22 @@
               <li class="<?php if ($this->uri->segment(1)=='formula') {
                 echo "active";
               }?>">
-                <?=anchor('formula/index', 'Rumus RAB');?>
+                <?=anchor('formula/index', '<span class="glyphicon glyphicon-dashboard"></span> Rumus RAB');?>
               </li>
               <li class="<?php if ($this->uri->segment(1)=='employe') {
                 echo "active";
               }?>">
                 <?=anchor('employe', '<span class="glyphicon glyphicon-map-marker"></span> Data Pegawai');?>
               </li>
-              <li class="<?php if ($this->uri->segment(1)=='branch') {
+              <li class="<?php if ($this->uri->segment(1)=='manager') {
                 echo "active";
               }?>">
-                <?=anchor('manager/index', 'Data Cabang');?>
+                <?=anchor('manager/index', '<span class="glyphicon glyphicon-tower"></span> Data Cabang');?>
               </li>
               <li class="<?php if ($this->uri->segment(1)=='pekerjaan') {
                 echo "active";
               }?>">
-                <?=anchor('pekerjaan/index', 'Data Pekerjaan');?>
+                <?=anchor('pekerjaan/index', '<span class="glyphicon glyphicon-road"></span> Data Pekerjaan');?>
               </li>  
               <?php } ?>
         </ul>

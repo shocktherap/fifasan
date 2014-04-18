@@ -1,4 +1,4 @@
-<div class='row'>
+
 
 <h3>Pilih Rumus dari Subpekerjaan</h3>
 <div class="panel-group" id="accordion2">
@@ -36,5 +36,4 @@
     </div>
   <?php
   }?>
-</div>
 </div>
