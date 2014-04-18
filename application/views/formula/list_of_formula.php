@@ -21,7 +21,9 @@
               <tr>
                 <td><?=$number2+=1;?></td>
                 <td><name="data_subpekerjaan" id="<?=$pekerjaan_data->id;?>"/><?=$pekerjaan_data->nama;?></td>
-                <td><a data-toggle="modal" href="#myModal<?=$pekerjaan_data->id;?>"><span class="glyphicon glyphicon-eye-open"></span></a> </td>
+                <td><a data-toggle="modal" href="#myModal<?=$pekerjaan_data->id;?>"><button type='button' class='btn btn-default btn-sm' title='Detail'>
+          <span class='glyphicon glyphicon-eye-open'></span>
+        </button></a> </td>
               </tr>
             <?php $data['pekerjaan_data'] = $pekerjaan_data;
             $this->load->view('formula/modal', $data);?>

@@ -30,8 +30,12 @@ if ($userdata['level'] == 'manager') {?>
         <td><?=$user->name;?></td>
         <td><?=$user->username;?></td>
         <td>
-          <?=anchor('manager/edit_branch/'.$key->id, "<span class='glyphicon glyphicon-edit'></span>");?>
-        <a data-toggle="modal" href="#myModal<?=$key->id;?>"><span class='glyphicon glyphicon-trash'></span></a></td>
+          <?=anchor('manager/edit_branch/'.$key->id, "<button type='button' class='btn btn-info btn-sm' title='Edit'>
+          <span class='glyphicon glyphicon-edit'></span>
+        </button>");?>
+        <a data-toggle="modal" href="#myModal<?=$key->id;?>"><button type="button" class="btn btn-danger btn-sm" title="Delete">
+          <span class='glyphicon glyphicon-trash'></span>
+        </button></a></td>
           <?php 
             $data['id'] = $key->id;
             $data['name'] = $key->name;
