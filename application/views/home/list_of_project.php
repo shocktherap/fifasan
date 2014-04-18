@@ -1,6 +1,6 @@
 <?php $session_data = $this->session->userdata('login');
 if ($session_data['level'] == 'branch') { ?>
-<?=anchor('home/create_project', "Buat Project Baru", 'class="btn btn-primary"');?>  
+<?=anchor('home/create_project', "<span class='glyphicon glyphicon-new-window'></span> Buat Project", 'class="btn btn-default"');?>  
 <?php }?>
 <?php
 if (!$list_project) { 
@@ -8,14 +8,17 @@ if (!$list_project) {
   <h3>Data Project Belum Ada</h3>
 <?php 
 } else {?>  
-  <table class="table table-stripped">
-    <tr>
+<div class='panel panel-default'>
+  <div class="panel-heading"></div>
+  <div class='panel-body'>
+  <table class="table table-hover">
+    <thead>
       <th>No</th>
       <th>Nama</th>
       <th>Status</th>
       <th>Keterangan</th>
       <th>Actions</th>
-    </tr>
+    </thead>
     <?php 
       $session_data = $this->session->userdata('login');
       $number = 0;
@@ -38,9 +41,9 @@ if (!$list_project) {
       ?></td>
       <?php 
       if($list->aggreement == 0){?>
-        <td><span class="label label-waning">Not-approved</span></td>
+        <td><span class="label label-warning"><span class="glyphicon glyphicon-remove-circle"></span> Belum Disetujui</span></td>
       <?php } else {?>
-        <td><span class="label label-success">Approved</span></td>
+        <td><span class="label label-success"><span class="glyphicon glyphicon-ok-circle"></span> Disetujui</span></td>
       <?php } ?>
         <td><?php if ($session_data['level'] == 'branch') { ?><a data-toggle="modal" href="#myModal<?=$list->project_id;?>"><span class='glyphicon glyphicon-trash'></span></a><?=anchor('home/edit_project/'.$list->project_id, "<span class='glyphicon glyphicon-edit'></span>");?><?php }?><?=anchor('home/show_project/'.$list->project_id, "<span class='glyphicon glyphicon-eye-open'></span>");?></td> 
     </tr>  
@@ -48,7 +51,8 @@ if (!$list_project) {
     $this->load->view('home/modal_delete_project', $data);?>
     <?php }?>
   </table>
-
+  </div>
+</div>
 <?php
 }
 ?>

@@ -2,7 +2,7 @@
   $session_data = $this->session->userdata('login');
 ?>
 <?php if ($session_data['level'] == 'branch') { ?>
-<?=anchor('employe/createemploye', 'Create Employe');?>
+<?=anchor('employe/createemploye', "<span class='glyphicon glyphicon-new-window'></span> Buat Pegawai", "class='btn btn-default'");?>
 <?php } ?>
 <div class='panel panel-default'>
   <div class="panel-heading"></div>

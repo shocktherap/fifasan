@@ -89,9 +89,15 @@
         </div>
       </div>
     </div> -->
-    <div class='container bs-docs-container'>
+    <div class='container'>
       <ul class="nav nav-pills">
-        <li class='pull-right'><span class="glyphicon glyphicon-user"> <?=anchor('home/show_user/', 'Selamat Datang '.$session_data['name']);?>
+        <li class="dropdown pull-right">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"> <?=$session_data['name'];?><b class="caret"></b></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><?=anchor('home/show_user/', "<span class='glyphicon glyphicon-cog'></span> Ganti Password");?></li>
+              <li><?=anchor('login/sign_out', "<span class='glyphicon glyphicon-log-out'></span> Logout");?></li>
+            </ul>
+          </li>
         </li>
       </ul>
       <div class="masthead">
@@ -101,29 +107,29 @@
               <li class="<?php if ($this->uri->segment(1)=='home' && $this->uri->segment(2)=='') {
               echo "active";
               }?>">
-              <?=anchor('home/index', 'Home');?>
+              <?=anchor('home/index', '<span class="glyphicon glyphicon-home"></span> Home');?>
               </li>  
               <li class="<?php if ($this->uri->segment(2)=='onthemap') {
                 echo "active";
               }?>">
-                <?=anchor('home/onthemap', 'Peta Lokasi');?>
+                <?=anchor('home/onthemap', '<span class="glyphicon glyphicon-map-marker"></span> Peta Lokasi');?>
               </li>
 
               <?php } elseif ($session_data['level'] == 'branch') { ?>
               <li class="<?php if ($this->uri->segment(1)=='home' && $this->uri->segment(2)=='index') {
                 echo "active";
               }?>">
-                <?=anchor('home/index', 'Home');?>
+                <?=anchor('home/index', '<span class="glyphicon glyphicon-home"></span> Home');?>
               </li>
               <li class="<?php if ($this->uri->segment(1)=='employe') {
                 echo "active";
               }?>">
-                <?=anchor('employe', 'Data Pegawai');?>
+                <?=anchor('employe', '<span class="glyphicon glyphicon-th-list"></span> Data Pegawai');?>
               </li>
               <li class="<?php if ($this->uri->segment(2)=='onthemap') {
                 echo "active";
               }?>">
-                <?=anchor('home/onthemap', 'Peta Lokasi');?>
+                <?=anchor('home/onthemap', '<span class="glyphicon glyphicon-map-marker"></span> Peta Lokasi');?>
               </li>
               <?php } elseif($session_data['level'] == 'manager'){ ?>
               <li class="<?php if ($this->uri->segment(1)=='branch') {
@@ -134,7 +140,7 @@
               <li class="<?php if ($this->uri->segment(1)=='onthemap') {
                 echo "active";
               }?>">
-                <?=anchor('manager/onthemap', 'Peta Lokasi');?>
+                <?=anchor('manager/onthemap', '<span class="glyphicon glyphicon-map-marker"></span> Peta Lokasi');?>
               </li>
               <?php } elseif ($session_data['level'] == 'estimator') { ?>
               <li class="<?php if ($this->uri->segment(1)=='formula') {
@@ -145,7 +151,7 @@
               <li class="<?php if ($this->uri->segment(1)=='employe') {
                 echo "active";
               }?>">
-                <?=anchor('employe', 'Data Pegawai');?>
+                <?=anchor('employe', '<span class="glyphicon glyphicon-map-marker"></span> Data Pegawai');?>
               </li>
               <li class="<?php if ($this->uri->segment(1)=='branch') {
                 echo "active";
@@ -158,15 +164,12 @@
                 <?=anchor('pekerjaan/index', 'Data Pekerjaan');?>
               </li>  
               <?php } ?>
-              <li class="">
-                <?=anchor('login/sign_out', 'Sign Out');?>
-              </li>
         </ul>
       </div>
     
-      <div class="row-fluid">
+      <div class="row">
         <?php if ($this->uri->segment(2)!='detail') { ?>
-        <div class="span2"></div>
+        <div class="col-md-2"></div>
         <?php }  else { ?>
           <div class="span3 bs-docs-sidebar">          
             <ul class="nav nav-list bs-docs-sidenav affix-top">
@@ -176,7 +179,7 @@
             </ul>
         </div>
         <?php } ?>
-        <div class="span8">
+        <div class="col-md-12">
           <ol class="breadcrumb" style="margin-top: 10px, margin-bottom: 5px;">
               <?php for ($i=0; $i < 6; $i++) { 
                 if ($this->uri->segment($i)!= null) {
@@ -194,8 +197,6 @@
             }
           ?>
           <?php $this->load->view($content);?>
-        </div>
-        <div class="span1">
         </div>
       </div>
       <div class='footer'>

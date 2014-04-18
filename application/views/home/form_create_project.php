@@ -88,7 +88,6 @@
       <span class="help-inline"><?php echo form_error('tahun');?></span>
   </div>
   <div class="form-group ">
-    <label class="control-label" for="inputTahun">Pimpinan Project</label>
       <select name="employe" id="employe" class='form-control'>
         <?php $session_data = $this->session->userdata('login');
         $user = $this->user->check_project('branch_id', $session_data['branch_id']);
@@ -99,10 +98,7 @@
       </select>
       <span class="help-inline"><?php echo form_error('tahun');?></span>
     </div>
-  <div class="form-group">
-      <button type="submit" class="btn btn-primary">Submit</button>
-      <?=anchor('home/index', 'Cancel', 'class="btn"');?>
-    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
 <?php form_close();?>
 </div>
 <div class='col-md-4'></div>
