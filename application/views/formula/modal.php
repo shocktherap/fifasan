@@ -1,4 +1,6 @@
-<div id="myModal<?=$pekerjaan_data->id;?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+<div id="myModal<?=$pekerjaan_data->id;?>" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class='modal-dialog'>
+    <div class='modal-content'>
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
     <h3 id="myModalLabel">Formula</h3>
@@ -29,5 +31,6 @@
     <?php } ?>
     <hr>
   </div>
-  
+  </div>
+</div>
 </div>

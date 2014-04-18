@@ -15,27 +15,27 @@
     $message5 = "error";
   }
 ?>
-<?=form_open('employe/update/'.$employe->id);?>
-  <div class="control-group <?=$message1;?>">
-    <label class="control-label" for="inputName">Nama Pegawai</label>
-    <div class="controls">
-      <input type="text" id="inputname" name="name" value="<?=$employe->name;?>" placeholder="Nama Pegawai"></input>
+<div class='row'>
+  <div class='col-md-4'></div>
+  <div class='col-md-4'>
+<?=form_open('employe/update/'.$employe->id, array('role' => 'form', 'class' => 'go-right'));?>
+  <div class="form-group <?=$message1;?>">
+    <input class='form-control' type="text" id="inputname" name="name" value="<?=$employe->name;?>" required></input>
+    <label>Nama Pegawai</label>
       <span class="help-inline"><?php echo form_error('name');?></span>
-    </div>
   </div>
-  <div class="control-group <?=$message3;?>">
-    <label class="control-label" for="inputName">No Telepon</label>
-    <div class="controls">
-      <input type="text" id="inputname" name="phone_number" value="<?=$employe->phone_number;?>" placeholder="Nomer Telepon"></input>
+  <div class="form-group <?=$message3;?>">
+    <input class='form-control' type="text" id="inputname" name="phone_number" value="<?=$employe->phone_number;?>" required></input>
+    <label>No Telepon</label>
       <span class="help-inline"><?php echo form_error('phone_number');?></span>
-    </div>
   </div>
-  <div class="control-group <?=$message5;?>">
-    <label class="control-label" for="inputName">Username Pegawai</label>
-    <div class="controls">
-      <input type="text" id="inputname" name="username" value="<?=$employe->username;?>" placeholder="Username"></input>
+  <div class="form-group <?=$message5;?>">
+    <input class='form-control' type="text" id="inputname" name="username" value="<?=$employe->username;?>" required></input>
+    <label>Username Pegawai</label>
       <span class="help-inline"><?php echo form_error('username');?></span>
-    </div>
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
 <?php form_close(); ?>
+  </div>
+<div class='col-md-4'></div>
+</div>

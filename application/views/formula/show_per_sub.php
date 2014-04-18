@@ -2,7 +2,7 @@
   echo "<h3>Daftar Rumus ".$nama_sub->nama." :</h3>";
 ?>
 <?=anchor('formula/create/'.$id_sub, 'Create New Formula', 'button class="btn btn-primary"');?>
-<table class="table">
+<table class="table table-hover">
 <tr>
   <td>Rumus</td>
   <td>Satuan</td>
@@ -32,21 +32,21 @@
 </table>
 
 <?php 
-$branch = $this->managers->get_branch();
-foreach ($branch as $branch) {
-  $subpeker = $this->get_data->get_all_subpekerjaan();
-  foreach ($subpeker as $key) {
-    $hitung = 0;
-    $foru = $this->get_data->get_sub_in_formula($key->id);
-    foreach ($foru as $key2) {
-      $multiple = $this->get_data->get_multiple_by($branch->id, $key2->id);
-      // echo $multiple->harga_item; echo "<br \>";
-      $hitung += $multiple->harga_item;
-    }
-    $this->input_data->input_formula_branch($key->id, $branch->id, $hitung);
-    // echo $hitung;echo"----";echo $key->id;echo "branch: ".$branch->id;echo "<br \>";
-  }
-}
+// $branch = $this->managers->get_branch();
+// foreach ($branch as $branch) {
+//   $subpeker = $this->get_data->get_all_subpekerjaan();
+//   foreach ($subpeker as $key) {
+//     $hitung = 0;
+//     $foru = $this->get_data->get_sub_in_formula($key->id);
+//     foreach ($foru as $key2) {
+//       $multiple = $this->get_data->get_multiple_by($branch->id, $key2->id);
+//       // echo $multiple->harga_item; echo "<br \>";
+//       $hitung += $multiple->harga_item;
+//     }
+//     $this->input_data->input_formula_branch($key->id, $branch->id, $hitung);
+//     // echo $hitung;echo"----";echo $key->id;echo "branch: ".$branch->id;echo "<br \>";
+//   }
+// }
 
 // $test = $this->get_data->get_multiple_by(22, 4); ?>
 <?php #$this->input_data->input_harga_satuan($id_sub, $harga_satuan);?>

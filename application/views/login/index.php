@@ -47,7 +47,7 @@
               ?>
               <fieldset>
 			    	  	<div class="form-group <?=$message;?>">
-			    		    <input class="form-control" placeholder="username" name="username" type="text" value="<?php echo set_value('username');?>">
+			    		    <input class="form-control" placeholder="Username" name="username" type="text" value="<?php echo set_value('username');?>">
 			    		</div>
 			    		<div class="form-group <?=$message2;?>">
 			    			<input class="form-control" placeholder="Password" name="password" type="password" value="">

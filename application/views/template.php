@@ -90,6 +90,10 @@
       </div>
     </div> -->
     <div class='container'>
+      <ul class="nav nav-pills">
+        <li class='pull-right'><span class="glyphicon glyphicon-user"> <?=anchor('home/show_user/', 'Selamat Datang '.$session_data['name']);?>
+        </li>
+      </ul>
       <div class="masthead">
         <h3 class="text-muted">Moelia Project</h3>
         <ul class="nav nav-justified">

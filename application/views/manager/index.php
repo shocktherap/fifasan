@@ -13,7 +13,7 @@ if ($userdata['level'] == 'manager') {?>
       <th>#</th>
       <th>Nama Cabang</th>
       <th>Alamat</th>
-      <th>Nomer Telepon</th>
+      <th>Nomer Telepon Cabang</th>
       <th>Leader</th>
       <th>Username</th>
       <th>Actions</th>

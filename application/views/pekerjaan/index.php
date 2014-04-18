@@ -1,6 +1,8 @@
 <?php if ($pekerjaan) { ?>
 <?=anchor('pekerjaan/create', 'Create New Pekerjaan', 'class="btn btn-primary"');?>
-
+<div class='panel panel-default'>
+  <div class="panel-heading"></div>
+  <div class='panel-body'>
 <table class="table bordered">
   <thead>
     <th>Jenis Pekerjaan</th>
@@ -8,8 +10,8 @@
   <?php foreach ($pekerjaan as $key) { ?>
   <tr>
     <td><?=anchor('subpekerjaan/show/'.$key->id, $key->nama );?></a></td>
-    <td><i class="icon-edit"></i><?=anchor('pekerjaan/edit/'.$key->id, 'Edit');?></td>
-    <td><a data-toggle="modal" href="#myModal<?=$key->id;?>"><i class="icon-trash"></i>Delete</a></td>
+    <td><i class="icon-edit"></i><?=anchor('pekerjaan/edit/'.$key->id, "<span class='glyphicon glyphicon-edit'></span>");?>
+    <a data-toggle="modal" href="#myModal<?=$key->id;?>"><span class='glyphicon glyphicon-trash'></a></td>
   </tr>
   <?php $data['key'] = $key;
     $this->load->view('pekerjaan/modal_delete_pekerjaan', $data);
@@ -21,4 +23,6 @@
 <?php } ?>
 <div class="pagination">
 <?#=$link;?>
+</div>
+</div>
 </div>
