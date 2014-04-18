@@ -1,12 +1,8 @@
-<?php 
-  $attributes = array('class' => 'form_inline', 'id' => 'myform', 'name' => 'upload');
-  echo form_open_multipart('upload/form_new/'.$id_project, $attributes);
-?>
 <?php
   if(!form_error('description')){
     $message = "";
   } else {
-    $message = "error";
+    $message = "has-error";
   }
 ?>
 <?php if ($error) { ?>  
@@ -15,23 +11,19 @@
     <strong>Warning!</strong> <?=$error;?>
   </div>
 <?php } ?>
-  <div class="control-group <?=$message;?>">
-    <label class="control-label" for="inputName">Description</label>
-    <div class="controls">
-      <textarea type="text" id="textareadesc" name="description" value="<?php echo set_value('description');?>" placeholder="Description" rows="3"></textarea>
+<?php 
+  $attributes = array('id' => 'myform', 'name' => 'upload', 'role' => 'form');
+  echo form_open_multipart('upload/form_new/'.$id_project, $attributes);
+?>
+  <div class="form-group <?=$message;?>">
+    <label for="inputName">Description</label>
+      <textarea class='form-control' type="text" id="textareadesc" name="description" value="<?php echo set_value('description');?>" placeholder="Description" rows="3"></textarea>
       <span class="help-inline"><?php echo form_error('description');?></span>
-    </div>
   </div>
-  <div class="control-group">
-    <label class="control-label" for="inputJenis">File</label>
-    <div class="controls">
+  <div class="form-group">
+    <label for="inputJenis">File</label>
       <input type="file" id="inputfile" name="userfile" value="<?php echo set_value('userfile');?>"></input>
-    </div>
   </div>
-  <div class="control-group">
-    <div class="controls">
-      <button type="submit" class="btn btn-primary">Submit</button>
-      <?=anchor('home/index', 'Cancel', 'class="btn"');?>
-    </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
   </div>
 <?php form_close();?>

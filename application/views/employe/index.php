@@ -23,13 +23,19 @@
       <td><?=anchor('employe/show_project/'.$key->id, $key->name);?></td>
       <td><?=$key->phone_number;?></td>
       <td><?=$key->username;?></td>
-      <td><a data-toggle="modal" href="#myModal<?=$key->id;?>"><span class='glyphicon glyphicon-trash'></span></a>
+      <td><a data-toggle="modal" href="#myModal<?=$key->id;?>"><button type="button" class="btn btn-danger btn-sm" title="Delete">
+          <span class='glyphicon glyphicon-trash'></span>
+        </button></a>
       <?php 
         $data['id'] = $key->id;
         $data['name'] = $key->name;
         $this->load->view('employe/modal_delete_employe', $data, FALSE);?>
-      <?=anchor('employe/edit/'.$key->id, "<span class='glyphicon glyphicon-edit'></span>");?>
-      <?=anchor('employe/resetpassword/'.$key->id, "<span class='glyphicon glyphicon-time'></span>");?></td>
+      <?=anchor('employe/edit/'.$key->id, "<button type='button' class='btn btn-info btn-sm' title='Edit'>
+          <span class='glyphicon glyphicon-edit'></span>
+        </button>");?>
+      <?=anchor('employe/resetpassword/'.$key->id, "<button type='button' class='btn btn-default btn-sm' title='Reset Password'>
+          <span class='glyphicon glyphicon-time'></span>
+        </button>");?></td>
     </tr>  
 
     <?php }?>
