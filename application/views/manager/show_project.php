@@ -27,7 +27,7 @@ if (!$list_project) {
       <?php } else {?>
         <td><span class="label label-success">Approved</span></td>
       <?php } ?>
-      <td><?=anchor('home/show_project/'.$key->project_id, 'detail project');?></td>
+      <td><?=anchor('home/show_project/'.$key->project_id, "<span class='glyphicon glyphicon-eye-open'></span> ");?></td>
     </tr>  
     <?php } ?>
   </table>

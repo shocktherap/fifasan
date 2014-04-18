@@ -1,5 +1,5 @@
 <?php if ($pekerjaan) { ?>
-<?=anchor('pekerjaan/create', 'Create New Pekerjaan', 'class="btn btn-primary"');?>
+<?=anchor('pekerjaan/create', "<span class='glyphicon glyphicon-new-window'></span> Buat Pekerjaan", 'class="btn btn-default"');?>
 <div class='panel panel-default'>
   <div class="panel-heading"></div>
   <div class='panel-body'>
