@@ -70,10 +70,10 @@
         $number+=1;
         ?>
         <td><?=$number;?></td>
-        <td><?=$pekerjaan_data->nama; ?></td>
-        <td><input id="harga_satuan<?=$number_id;?>" type="text" name="harga_satuan_<?=$work_id;?>_<?=$number;?>" class="input-small" value="<?=$formula_branch->harga_satuan;?>" disabled></input></td>
-        <td><input id="volume<?=$number_id;?>" type="text" name="volume_<?=$work_id;?>_<?=$number;?>" class="input-small" onkeyup="sumup<?=$number_id;?>()" onblur="count_sub<?=$pekerjaan_ids;?>()" value="0" ></input></td>
-        <td><input id="jumlah_<?=$work_id;?>_<?=$number;?>"type="text" name="jumlah_<?=$work_id;?>_<?=$number;?>" class="input-small" value="0" ></input></td>
+        <td class='col-md-6'><?=$pekerjaan_data->nama; ?></td>
+        <td><input class='form-control' id="harga_satuan<?=$number_id;?>" type="text" name="harga_satuan_<?=$work_id;?>_<?=$number;?>" class="input-small" value="<?=$formula_branch->harga_satuan;?>" disabled></input></td>
+        <td><input class='form-control' id="volume<?=$number_id;?>" type="text" name="volume_<?=$work_id;?>_<?=$number;?>" class="input-small" onkeyup="sumup<?=$number_id;?>()" onblur="count_sub<?=$pekerjaan_ids;?>()" value="0" ></input></td>
+        <td><input class='form-control' id="jumlah_<?=$work_id;?>_<?=$number;?>"type="text" name="jumlah_<?=$work_id;?>_<?=$number;?>" class="input-small" value="0" ></input></td>
       </tr>
     <?php
       }
@@ -83,16 +83,18 @@
       <td></td>
       <td></td>
       <td>Subtotal</td>
-      <td><input id="sum_work<?=$pekerjaan_ids;?>" type="text" value="0" class="input-small" onclick="count_sub<?=$pekerjaan_ids;?>()" ></input></td>
+      <td><input class='form-control' id="sum_work<?=$pekerjaan_ids;?>" type="text" value="0" class="input-small" onclick="count_sub<?=$pekerjaan_ids;?>()" ></input></td>
     </tr>
 </table>
 <?php } ?>
 
-<label>Total Kotor: </label><input id="total_kotor" type="text" name="total_kotor" onclick="call()" value=""></input>
-<label>Jasa : </label><input id="jasa" type="text" name="jasa" value="" onkeyup="jasa_product()">%</input>
-<label>Total Bersih: </label><input id="total_bersih" type="text" name="total_bersih" value=""></input>
-<label>Pembulatan: </label><input id="pembulatan" type="text" name="pembulatan" value=""></input>
-<div class="form-actions">
-  <button type="submit" class="btn btn-primary">Submit</button>
+<label>Total Kotor: </label><input class='form-control' id="total_kotor" type="text" name="total_kotor" onclick="call()" value=""></input>
+<label>Jasa</label>
+<div class="input-group">
+  <input class='form-control' id="jasa" type="text" name="jasa" value="" onkeyup="jasa_product()">
+  <span class="input-group-addon">%</span>
 </div>
+<label>Total Bersih: </label><input class='form-control' id="total_bersih" type="text" name="total_bersih" value=""></input>
+<label>Pembulatan: </label><input class='form-control' id="pembulatan" type="text" name="pembulatan" value=""></input>
+<button type="submit" class="btn btn-primary">Submit</button>
 <?php form_close(); ?>

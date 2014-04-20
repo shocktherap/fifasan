@@ -10,11 +10,11 @@
 <table class="table table-stripped">
   <tr>
     <td>Rumus</td>
-    <td><input id="rumus" name="rumus" onkeyup="updatesum()" value="<?=$data_sub_formula->rumus;?>" placeholder="Rumus"><?php echo form_error('rumus');?></input></td>
+    <td><input class='form-control' id="rumus" name="rumus" onkeyup="updatesum()" value="<?=$data_sub_formula->rumus;?>" placeholder="Rumus"><?php echo form_error('rumus');?></input></td>
   </tr>
   <tr>
     <td>Satuan</td>
-    <td><select name="satuan">
+    <td><select class='form-control' name="satuan">
       <option value="org">Org</option>
       <option value="hr">hr</option>
       <option value="m3">m3</option>
@@ -27,19 +27,19 @@
   </tr>
   <tr>
     <td>Nama Item</td>
-    <td><input name="nama_item" value="<?=$data_sub_formula->nama_item;?>" placeholder="Rumus"><?php echo form_error('nama_item'); ?></input></td>
+    <td><input class='form-control' name="nama_item" value="<?=$data_sub_formula->nama_item;?>" placeholder="Rumus"><?php echo form_error('nama_item'); ?></input></td>
   </tr>
   <tr>
     <td>Harga Dasar</td>
-    <td>Rp. <input name="harga_dasar" onkeyup="updatesum()" id="harga_dasar" value="<?php echo $data_sub_formula->harga_dasar;?>" placeholder="Harga Dasar"><?php echo form_error('harga_dasar'); ?></input></td>
+    <td>Rp. <input class='form-control' name="harga_dasar" onkeyup="updatesum()" id="harga_dasar" value="<?php echo $data_sub_formula->harga_dasar;?>" placeholder="Harga Dasar"><?php echo form_error('harga_dasar'); ?></input></td>
   </tr>
   <tr>
     <td>Harga Item</td>
-    <td>Rp. <input name="harga_item" id="harga_item" value="" placeholder="Harga item" ><?php echo form_error('harga_item'); ?></input></td>
+    <td>Rp. <input class='form-control' name="harga_item" id="harga_item" value="" placeholder="Harga item" ><?php echo form_error('harga_item'); ?></input></td>
   </tr>
   <tr>
     <td>Keterangan</td>
-    <td><select name="keterangan">
+    <td><select class='form-control' name="keterangan">
       <option value="Upah">Upah</option>
       <option value="Bahan">Bahan</option>
     </select></td>
