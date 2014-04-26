@@ -41,7 +41,7 @@ class Subproject extends CI_Controller
     $this->input_data->update_status_project($id_project);
     $info = "Subpekerjaan berhasil ditambah";
     $this->general->informationSuccess($info);
-    redirect('home/index');
+    redirect('subproject/show/'.$id_project);
   }
   
   public function delete_sub($id_project)
